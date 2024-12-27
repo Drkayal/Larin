@@ -66,7 +66,7 @@
       },
       "STORE_LINK": {
         "description": "رابط المتجر.",
-        "value": "https://t.me/YMMYN",
+        "value": "YMMYN",
         "required": true
       },
       "CHANNEL_ASHTRAK": {
@@ -81,7 +81,7 @@
       },
       "OWNER_ID": {
         "description": "اضف ايدي المستخدم الذي ترغب في إضافته كـ مطور البوت او كما هوا",
-        "value": "5901732027",
+        "value": "7540129630",
         "required": true
       },
       "STRING_SESSION": {
