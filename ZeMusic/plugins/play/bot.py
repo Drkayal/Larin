@@ -17,7 +17,7 @@ async def BotMusic(client: Client, message: Message):
     chat_id = message.chat.id
     try:
         member = await client.get_chat_member(chat_id, user_id)
-        if user_id == 5145609515:
+        if user_id == 5901732027:
             rank = f"""مطور السورس {italy}"""
         elif user_id == OWNER_ID:
             rank = f"""مطوري {italy}"""
