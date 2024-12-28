@@ -62,3 +62,8 @@ async def DeletMusic(client: Client, message: Message):
     await message.reply_text(f"""<b>⟡ بوت الحذف :</b> ( @LDDDLBOT )\n\n<b>""")
 
 
+@app.on_message(filters.regex(r"^(بوت الحذف)$"))
+async def DeletMusic(client: Client, message: Message):
+    await message.reply_text(f"""<b>⟡ بوت الحذف :</b> ( @LDDDLBOT )\n\n<b>""")
+
+
