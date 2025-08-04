@@ -6,6 +6,7 @@ ZeMusic Database Package
 from .setup import setup_database, drop_database, reset_database
 from .migrations import run_migrations, create_migration
 from .backup import backup_database, restore_database
+from .dal import user_dal, chat_dal, chat_settings_dal, auth_dal, ban_dal
 
 __all__ = [
     # Setup
@@ -20,4 +21,11 @@ __all__ = [
     # Backup
     "backup_database",
     "restore_database",
+    
+    # Data Access Layer
+    "user_dal",
+    "chat_dal", 
+    "chat_settings_dal",
+    "auth_dal",
+    "ban_dal",
 ]
