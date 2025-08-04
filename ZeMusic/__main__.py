@@ -12,6 +12,12 @@ from ZeMusic.plugins import ALL_MODULES
 from ZeMusic.utils.database import get_banned_users, get_gbanned
 from config import BANNED_USERS
 
+# إضافة دعم PostgreSQL
+if config.DATABASE_TYPE == "postgresql":
+    from ZeMusic.core.postgres import init_postgres, close_postgres
+    from ZeMusic.database.setup import setup_database
+    from ZeMusic.database.migrations import run_migrations
+
 
 async def init():
     if (
@@ -23,6 +29,22 @@ async def init():
     ):
         LOGGER(__name__).error("Assistant client variables not defined, exiting...")
         exit()
+    
+    # إعداد قاعدة البيانات
+    if config.DATABASE_TYPE == "postgresql":
+        LOGGER(__name__).info("إعداد قاعدة بيانات PostgreSQL...")
+        
+        # إعداد قاعدة البيانات
+        if not await setup_database():
+            LOGGER(__name__).error("فشل في إعداد قاعدة البيانات، توقف البوت...")
+            exit()
+        
+        # تشغيل التحديثات
+        if not await run_migrations():
+            LOGGER(__name__).warning("تحذير: فشل في تطبيق بعض تحديثات قاعدة البيانات")
+        
+        LOGGER(__name__).info("تم إعداد PostgreSQL بنجاح ✅")
+    
     await sudo()
     try:
         users = await get_gbanned()
@@ -56,6 +78,11 @@ async def init():
     await app.stop()
     await userbot.stop()
     await azkar()
+    
+    # إغلاق اتصال PostgreSQL
+    if config.DATABASE_TYPE == "postgresql":
+        await close_postgres()
+    
     LOGGER("ZeMusic").info("Stopping Ze Music Bot...")
 
 
