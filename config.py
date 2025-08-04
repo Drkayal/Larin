@@ -26,7 +26,14 @@ POSTGRES_PORT = int(getenv("POSTGRES_PORT", 5432))
 POSTGRES_DB = getenv("POSTGRES_DB", "zemusic_bot")
 POSTGRES_USER = getenv("POSTGRES_USER", "postgres")
 POSTGRES_PASSWORD = getenv("POSTGRES_PASSWORD", "")
-POSTGRES_URI = getenv("POSTGRES_URI", f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}")
+# Build PostgreSQL URI if not provided directly
+if getenv("POSTGRES_URI"):
+    POSTGRES_URI = getenv("POSTGRES_URI")
+else:
+    if POSTGRES_PASSWORD:
+        POSTGRES_URI = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+    else:
+        POSTGRES_URI = f"postgresql://{POSTGRES_USER}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
 # Database Type Selection (mongodb or postgresql)
 DATABASE_TYPE = getenv("DATABASE_TYPE", "mongodb").lower()
