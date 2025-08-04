@@ -108,7 +108,42 @@
       "MONGO_DB_URI": {
         "description": "استضافتك من موقع https://cloud.mongodb.com ..",
         "value": "",
+        "required": false
+      },
+      "DATABASE_TYPE": {
+        "description": "نوع قاعدة البيانات (mongodb أو postgresql)",
+        "value": "mongodb",
         "required": true
+      },
+      "POSTGRES_HOST": {
+        "description": "عنوان خادم PostgreSQL",
+        "value": "",
+        "required": false
+      },
+      "POSTGRES_PORT": {
+        "description": "منفذ PostgreSQL (افتراضي: 5432)",
+        "value": "5432",
+        "required": false
+      },
+      "POSTGRES_DB": {
+        "description": "اسم قاعدة بيانات PostgreSQL",
+        "value": "zemusic_bot",
+        "required": false
+      },
+      "POSTGRES_USER": {
+        "description": "اسم مستخدم PostgreSQL",
+        "value": "",
+        "required": false
+      },
+      "POSTGRES_PASSWORD": {
+        "description": "كلمة مرور PostgreSQL",
+        "value": "",
+        "required": false
+      },
+      "POSTGRES_URI": {
+        "description": "رابط اتصال PostgreSQL الكامل (اختياري)",
+        "value": "",
+        "required": false
       },
       "LOGGER_ID": {
         "description": "ادخــل ايــدي مجمـوعــة السجــل بجـانب الرقـم -100 فـي المربـع〔 سوي مجموعة جديدة وروح لاعدادات المجموعة وخلي السجل ظاهر .. بعدها ارفع البوت والحساب المساعد إشـراف وافتـح المكالمه بعدها جيب ايدي المجموعة لهنـا 〕..",
