@@ -4,6 +4,7 @@ from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter
 from pyrogram.errors import FloodWait
 
+import config
 from ZeMusic import app
 from ZeMusic.misc import SUDOERS
 from ZeMusic.utils.database import (
@@ -18,6 +19,47 @@ from ZeMusic.utils.formatters import alpha_to_int
 from config import adminlist, OWNER_ID
 
 IS_BROADCASTING = False
+
+
+async def get_broadcast_status():
+    """جلب حالة البث من قاعدة البيانات"""
+    try:
+        if config.DATABASE_TYPE == "postgresql":
+            from ZeMusic.core.postgres import fetch_value
+            status = await fetch_value(
+                "SELECT value FROM system_settings WHERE key = 'is_broadcasting'"
+            )
+            return status == 'true' if status else False
+        else:
+            # MongoDB fallback
+            from ZeMusic.misc import mongodb
+            result = await mongodb.settings.find_one({"key": "is_broadcasting"})
+            return result.get("value", False) if result else False
+    except:
+        return False
+
+
+async def set_broadcast_status(status: bool):
+    """حفظ حالة البث في قاعدة البيانات"""
+    try:
+        if config.DATABASE_TYPE == "postgresql":
+            from ZeMusic.core.postgres import execute_query
+            await execute_query(
+                "INSERT INTO system_settings (key, value) VALUES ($1, $2) "
+                "ON CONFLICT (key) DO UPDATE SET value = $2",
+                "is_broadcasting", 
+                "true" if status else "false"
+            )
+        else:
+            # MongoDB fallback
+            from ZeMusic.misc import mongodb
+            await mongodb.settings.update_one(
+                {"key": "is_broadcasting"},
+                {"$set": {"value": status}},
+                upsert=True
+            )
+    except Exception as e:
+        print(f"خطأ في حفظ حالة البث: {e}")
 
 
 async def send_broadcast(
@@ -119,7 +161,9 @@ async def broadcast_message(client, message, _):
     """
     global IS_BROADCASTING
 
-    if IS_BROADCASTING:
+    # التحقق من حالة البث من قاعدة البيانات
+    db_broadcast_status = await get_broadcast_status()
+    if IS_BROADCASTING or db_broadcast_status:
         return await message.reply_text("هناك عملية بث جارية حاليًا. الرجاء انتظار انتهائها.")
 
     # تحديد ما إذا كنا سنعيد توجيه رسالة مقتبسة أم سنرسل نصاً
@@ -161,6 +205,7 @@ async def broadcast_message(client, message, _):
         return await message.reply_text(_["broad_8"])
 
     IS_BROADCASTING = True
+    await set_broadcast_status(True)  # حفظ في قاعدة البيانات
     await message.reply_text(_["broad_1"])  # رسالة بدء العملية
 
     # ----------------------------------------
@@ -272,6 +317,7 @@ async def broadcast_message(client, message, _):
             pass
 
     IS_BROADCASTING = False
+    await set_broadcast_status(False)  # حفظ في قاعدة البيانات
 
 
 async def auto_clean():
