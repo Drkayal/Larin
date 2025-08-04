@@ -6,7 +6,7 @@ from asyncpg import Pool, Connection
 from contextlib import asynccontextmanager
 
 import config
-from ..logging import LOGGER
+from ZeMusic.logging import LOGGER
 
 # Global connection pool
 _connection_pool: Optional[Pool] = None

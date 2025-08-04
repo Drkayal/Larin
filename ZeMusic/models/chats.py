@@ -112,7 +112,7 @@ class ChatSettings(BaseModel):
     """
     
     # المعرف الأساسي
-    id: Optional[int] = None
+    id: Optional[int] = field(default=None)
     chat_id: int = 0
     
     # إعدادات اللغة والتشغيل

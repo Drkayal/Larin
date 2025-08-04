@@ -42,7 +42,7 @@ class BaseModel:
         # تحويل التواريخ من نص إلى datetime
         for key, value in data.items():
             if key in ['created_at', 'updated_at', 'joined_at', 'last_activity', 
-                      'authorized_at', 'banned_at', 'blacklisted_at', 'added_at', 'started_at']:
+                      'authorized_at', 'banned_at', 'blacklisted_at', 'added_at', 'started_at', 'assigned_at']:
                 if isinstance(value, str):
                     try:
                         data[key] = datetime.fromisoformat(value.replace('Z', '+00:00'))

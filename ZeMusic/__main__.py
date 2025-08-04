@@ -77,7 +77,6 @@ async def init():
     await idle()
     await app.stop()
     await userbot.stop()
-    await azkar()
     
     # إغلاق اتصال PostgreSQL
     if config.DATABASE_TYPE == "postgresql":
