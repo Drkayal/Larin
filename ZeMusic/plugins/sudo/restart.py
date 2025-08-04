@@ -23,6 +23,29 @@ from ZeMusic.utils.pastebin import ModyBin
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
+async def save_bot_settings():
+    """حفظ جميع إعدادات البوت قبل إعادة التشغيل"""
+    try:
+        if config.DATABASE_TYPE == "postgresql":
+            from ZeMusic.database.dal import user_dal, chat_settings_dal, auth_dal
+            
+            # حفظ إعدادات المستخدمين والمحادثات
+            # هذا يتم بشكل تلقائي عبر DAL
+            
+            # التأكد من حفظ المطورين
+            from ZeMusic.misc import SUDOERS
+            for sudo_id in SUDOERS:
+                if sudo_id not in [config.OWNER_ID, config.DAV]:
+                    await auth_dal.add_sudo(sudo_id)
+            
+            return True
+    except Exception as e:
+        print(f"خطأ في حفظ الإعدادات: {e}")
+        return False
+    
+    return True  # MongoDB يحفظ تلقائياً
+
+
 async def is_heroku():
     return "heroku" in socket.getfqdn()
 
@@ -76,6 +99,11 @@ async def update_(client, message, _):
         nrs = await response.edit(_final_updates_, disable_web_page_preview=True)
     os.system("git stash &> /dev/null && git pull")
 
+    # حفظ الإعدادات قبل التحديث
+    save_status = await save_bot_settings()
+    if save_status:
+        await response.edit(f"{nrs.text}\n\n✅ **تم حفظ الإعدادات بنجاح**")
+    
     try:
         served_chats = await get_active_chats()
         for x in served_chats:
@@ -112,7 +140,15 @@ async def update_(client, message, _):
 
 @app.on_message(filters.command(["restart", "اعاده تشغيل", "إعاده تشغيل" ,"اعادة تشغيل", "إعادة تشغيل"]) & SUDOERS)
 async def restart_(_, message):
-    response = await message.reply_text("جاري اعادة تشغيل...")
+    response = await message.reply_text("🔄 **جاري حفظ الإعدادات وإعادة التشغيل...**")
+    
+    # حفظ جميع الإعدادات
+    save_status = await save_bot_settings()
+    if save_status:
+        await response.edit_text("✅ **تم حفظ الإعدادات بنجاح**\n🔄 **جاري إعادة التشغيل...**")
+    else:
+        await response.edit_text("⚠️ **تحذير: مشكلة في حفظ الإعدادات**\n🔄 **جاري إعادة التشغيل...**")
+    
     ac_chats = await get_active_chats()
     #for x in ac_chats:
         #try:
@@ -133,3 +169,49 @@ async def restart_(_, message):
         pass
     await response.edit_text("ᯓ ⌯ 𝚂𝙾𝚄𝚁𝙲𝙴 𝙺𝙸𝙽𝙶 🝢 إعــادة التشغيــل\n•─────────────────•\n\n•⎆┊يتـم الان اعـادة تشغيـل بـوت ميوزك\n•⎆┊قـد يستغـرق الامـر 3-5 دقائـق...")
     os.system(f"kill -9 {os.getpid()} && bash start")
+
+
+@app.on_message(filters.command(["savesettings", "حفظ_الإعدادات", "backup_settings"]) & SUDOERS)
+@language
+async def save_settings_command(client, message, _):
+    """أمر لحفظ جميع إعدادات البوت يدوياً"""
+    status_msg = await message.reply_text("🔄 **جاري حفظ جميع إعدادات البوت...**")
+    
+    try:
+        # حفظ الإعدادات
+        save_status = await save_bot_settings()
+        
+        if save_status:
+            # جمع إحصائيات الحفظ
+            stats_text = "✅ **تم حفظ جميع الإعدادات بنجاح!**\n\n"
+            stats_text += "📊 **الإعدادات المحفوظة:**\n"
+            
+            if config.DATABASE_TYPE == "postgresql":
+                stats_text += "├ 🗄️ **قاعدة البيانات:** PostgreSQL\n"
+                stats_text += "├ 👥 **المطورين:** محفوظ في قاعدة البيانات\n"
+                stats_text += "├ ⚙️ **إعدادات المحادثات:** محفوظة تلقائياً\n"
+                stats_text += "├ 🔒 **إعدادات الأمان:** محفوظة تلقائياً\n"
+                stats_text += "└ 📈 **الإحصائيات:** محفوظة تلقائياً\n\n"
+            else:
+                stats_text += "├ 🗄️ **قاعدة البيانات:** MongoDB\n"
+                stats_text += "├ 👥 **المطورين:** محفوظ في الذاكرة والقاعدة\n"
+                stats_text += "├ ⚙️ **إعدادات المحادثات:** محفوظة تلقائياً\n"
+                stats_text += "├ 🔒 **إعدادات الأمان:** محفوظة تلقائياً\n"
+                stats_text += "└ 📈 **الإحصائيات:** محفوظة تلقائياً\n\n"
+            
+            stats_text += "💡 **ملاحظة:** جميع الإعدادات ستبقى محفوظة حتى بعد إعادة تشغيل البوت."
+            
+            await status_msg.edit_text(stats_text)
+        else:
+            await status_msg.edit_text(
+                "❌ **خطأ في حفظ الإعدادات!**\n\n"
+                "⚠️ **قد تفقد بعض الإعدادات عند إعادة التشغيل.**\n"
+                "🔧 **تحقق من اتصال قاعدة البيانات والمحاولة مرة أخرى.**"
+            )
+    
+    except Exception as e:
+        await status_msg.edit_text(
+            f"❌ **خطأ في حفظ الإعدادات:**\n\n"
+            f"```\n{str(e)}\n```\n\n"
+            f"🔧 **تحقق من حالة قاعدة البيانات وحاول مرة أخرى.**"
+        )

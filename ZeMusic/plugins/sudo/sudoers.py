@@ -1,6 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
+import config
 from ZeMusic import app
 from ZeMusic.misc import SUDOERS
 from ZeMusic.utils.database import add_sudo, remove_sudo
@@ -26,6 +27,14 @@ async def useradd(client, message: Message, _):
         if added:
             SUDOERS.add(user.id)
             await message.reply_text(_["sudo_2"].format(user.mention))
+            
+            # التأكد من الحفظ في PostgreSQL إذا كان مفعلاً
+            if config.DATABASE_TYPE == "postgresql":
+                try:
+                    from ZeMusic.database.dal import auth_dal
+                    await auth_dal.add_sudo(user.id)
+                except Exception as e:
+                    print(f"خطأ في حفظ المطور في PostgreSQL: {e}")
         else:
             await message.reply_text("فشل.")
         return
@@ -39,6 +48,14 @@ async def useradd(client, message: Message, _):
         await message.reply_text(
             _["sudo_2"].format(message.reply_to_message.from_user.mention)
         )
+        
+        # التأكد من الحفظ في PostgreSQL إذا كان مفعلاً
+        if config.DATABASE_TYPE == "postgresql":
+            try:
+                from ZeMusic.database.dal import auth_dal
+                await auth_dal.add_sudo(message.reply_to_message.from_user.id)
+            except Exception as e:
+                print(f"خطأ في حفظ المطور في PostgreSQL: {e}")
     else:
         await message.reply_text("فشل.")
     return
