@@ -6,17 +6,54 @@ from typing import Union
 
 from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
-from pytgcalls import PyTgCalls, StreamType
-from pytgcalls.exceptions import (
-    AlreadyJoinedError,
-    NoActiveGroupCall,
-    TelegramServerError,
-)
+from pytgcalls import PyTgCalls
+try:
+    from pytgcalls import StreamType
+except ImportError:
+    # للإصدارات الجديدة
+    class StreamType:
+        audio = "audio"
+        video = "video"
+        
+try:
+    from pytgcalls.exceptions import (
+        AlreadyJoinedError,
+        NoActiveGroupCall,
+        TelegramServerError,
+    )
+except ImportError:
+    # للإصدارات الجديدة
+    from pytgcalls.exceptions import (
+        NoActiveGroupCall,
+    )
+    # إنشاء استثناءات بديلة
+    class AlreadyJoinedError(Exception):
+        pass
+    class TelegramServerError(Exception):
+        pass
 
-from pytgcalls.types import Update
-from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
-from pytgcalls.types.input_stream.quality import HighQualityAudio, MediumQualityVideo
-from pytgcalls.types.stream import StreamAudioEnded
+try:
+    from pytgcalls.types import Update
+    from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
+    from pytgcalls.types.input_stream.quality import HighQualityAudio, MediumQualityVideo
+    from pytgcalls.types.stream import StreamAudioEnded
+except ImportError:
+    # للإصدارات الجديدة - إنشاء كلاسات بديلة
+    class Update:
+        pass
+    class AudioPiped:
+        def __init__(self, path):
+            self.path = path
+    class AudioVideoPiped:
+        def __init__(self, audio_path, video_path=None):
+            self.audio_path = audio_path
+            self.video_path = video_path
+    class HighQualityAudio:
+        pass
+    class MediumQualityVideo:
+        pass
+    class StreamAudioEnded:
+        pass
 
 import config
 from ZeMusic import LOGGER, YouTube, app

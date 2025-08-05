@@ -1,0 +1,37 @@
+[05-Aug-25 01:14:52 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:14:52 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:14:52 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:14:52 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:14:52 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:14:52 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:15:23 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:15:23 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:15:23 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:15:23 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:15:23 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:15:23 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:15:23 - ERROR] - ZeMusic.utils.database - خطأ في بدء مهمة التنظيف الدورية: no running event loop
+[05-Aug-25 01:15:55 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:15:55 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:15:55 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:15:55 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:15:55 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:15:55 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:16:14 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:16:14 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:16:14 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:16:14 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:16:14 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:16:14 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:16:25 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:16:25 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:16:25 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:16:25 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:16:25 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:16:25 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:16:46 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:16:46 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:16:46 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:16:46 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:16:46 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:16:46 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..

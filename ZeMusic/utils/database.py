@@ -1077,9 +1077,13 @@ class FileManager:
         self.base_downloads_dir = Path(config.DOWNLOADS_DIR)
         self.temp_dir = self.base_downloads_dir / "temp"
         self.optimized_dir = self.base_downloads_dir / "optimized"
-        
-        # إنشاء المجلدات الأساسية
-        asyncio.create_task(self._create_base_directories())
+        self._initialized = False
+    
+    async def _ensure_initialized(self):
+        """التأكد من تهيئة المجلدات"""
+        if not self._initialized:
+            await self._create_base_directories()
+            self._initialized = True
     
     async def _create_base_directories(self):
         """إنشاء المجلدات الأساسية"""
@@ -1094,6 +1098,7 @@ class FileManager:
         """
         إنشاء مجلد خاص للمستخدم
         """
+        await self._ensure_initialized()
         try:
             user_dir = self.base_downloads_dir / str(user_id)
             await aiofiles.os.makedirs(user_dir, exist_ok=True)
@@ -1261,6 +1266,7 @@ class FileManager:
         """
         تنظيف جميع الملفات المؤقتة
         """
+        await self._ensure_initialized()
         cleanup_stats = {
             'temp_files_deleted': 0,
             'temp_space_freed_mb': 0,
@@ -1518,7 +1524,7 @@ async def periodic_cleanup_task():
             await asyncio.sleep(3600)  # ساعة واحدة
 
 # بدء المهمة الدورية
-def start_cleanup_task():
+async def start_cleanup_task():
     """
     بدء مهمة التنظيف الدورية
     """
@@ -1528,6 +1534,4 @@ def start_cleanup_task():
     except Exception as e:
         LOGGER(__name__).error(f"خطأ في بدء مهمة التنظيف الدورية: {e}")
 
-# بدء المهمة تلقائياً عند استيراد الملف
-if config.ENABLE_DOWNLOAD_STATS:
-    start_cleanup_task()
+# المهمة ستبدأ عند الحاجة وليس عند الاستيراد
