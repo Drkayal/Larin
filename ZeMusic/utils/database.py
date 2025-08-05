@@ -98,16 +98,79 @@ async def disable_search1():
 
 
 async def is_search_enabled(chat_id):
-    settings = await dersdb.find_one({"name": "search", "chat_id": chat_id})
-    if settings:
-        return settings.get("enabled", False)
-    return False
+    """التحقق من تفعيل البحث في المجموعة"""
+    try:
+        if config.DATABASE_TYPE == "postgresql":
+            from ZeMusic.core.postgres import get_postgres_connection
+            async with get_postgres_connection() as conn:
+                result = await conn.fetchval(
+                    "SELECT search_enabled FROM chat_settings WHERE chat_id = $1",
+                    chat_id
+                )
+                return result if result is not None else True  # افتراضياً مفعل
+        else:
+            # MongoDB fallback
+            settings = await dersdb.find_one({"name": "search", "chat_id": chat_id})
+            if settings:
+                return settings.get("enabled", False)
+            return True  # افتراضياً مفعل
+    except Exception as e:
+        print(f"خطأ في is_search_enabled: {e}")
+        return True  # في حالة الخطأ، نسمح بالبحث
 
 async def enable_search(chat_id):
-    await dersdb.update_one({"name": "search", "chat_id": chat_id}, {"$set": {"enabled": True}}, upsert=True)
+    """تفعيل البحث في المجموعة"""
+    try:
+        if config.DATABASE_TYPE == "postgresql":
+            from ZeMusic.core.postgres import get_postgres_connection
+            async with get_postgres_connection() as conn:
+                # التأكد من وجود المجموعة في جدول chats أولاً
+                await conn.execute(
+                    """INSERT INTO chats (chat_id, chat_type) 
+                       VALUES ($1, 'group') 
+                       ON CONFLICT (chat_id) DO NOTHING""",
+                    chat_id
+                )
+                # ثم إضافة/تحديث إعدادات البحث
+                await conn.execute(
+                    """INSERT INTO chat_settings (chat_id, search_enabled) 
+                       VALUES ($1, TRUE) 
+                       ON CONFLICT (chat_id) 
+                       DO UPDATE SET search_enabled = TRUE""",
+                    chat_id
+                )
+        else:
+            # MongoDB fallback
+            await dersdb.update_one({"name": "search", "chat_id": chat_id}, {"$set": {"enabled": True}}, upsert=True)
+    except Exception as e:
+        print(f"خطأ في enable_search: {e}")
 
 async def disable_search(chat_id):
-    await dersdb.update_one({"name": "search", "chat_id": chat_id}, {"$set": {"enabled": False}}, upsert=True)
+    """تعطيل البحث في المجموعة"""
+    try:
+        if config.DATABASE_TYPE == "postgresql":
+            from ZeMusic.core.postgres import get_postgres_connection
+            async with get_postgres_connection() as conn:
+                # التأكد من وجود المجموعة في جدول chats أولاً
+                await conn.execute(
+                    """INSERT INTO chats (chat_id, chat_type) 
+                       VALUES ($1, 'group') 
+                       ON CONFLICT (chat_id) DO NOTHING""",
+                    chat_id
+                )
+                # ثم إضافة/تحديث إعدادات البحث
+                await conn.execute(
+                    """INSERT INTO chat_settings (chat_id, search_enabled) 
+                       VALUES ($1, FALSE) 
+                       ON CONFLICT (chat_id) 
+                       DO UPDATE SET search_enabled = FALSE""",
+                    chat_id
+                )
+        else:
+            # MongoDB fallback
+            await dersdb.update_one({"name": "search", "chat_id": chat_id}, {"$set": {"enabled": False}}, upsert=True)
+    except Exception as e:
+        print(f"خطأ في disable_search: {e}")
 
 ########################################################
 
