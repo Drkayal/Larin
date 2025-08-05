@@ -172,7 +172,7 @@ class YouTubeAPI:
 
         cmd = (
             f"yt-dlp -i --compat-options no-youtube-unavailable-videos "
-            f'--get-id --flat-playlist --playlist-end {limit} --skip-download "{link}" '
+            f'--cookies cookies.txt --get-id --flat-playlist --playlist-end {limit} --skip-download "{link}" '
             f"2>/dev/null"
         )
 

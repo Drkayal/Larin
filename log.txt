@@ -2667,3 +2667,252 @@ Traceback (most recent call last):
     ...<5 lines>...
       is_signed=is_signed)
 pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+[05-Aug-25 21:14:08 - ERROR] - pyrogram.dispatcher - localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6892729eae4f9baa8a27b83f, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/workspace/ZeMusic/utils/decorators/language.py", line 56, in wrapper
+    return await mystic(_, message, language)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/bot/start.py", line 92, in start_pm
+    if await is_on_off(2):
+       ^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/utils/database.py", line 554, in is_on_off
+    onoff = await onoffdb.find_one({"on_off": on_off})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1284, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1260, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1208, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1102, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1917, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2026, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1993, in _retry_internal
+    ).run()
+      ~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2730, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2875, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2823, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1812, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
+    servers = self.select_servers(
+        selector, operation, server_selection_timeout, address, operation_id
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector, server_timeout, operation, operation_id, address
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 344, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6892729eae4f9baa8a27b83f, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+[05-Aug-25 21:14:39 - ERROR] - pyrogram.dispatcher - localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6892729eae4f9baa8a27b83f, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/workspace/ZeMusic/utils/decorators/language.py", line 56, in wrapper
+    return await mystic(_, message, language)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/bot/start.py", line 92, in start_pm
+    if await is_on_off(2):
+       ^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/utils/database.py", line 554, in is_on_off
+    onoff = await onoffdb.find_one({"on_off": on_off})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1284, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1260, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1208, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1102, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1917, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2026, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1993, in _retry_internal
+    ).run()
+      ~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2730, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2875, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2823, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1812, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
+    servers = self.select_servers(
+        selector, operation, server_selection_timeout, address, operation_id
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector, server_timeout, operation, operation_id, address
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 344, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6892729eae4f9baa8a27b83f, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+[05-Aug-25 21:15:47 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[05-Aug-25 21:15:48 - INFO] - ZeMusic.core.userbot - Stopping Assistants...
+[05-Aug-25 21:15:48 - INFO] - ZeMusic.core.postgres - تم قطع الاتصال بقاعدة البيانات
+[05-Aug-25 21:15:48 - INFO] - ZeMusic.core.postgres - تم إغلاق اتصال PostgreSQL
+[05-Aug-25 21:15:48 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:15:52 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 21:15:52 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 21:15:58 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 21:15:58 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 21:15:58 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 21:16:00 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 21:16:00 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 21:16:31 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 21:16:31 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
