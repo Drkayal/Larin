@@ -1,6 +1,12 @@
 import asyncio
 import importlib
 
+# Apply compatibility patch before importing pytgcalls
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import ntgcalls_patch
+
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
 
