@@ -34,3 +34,4 @@ alembic==1.13.1
 psycopg2-binary==2.9.9
 # Enhanced Download System Dependencies
 cachetools==5.3.2
+aiofiles==23.2.0

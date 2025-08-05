@@ -816,3 +816,718 @@ async def remove_banned_user(user_id: int):
     if not is_gbanned:
         return
     return await blockeddb.delete_one({"user_id": user_id})
+
+
+# ============================================
+# نظام التخزين المؤقت المتقدم
+# ============================================
+
+import asyncio
+import os
+import time
+import json
+import hashlib
+from datetime import datetime, timedelta
+from typing import Optional, Dict, Any, List
+import cachetools
+from ZeMusic.logging import LOGGER
+
+# إضافة استيراد download_dal
+if config.DATABASE_TYPE == "postgresql":
+    from ZeMusic.database.dal import download_dal
+
+class CacheManager:
+    """
+    مدير التخزين المؤقت المتقدم للبوت
+    يدعم التخزين في الذاكرة وقاعدة البيانات
+    """
+    
+    def __init__(self):
+        # تخزين مؤقت في الذاكرة لمدة أسبوع (بدون حدود)
+        self.memory_cache = cachetools.TTLCache(
+            maxsize=config.CACHE_MAX_SIZE,
+            ttl=config.CACHE_EXPIRATION_HOURS * 3600
+        )
+        
+        # تخزين مؤقت للبحث السريع
+        self.search_cache = cachetools.TTLCache(
+            maxsize=config.CACHE_MAX_SIZE // 2,
+            ttl=3600  # ساعة واحدة للبحث
+        )
+        
+        # إحصائيات التخزين المؤقت
+        self.cache_stats = {
+            'hits': 0,
+            'misses': 0,
+            'total_requests': 0
+        }
+        
+    def _generate_cache_key(self, prefix: str, identifier: str) -> str:
+        """إنشاء مفتاح تخزين مؤقت فريد"""
+        return f"{prefix}:{hashlib.md5(identifier.encode()).hexdigest()}"
+    
+    async def get_cached_audio(self, video_id: str) -> Optional[Dict[str, Any]]:
+        """
+        جلب الملف الصوتي من التخزين المؤقت
+        """
+        self.cache_stats['total_requests'] += 1
+        cache_key = self._generate_cache_key("audio", video_id)
+        
+        # البحث في الذاكرة أولاً
+        if cache_key in self.memory_cache:
+            self.cache_stats['hits'] += 1
+            LOGGER(__name__).info(f"Cache hit in memory for video: {video_id}")
+            return self.memory_cache[cache_key]
+        
+        # البحث في قاعدة البيانات
+        if config.DATABASE_TYPE == "postgresql":
+            try:
+                result = await download_dal.get_cached_audio(video_id)
+                if result:
+                    # حفظ في الذاكرة للمرات القادمة
+                    self.memory_cache[cache_key] = result
+                    self.cache_stats['hits'] += 1
+                    LOGGER(__name__).info(f"Cache hit in database for video: {video_id}")
+                    return result
+            except Exception as e:
+                LOGGER(__name__).error(f"خطأ في جلب التخزين المؤقت من قاعدة البيانات: {e}")
+        
+        self.cache_stats['misses'] += 1
+        LOGGER(__name__).info(f"Cache miss for video: {video_id}")
+        return None
+    
+    async def save_audio_cache(self, video_info: Dict[str, Any]) -> bool:
+        """
+        حفظ الملف الصوتي في التخزين المؤقت
+        """
+        try:
+            video_id = video_info.get('video_id')
+            if not video_id:
+                return False
+            
+            cache_key = self._generate_cache_key("audio", video_id)
+            
+            # حفظ في الذاكرة
+            self.memory_cache[cache_key] = video_info
+            
+            # حفظ في قاعدة البيانات
+            if config.DATABASE_TYPE == "postgresql":
+                success = await download_dal.save_audio_cache(video_info)
+                if success:
+                    LOGGER(__name__).info(f"Audio cached successfully: {video_id}")
+                    return True
+            
+            return True
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في حفظ التخزين المؤقت: {e}")
+            return False
+    
+    async def get_search_results(self, query: str) -> Optional[List[Dict[str, Any]]]:
+        """
+        جلب نتائج البحث من التخزين المؤقت
+        """
+        if not config.ENABLE_SEARCH_CACHE:
+            return None
+            
+        cache_key = self._generate_cache_key("search", query.lower())
+        
+        # البحث في الذاكرة
+        if cache_key in self.search_cache:
+            LOGGER(__name__).info(f"Search cache hit for query: {query}")
+            return self.search_cache[cache_key]
+        
+        # البحث في قاعدة البيانات
+        if config.DATABASE_TYPE == "postgresql":
+            try:
+                results = await download_dal.get_search_history(query, limit=5)
+                if results:
+                    self.search_cache[cache_key] = results
+                    return results
+            except Exception as e:
+                LOGGER(__name__).error(f"خطأ في جلب تاريخ البحث: {e}")
+        
+        return None
+    
+    async def save_search_results(self, query: str, results: List[Dict[str, Any]]) -> bool:
+        """
+        حفظ نتائج البحث في التخزين المؤقت
+        """
+        try:
+            if not config.ENABLE_SEARCH_CACHE:
+                return False
+                
+            cache_key = self._generate_cache_key("search", query.lower())
+            self.search_cache[cache_key] = results
+            
+            LOGGER(__name__).info(f"Search results cached for query: {query}")
+            return True
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في حفظ نتائج البحث: {e}")
+            return False
+    
+    async def cleanup_expired_cache(self) -> Dict[str, int]:
+        """
+        تنظيف التخزين المؤقت المنتهي الصلاحية
+        """
+        cleanup_stats = {
+            'memory_cleaned': 0,
+            'database_cleaned': 0,
+            'total_cleaned': 0
+        }
+        
+        try:
+            # تنظيف الذاكرة (تلقائي مع TTLCache)
+            initial_memory_size = len(self.memory_cache)
+            self.memory_cache.expire()
+            cleanup_stats['memory_cleaned'] = initial_memory_size - len(self.memory_cache)
+            
+            initial_search_size = len(self.search_cache)
+            self.search_cache.expire()
+            cleanup_stats['memory_cleaned'] += initial_search_size - len(self.search_cache)
+            
+            # تنظيف قاعدة البيانات
+            if config.DATABASE_TYPE == "postgresql":
+                try:
+                    # تنظيف الملفات القديمة (أكثر من أسبوع بدون استخدام)
+                    days_old = config.CACHE_EXPIRATION_HOURS // 24
+                    cleaned_count = await download_dal.cleanup_old_cache(days_old)
+                    cleanup_stats['database_cleaned'] = cleaned_count
+                except Exception as e:
+                    LOGGER(__name__).error(f"خطأ في تنظيف قاعدة البيانات: {e}")
+            
+            cleanup_stats['total_cleaned'] = (
+                cleanup_stats['memory_cleaned'] + 
+                cleanup_stats['database_cleaned']
+            )
+            
+            if cleanup_stats['total_cleaned'] > 0:
+                LOGGER(__name__).info(f"Cache cleanup completed: {cleanup_stats}")
+            
+            return cleanup_stats
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في تنظيف التخزين المؤقت: {e}")
+            return cleanup_stats
+    
+    def get_cache_stats(self) -> Dict[str, Any]:
+        """
+        جلب إحصائيات التخزين المؤقت
+        """
+        hit_ratio = 0
+        if self.cache_stats['total_requests'] > 0:
+            hit_ratio = (self.cache_stats['hits'] / self.cache_stats['total_requests']) * 100
+        
+        return {
+            'memory_cache_size': len(self.memory_cache),
+            'search_cache_size': len(self.search_cache),
+            'total_requests': self.cache_stats['total_requests'],
+            'cache_hits': self.cache_stats['hits'],
+            'cache_misses': self.cache_stats['misses'],
+            'hit_ratio_percent': round(hit_ratio, 2),
+            'max_memory_size': config.CACHE_MAX_SIZE,
+            'cache_expiration_hours': config.CACHE_EXPIRATION_HOURS
+        }
+    
+    async def clear_all_cache(self) -> bool:
+        """
+        مسح جميع التخزين المؤقت (للطوارئ فقط)
+        """
+        try:
+            # مسح الذاكرة
+            self.memory_cache.clear()
+            self.search_cache.clear()
+            
+            # إعادة تعيين الإحصائيات
+            self.cache_stats = {
+                'hits': 0,
+                'misses': 0,
+                'total_requests': 0
+            }
+            
+            LOGGER(__name__).warning("تم مسح جميع التخزين المؤقت")
+            return True
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في مسح التخزين المؤقت: {e}")
+            return False
+
+# إنشاء مثيل عام لمدير التخزين المؤقت
+cache_manager = CacheManager()
+
+
+# ============================================
+# نظام إدارة الملفات المتقدم
+# ============================================
+
+import shutil
+import subprocess
+import aiofiles
+import aiofiles.os
+from pathlib import Path
+
+class FileManager:
+    """
+    مدير الملفات المتقدم للبوت
+    يدير إنشاء المجلدات وتحسين الصوت وحذف الملفات
+    """
+    
+    def __init__(self):
+        self.base_downloads_dir = Path(config.DOWNLOADS_DIR)
+        self.temp_dir = self.base_downloads_dir / "temp"
+        self.optimized_dir = self.base_downloads_dir / "optimized"
+        
+        # إنشاء المجلدات الأساسية
+        asyncio.create_task(self._create_base_directories())
+    
+    async def _create_base_directories(self):
+        """إنشاء المجلدات الأساسية"""
+        try:
+            for directory in [self.base_downloads_dir, self.temp_dir, self.optimized_dir]:
+                await aiofiles.os.makedirs(directory, exist_ok=True)
+            LOGGER(__name__).info("تم إنشاء المجلدات الأساسية بنجاح")
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في إنشاء المجلدات الأساسية: {e}")
+    
+    async def create_user_directory(self, user_id: int) -> Path:
+        """
+        إنشاء مجلد خاص للمستخدم
+        """
+        try:
+            user_dir = self.base_downloads_dir / str(user_id)
+            await aiofiles.os.makedirs(user_dir, exist_ok=True)
+            
+            # إنشاء مجلدات فرعية للمستخدم
+            for subdir in ["audio", "temp", "thumbnails"]:
+                await aiofiles.os.makedirs(user_dir / subdir, exist_ok=True)
+            
+            LOGGER(__name__).info(f"تم إنشاء مجلد المستخدم: {user_id}")
+            return user_dir
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في إنشاء مجلد المستخدم {user_id}: {e}")
+            return self.base_downloads_dir
+    
+    async def optimize_audio_quality(self, input_file: str, output_file: str = None, 
+                                   target_quality: str = None) -> str:
+        """
+        تحسين جودة الصوت باستخدام FFmpeg
+        """
+        try:
+            if not target_quality:
+                target_quality = config.AUDIO_QUALITY
+            
+            if not output_file:
+                input_path = Path(input_file)
+                output_file = str(input_path.parent / f"{input_path.stem}_optimized{input_path.suffix}")
+            
+            # التحقق من وجود FFmpeg
+            if not shutil.which('ffmpeg'):
+                LOGGER(__name__).warning("FFmpeg غير متوفر، سيتم إرجاع الملف الأصلي")
+                return input_file
+            
+            # أوامر FFmpeg للتحسين (بدون حدود على الحجم)
+            ffmpeg_cmd = [
+                'ffmpeg',
+                '-i', input_file,
+                '-c:a', config.FFMPEG_AUDIO_CODEC,
+                '-b:a', f"{target_quality}k",
+                '-ac', str(config.FFMPEG_AUDIO_CHANNELS),
+                '-ar', str(config.FFMPEG_SAMPLE_RATE),
+                '-avoid_negative_ts', 'make_zero',
+                '-map_metadata', '0',
+                '-id3v2_version', '3',
+                '-write_id3v1', '1',
+                '-y',  # الكتابة فوق الملف الموجود
+                output_file
+            ]
+            
+            # تشغيل FFmpeg في الخلفية
+            process = await asyncio.create_subprocess_exec(
+                *ffmpeg_cmd,
+                stdout=asyncio.subprocess.DEVNULL,
+                stderr=asyncio.subprocess.PIPE
+            )
+            
+            _, stderr = await process.communicate()
+            
+            if process.returncode == 0:
+                # التحقق من حجم الملف المحسن
+                input_size = (await aiofiles.os.stat(input_file)).st_size
+                output_size = (await aiofiles.os.stat(output_file)).st_size
+                
+                # حذف الملف الأصلي فقط إذا كان التحسين ناجحاً
+                try:
+                    await aiofiles.os.remove(input_file)
+                except:
+                    pass
+                
+                LOGGER(__name__).info(
+                    f"تم تحسين الصوت: {input_size//1024}KB -> {output_size//1024}KB"
+                )
+                return output_file
+            else:
+                error_msg = stderr.decode() if stderr else "خطأ غير معروف"
+                LOGGER(__name__).error(f"خطأ في FFmpeg: {error_msg}")
+                return input_file
+                
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في تحسين جودة الصوت: {e}")
+            return input_file
+    
+    async def get_file_info(self, file_path: str) -> Dict[str, Any]:
+        """
+        جلب معلومات الملف
+        """
+        try:
+            file_path = Path(file_path)
+            if not file_path.exists():
+                return {}
+            
+            stat = await aiofiles.os.stat(file_path)
+            
+            return {
+                'file_path': str(file_path),
+                'file_name': file_path.name,
+                'file_size': stat.st_size,
+                'file_size_mb': round(stat.st_size / (1024 * 1024), 2),
+                'created_time': datetime.fromtimestamp(stat.st_ctime),
+                'modified_time': datetime.fromtimestamp(stat.st_mtime),
+                'file_extension': file_path.suffix,
+                'is_audio': file_path.suffix.lower() in ['.mp3', '.m4a', '.wav', '.flac', '.ogg']
+            }
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في جلب معلومات الملف: {e}")
+            return {}
+    
+    async def cleanup_user_files(self, user_id: int, max_age_hours: int = None) -> Dict[str, int]:
+        """
+        تنظيف ملفات المستخدم القديمة
+        """
+        cleanup_stats = {
+            'files_deleted': 0,
+            'space_freed_mb': 0,
+            'directories_cleaned': 0
+        }
+        
+        try:
+            if not max_age_hours:
+                max_age_hours = config.CLEANUP_INTERVAL_HOURS
+            
+            user_dir = self.base_downloads_dir / str(user_id)
+            if not user_dir.exists():
+                return cleanup_stats
+            
+            cutoff_time = time.time() - (max_age_hours * 3600)
+            
+            # تنظيف الملفات القديمة
+            for file_path in user_dir.rglob("*"):
+                if file_path.is_file():
+                    try:
+                        stat = await aiofiles.os.stat(file_path)
+                        if stat.st_mtime < cutoff_time:
+                            file_size = stat.st_size
+                            await aiofiles.os.remove(file_path)
+                            cleanup_stats['files_deleted'] += 1
+                            cleanup_stats['space_freed_mb'] += file_size / (1024 * 1024)
+                    except Exception as e:
+                        LOGGER(__name__).warning(f"خطأ في حذف الملف {file_path}: {e}")
+            
+            # تنظيف المجلدات الفارغة
+            for dir_path in user_dir.rglob("*"):
+                if dir_path.is_dir() and not any(dir_path.iterdir()):
+                    try:
+                        await aiofiles.os.rmdir(dir_path)
+                        cleanup_stats['directories_cleaned'] += 1
+                    except Exception as e:
+                        LOGGER(__name__).warning(f"خطأ في حذف المجلد {dir_path}: {e}")
+            
+            if cleanup_stats['files_deleted'] > 0:
+                LOGGER(__name__).info(
+                    f"تنظيف ملفات المستخدم {user_id}: "
+                    f"{cleanup_stats['files_deleted']} ملف، "
+                    f"{cleanup_stats['space_freed_mb']:.2f} MB"
+                )
+            
+            return cleanup_stats
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في تنظيف ملفات المستخدم {user_id}: {e}")
+            return cleanup_stats
+    
+    async def cleanup_all_temp_files(self) -> Dict[str, int]:
+        """
+        تنظيف جميع الملفات المؤقتة
+        """
+        cleanup_stats = {
+            'temp_files_deleted': 0,
+            'temp_space_freed_mb': 0,
+            'old_files_deleted': 0,
+            'old_space_freed_mb': 0
+        }
+        
+        try:
+            # تنظيف مجلد temp
+            if self.temp_dir.exists():
+                for file_path in self.temp_dir.rglob("*"):
+                    if file_path.is_file():
+                        try:
+                            stat = await aiofiles.os.stat(file_path)
+                            file_size = stat.st_size
+                            await aiofiles.os.remove(file_path)
+                            cleanup_stats['temp_files_deleted'] += 1
+                            cleanup_stats['temp_space_freed_mb'] += file_size / (1024 * 1024)
+                        except Exception as e:
+                            LOGGER(__name__).warning(f"خطأ في حذف الملف المؤقت {file_path}: {e}")
+            
+            # تنظيف الملفات القديمة من جميع مجلدات المستخدمين
+            cutoff_time = time.time() - (config.CLEANUP_INTERVAL_HOURS * 3600)
+            
+            for user_dir in self.base_downloads_dir.iterdir():
+                if user_dir.is_dir() and user_dir.name.isdigit():
+                    for file_path in user_dir.rglob("*"):
+                        if file_path.is_file():
+                            try:
+                                stat = await aiofiles.os.stat(file_path)
+                                if stat.st_mtime < cutoff_time:
+                                    file_size = stat.st_size
+                                    await aiofiles.os.remove(file_path)
+                                    cleanup_stats['old_files_deleted'] += 1
+                                    cleanup_stats['old_space_freed_mb'] += file_size / (1024 * 1024)
+                            except Exception as e:
+                                LOGGER(__name__).warning(f"خطأ في حذف الملف القديم {file_path}: {e}")
+            
+            total_files = cleanup_stats['temp_files_deleted'] + cleanup_stats['old_files_deleted']
+            total_space = cleanup_stats['temp_space_freed_mb'] + cleanup_stats['old_space_freed_mb']
+            
+            if total_files > 0:
+                LOGGER(__name__).info(f"تنظيف عام: {total_files} ملف، {total_space:.2f} MB")
+            
+            return cleanup_stats
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في التنظيف العام: {e}")
+            return cleanup_stats
+    
+    async def get_storage_stats(self) -> Dict[str, Any]:
+        """
+        جلب إحصائيات التخزين
+        """
+        try:
+            stats = {
+                'total_users': 0,
+                'total_files': 0,
+                'total_size_mb': 0,
+                'temp_files': 0,
+                'temp_size_mb': 0,
+                'user_stats': {}
+            }
+            
+            # إحصائيات المجلد المؤقت
+            if self.temp_dir.exists():
+                for file_path in self.temp_dir.rglob("*"):
+                    if file_path.is_file():
+                        try:
+                            stat = await aiofiles.os.stat(file_path)
+                            stats['temp_files'] += 1
+                            stats['temp_size_mb'] += stat.st_size / (1024 * 1024)
+                        except:
+                            pass
+            
+            # إحصائيات مجلدات المستخدمين
+            for user_dir in self.base_downloads_dir.iterdir():
+                if user_dir.is_dir() and user_dir.name.isdigit():
+                    user_id = user_dir.name
+                    user_files = 0
+                    user_size = 0
+                    
+                    for file_path in user_dir.rglob("*"):
+                        if file_path.is_file():
+                            try:
+                                stat = await aiofiles.os.stat(file_path)
+                                user_files += 1
+                                user_size += stat.st_size / (1024 * 1024)
+                            except:
+                                pass
+                    
+                    if user_files > 0:
+                        stats['user_stats'][user_id] = {
+                            'files': user_files,
+                            'size_mb': round(user_size, 2)
+                        }
+                        stats['total_users'] += 1
+                        stats['total_files'] += user_files
+                        stats['total_size_mb'] += user_size
+            
+            stats['total_size_mb'] = round(stats['total_size_mb'], 2)
+            stats['temp_size_mb'] = round(stats['temp_size_mb'], 2)
+            
+            return stats
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في جلب إحصائيات التخزين: {e}")
+            return {}
+    
+    async def safe_delete_file(self, file_path: str) -> bool:
+        """
+        حذف آمن للملف
+        """
+        try:
+            file_path = Path(file_path)
+            if file_path.exists():
+                await aiofiles.os.remove(file_path)
+                LOGGER(__name__).info(f"تم حذف الملف: {file_path.name}")
+                return True
+            return False
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في حذف الملف {file_path}: {e}")
+            return False
+    
+    async def move_file(self, source: str, destination: str) -> bool:
+        """
+        نقل الملف من مكان لآخر
+        """
+        try:
+            source_path = Path(source)
+            dest_path = Path(destination)
+            
+            # إنشاء مجلد الوجهة إذا لم يكن موجوداً
+            await aiofiles.os.makedirs(dest_path.parent, exist_ok=True)
+            
+            # نقل الملف
+            shutil.move(str(source_path), str(dest_path))
+            
+            LOGGER(__name__).info(f"تم نقل الملف من {source_path.name} إلى {dest_path}")
+            return True
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في نقل الملف: {e}")
+            return False
+
+# إنشاء مثيل عام لمدير الملفات
+file_manager = FileManager()
+
+
+# ============================================
+# وظائف مساعدة للتخزين المؤقت وإدارة الملفات
+# ============================================
+
+async def get_cached_audio_info(video_id: str) -> Optional[Dict[str, Any]]:
+    """
+    دالة مساعدة للحصول على معلومات الملف الصوتي من التخزين المؤقت
+    """
+    return await cache_manager.get_cached_audio(video_id)
+
+async def save_audio_to_cache(video_info: Dict[str, Any]) -> bool:
+    """
+    دالة مساعدة لحفظ معلومات الملف الصوتي في التخزين المؤقت
+    """
+    return await cache_manager.save_audio_cache(video_info)
+
+async def get_search_cache(query: str) -> Optional[List[Dict[str, Any]]]:
+    """
+    دالة مساعدة للحصول على نتائج البحث من التخزين المؤقت
+    """
+    return await cache_manager.get_search_results(query)
+
+async def save_search_to_cache(query: str, results: List[Dict[str, Any]]) -> bool:
+    """
+    دالة مساعدة لحفظ نتائج البحث في التخزين المؤقت
+    """
+    return await cache_manager.save_search_results(query, results)
+
+async def create_user_download_dir(user_id: int) -> Path:
+    """
+    دالة مساعدة لإنشاء مجلد تحميل للمستخدم
+    """
+    return await file_manager.create_user_directory(user_id)
+
+async def optimize_audio_file(input_file: str, target_quality: str = None) -> str:
+    """
+    دالة مساعدة لتحسين جودة الملف الصوتي
+    """
+    return await file_manager.optimize_audio_quality(input_file, target_quality=target_quality)
+
+async def cleanup_user_downloads(user_id: int) -> Dict[str, int]:
+    """
+    دالة مساعدة لتنظيف تحميلات المستخدم
+    """
+    return await file_manager.cleanup_user_files(user_id)
+
+async def get_file_details(file_path: str) -> Dict[str, Any]:
+    """
+    دالة مساعدة لجلب تفاصيل الملف
+    """
+    return await file_manager.get_file_info(file_path)
+
+async def cleanup_system_cache() -> Dict[str, int]:
+    """
+    دالة مساعدة لتنظيف التخزين المؤقت للنظام
+    """
+    cache_stats = await cache_manager.cleanup_expired_cache()
+    file_stats = await file_manager.cleanup_all_temp_files()
+    
+    return {
+        'cache_cleaned': cache_stats.get('total_cleaned', 0),
+        'files_cleaned': file_stats.get('temp_files_deleted', 0) + file_stats.get('old_files_deleted', 0),
+        'space_freed_mb': file_stats.get('temp_space_freed_mb', 0) + file_stats.get('old_space_freed_mb', 0)
+    }
+
+def get_system_cache_stats() -> Dict[str, Any]:
+    """
+    دالة مساعدة لجلب إحصائيات التخزين المؤقت
+    """
+    return cache_manager.get_cache_stats()
+
+async def get_system_storage_stats() -> Dict[str, Any]:
+    """
+    دالة مساعدة لجلب إحصائيات التخزين
+    """
+    return await file_manager.get_storage_stats()
+
+
+# ============================================
+# مهام التنظيف الدورية
+# ============================================
+
+async def periodic_cleanup_task():
+    """
+    مهمة تنظيف دورية تعمل في الخلفية
+    """
+    while True:
+        try:
+            # انتظار فترة التنظيف (بدون حدود)
+            await asyncio.sleep(config.CLEANUP_INTERVAL_HOURS * 3600)
+            
+            # تنظيف النظام
+            cleanup_stats = await cleanup_system_cache()
+            
+            if cleanup_stats['files_cleaned'] > 0 or cleanup_stats['cache_cleaned'] > 0:
+                LOGGER(__name__).info(
+                    f"تنظيف دوري مكتمل: "
+                    f"ملفات محذوفة: {cleanup_stats['files_cleaned']}, "
+                    f"تخزين مؤقت محذوف: {cleanup_stats['cache_cleaned']}, "
+                    f"مساحة محررة: {cleanup_stats['space_freed_mb']:.2f} MB"
+                )
+            
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في المهمة الدورية للتنظيف: {e}")
+            # انتظار قبل المحاولة مرة أخرى
+            await asyncio.sleep(3600)  # ساعة واحدة
+
+# بدء المهمة الدورية
+def start_cleanup_task():
+    """
+    بدء مهمة التنظيف الدورية
+    """
+    try:
+        asyncio.create_task(periodic_cleanup_task())
+        LOGGER(__name__).info("تم بدء مهمة التنظيف الدورية")
+    except Exception as e:
+        LOGGER(__name__).error(f"خطأ في بدء مهمة التنظيف الدورية: {e}")
+
+# بدء المهمة تلقائياً عند استيراد الملف
+if config.ENABLE_DOWNLOAD_STATS:
+    start_cleanup_task()
