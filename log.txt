@@ -2068,3 +2068,1229 @@ pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 111] Connect
 [05-Aug-25 02:13:14 - INFO] - ZeMusic - جاري تشغيل البوت
 تم التنصيب على سورس الملك بنجاح
 قناة السورس https://t.me/EF_19
+[05-Aug-25 02:58:41 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 02:58:41 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 02:58:41 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 02:58:41 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 02:58:41 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 02:58:41 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 03:00:52 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 03:00:52 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 03:00:52 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 03:00:52 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 03:00:52 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 03:00:52 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 03:14:15 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 03:14:15 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 03:14:15 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 03:14:15 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 03:14:15 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 03:14:15 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 03:14:34 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 03:14:34 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 03:14:34 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 03:14:34 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 03:14:34 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 03:14:34 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 03:14:34 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 03:14:34 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "authorized_users" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "authorized_users" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "authorized_users" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "active_chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "active_chats" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "system_settings" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد maintenance_mode: relation "system_settings" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد auto_end_enabled: relation "system_settings" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد global_search_enabled: relation "system_settings" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد max_queue_size: relation "system_settings" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد default_language: relation "system_settings" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد bot_version: relation "system_settings" does not exist
+[05-Aug-25 03:14:35 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد last_backup: relation "system_settings" does not exist
+[05-Aug-25 03:14:35 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 03:14:35 - ERROR] - ZeMusic.database.setup - الجدول المطلوب غير موجود: chats
+[05-Aug-25 03:14:35 - ERROR] - __main__ - فشل في إعداد قاعدة البيانات، توقف البوت...
+[05-Aug-25 03:14:52 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 03:14:52 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 03:14:52 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 03:14:52 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 03:14:52 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 03:14:52 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 03:14:53 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:14:53 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.migrations - تشغيل 3 تحديث معلق...
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.migrations - تم تطبيق التحديث: 1.0.0 - إضافة فهارس إضافية للأداء
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.migrations - تم تطبيق التحديث: 1.1.0 - إضافة جدول الإشعارات
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.migrations - تم تطبيق التحديث: 1.2.0 - تحسين جدول قائمة الانتظار
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.database.migrations - تم تطبيق جميع التحديثات بنجاح
+[05-Aug-25 03:14:53 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 03:14:53 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 03:14:58 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 03:15:10 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:15:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 03:15:10 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 03:15:10 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 03:15:16 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 03:15:30 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 03:15:30 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 03:15:30 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 03:15:30 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 03:15:30 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 03:15:30 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 03:15:31 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 03:15:31 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 03:15:31 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 03:15:31 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 03:15:36 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 03:15:37 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 03:15:37 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 03:15:38 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 03:15:38 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 03:16:09 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 03:16:09 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
+[05-Aug-25 03:16:30 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[05-Aug-25 03:16:30 - INFO] - ZeMusic.core.userbot - Stopping Assistants...
+[05-Aug-25 03:16:30 - INFO] - ZeMusic.core.postgres - تم قطع الاتصال بقاعدة البيانات
+[05-Aug-25 03:16:30 - INFO] - ZeMusic.core.postgres - تم إغلاق اتصال PostgreSQL
+[05-Aug-25 03:16:30 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[05-Aug-25 20:42:49 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 20:42:49 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 20:42:49 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 20:42:49 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 20:42:49 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 20:42:49 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 20:42:50 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:42:50 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 20:42:50 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 20:42:50 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 20:42:55 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 20:42:55 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 20:42:55 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 20:42:57 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 20:42:57 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 20:43:14 - ERROR] - pyrogram.dispatcher - Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 226, in handler_worker
+    if await handler.check(self.client, parsed_update):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/handlers/handler.py", line 35, in check
+    return await self.filters(client, update)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 79, in __call__
+    y = await self.other(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 48, in __call__
+    x = await self.base(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/play/Ashtrak.py", line 14, in subscription
+    await app.get_chat_member(channel, user_id)
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/chats/get_chat_member.py", line 80, in get_chat_member
+    r = await self.invoke(
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/advanced/invoke.py", line 79, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 389, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 357, in send
+    RPCError.raise_it(result, type(data))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/errors/rpc_error.py", line 91, in raise_it
+    raise getattr(
+    ...<5 lines>...
+      is_signed=is_signed)
+pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+[05-Aug-25 20:49:00 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 20:49:00 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 20:49:00 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 20:49:00 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 20:49:00 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 20:49:00 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 20:49:00 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 20:49:00 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 20:49:00 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 20:49:00 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:49:01 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 20:49:01 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 20:49:01 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 20:49:07 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 20:49:07 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 20:49:07 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 20:49:08 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 20:49:08 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 20:49:39 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 20:49:39 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
+[05-Aug-25 20:50:00 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[05-Aug-25 20:50:00 - INFO] - ZeMusic.core.userbot - Stopping Assistants...
+[05-Aug-25 20:50:00 - INFO] - ZeMusic.core.postgres - تم قطع الاتصال بقاعدة البيانات
+[05-Aug-25 20:50:00 - INFO] - ZeMusic.core.postgres - تم إغلاق اتصال PostgreSQL
+[05-Aug-25 20:50:00 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 20:53:42 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:53:42 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 20:53:42 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 20:53:42 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 20:53:47 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 20:53:47 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 20:53:47 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 20:53:49 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 20:53:49 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 20:54:44 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 20:54:44 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 20:54:44 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 20:54:44 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 20:54:44 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 20:54:44 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 20:54:45 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:54:45 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 20:54:45 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 20:54:45 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 20:54:51 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 20:54:51 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 20:54:51 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 20:54:52 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 20:54:52 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 20:55:17 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 20:55:17 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 20:55:17 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 20:55:17 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 20:55:17 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 20:55:17 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 20:55:17 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 20:55:17 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 20:55:17 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 20:55:17 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 20:55:17 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 20:55:17 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:55:17 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:55:17 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 20:55:18 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 20:55:18 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:55:18 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:55:18 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 20:55:18 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:55:18 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:55:18 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 20:55:18 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 20:55:18 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 20:55:18 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 20:55:18 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 20:55:23 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 20:55:23 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 20:55:23 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 20:55:25 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 20:55:25 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 20:55:31 - ERROR] - pyrogram.dispatcher - Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 226, in handler_worker
+    if await handler.check(self.client, parsed_update):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/handlers/handler.py", line 35, in check
+    return await self.filters(client, update)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 79, in __call__
+    y = await self.other(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 48, in __call__
+    x = await self.base(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/play/Ashtrak.py", line 14, in subscription
+    await app.get_chat_member(channel, user_id)
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/chats/get_chat_member.py", line 80, in get_chat_member
+    r = await self.invoke(
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/advanced/invoke.py", line 79, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 389, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 357, in send
+    RPCError.raise_it(result, type(data))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/errors/rpc_error.py", line 91, in raise_it
+    raise getattr(
+    ...<5 lines>...
+      is_signed=is_signed)
+pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+[05-Aug-25 21:07:42 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:07:42 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:07:42 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:07:42 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:07:42 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:07:42 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:07:43 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:07:43 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 21:07:43 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 21:07:43 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 21:07:48 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 21:07:48 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 21:07:48 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 21:07:50 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 21:07:50 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 21:08:21 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 21:08:21 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
+[05-Aug-25 21:13:12 - ERROR] - pyrogram.dispatcher - Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 226, in handler_worker
+    if await handler.check(self.client, parsed_update):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/handlers/handler.py", line 35, in check
+    return await self.filters(client, update)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 79, in __call__
+    y = await self.other(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 48, in __call__
+    x = await self.base(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/play/Ashtrak.py", line 14, in subscription
+    await app.get_chat_member(channel, user_id)
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/chats/get_chat_member.py", line 80, in get_chat_member
+    r = await self.invoke(
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/advanced/invoke.py", line 79, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 389, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 357, in send
+    RPCError.raise_it(result, type(data))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/errors/rpc_error.py", line 91, in raise_it
+    raise getattr(
+    ...<5 lines>...
+      is_signed=is_signed)
+pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+[05-Aug-25 21:14:08 - ERROR] - pyrogram.dispatcher - localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6892729eae4f9baa8a27b83f, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/workspace/ZeMusic/utils/decorators/language.py", line 56, in wrapper
+    return await mystic(_, message, language)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/bot/start.py", line 92, in start_pm
+    if await is_on_off(2):
+       ^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/utils/database.py", line 554, in is_on_off
+    onoff = await onoffdb.find_one({"on_off": on_off})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1284, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1260, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1208, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1102, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1917, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2026, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1993, in _retry_internal
+    ).run()
+      ~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2730, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2875, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2823, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1812, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
+    servers = self.select_servers(
+        selector, operation, server_selection_timeout, address, operation_id
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector, server_timeout, operation, operation_id, address
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 344, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6892729eae4f9baa8a27b83f, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+[05-Aug-25 21:14:39 - ERROR] - pyrogram.dispatcher - localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6892729eae4f9baa8a27b83f, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/workspace/ZeMusic/utils/decorators/language.py", line 56, in wrapper
+    return await mystic(_, message, language)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/bot/start.py", line 92, in start_pm
+    if await is_on_off(2):
+       ^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/utils/database.py", line 554, in is_on_off
+    onoff = await onoffdb.find_one({"on_off": on_off})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1284, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1260, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1208, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1102, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1917, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2026, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1993, in _retry_internal
+    ).run()
+      ~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2730, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2875, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2823, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1812, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
+    servers = self.select_servers(
+        selector, operation, server_selection_timeout, address, operation_id
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector, server_timeout, operation, operation_id, address
+    )
+  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 344, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6892729eae4f9baa8a27b83f, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+[05-Aug-25 21:15:47 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[05-Aug-25 21:15:48 - INFO] - ZeMusic.core.userbot - Stopping Assistants...
+[05-Aug-25 21:15:48 - INFO] - ZeMusic.core.postgres - تم قطع الاتصال بقاعدة البيانات
+[05-Aug-25 21:15:48 - INFO] - ZeMusic.core.postgres - تم إغلاق اتصال PostgreSQL
+[05-Aug-25 21:15:48 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:15:52 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:15:52 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 21:15:52 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 21:15:52 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 21:15:58 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 21:15:58 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 21:15:58 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 21:16:00 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 21:16:00 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 21:16:31 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 21:16:31 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
+[05-Aug-25 21:20:03 - ERROR] - pyrogram.dispatcher - Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 226, in handler_worker
+    if await handler.check(self.client, parsed_update):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/handlers/handler.py", line 35, in check
+    return await self.filters(client, update)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 79, in __call__
+    y = await self.other(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 48, in __call__
+    x = await self.base(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/play/Ashtrak.py", line 14, in subscription
+    await app.get_chat_member(channel, user_id)
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/chats/get_chat_member.py", line 80, in get_chat_member
+    r = await self.invoke(
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/advanced/invoke.py", line 79, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 389, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 357, in send
+    RPCError.raise_it(result, type(data))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/errors/rpc_error.py", line 91, in raise_it
+    raise getattr(
+    ...<5 lines>...
+      is_signed=is_signed)
+pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+[05-Aug-25 21:20:14 - ERROR] - pyrogram.dispatcher - Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 226, in handler_worker
+    if await handler.check(self.client, parsed_update):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/handlers/handler.py", line 35, in check
+    return await self.filters(client, update)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 79, in __call__
+    y = await self.other(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 48, in __call__
+    x = await self.base(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/play/Ashtrak.py", line 14, in subscription
+    await app.get_chat_member(channel, user_id)
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/chats/get_chat_member.py", line 80, in get_chat_member
+    r = await self.invoke(
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/advanced/invoke.py", line 79, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 389, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 357, in send
+    RPCError.raise_it(result, type(data))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/errors/rpc_error.py", line 91, in raise_it
+    raise getattr(
+    ...<5 lines>...
+      is_signed=is_signed)
+pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+[05-Aug-25 21:22:50 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:22:50 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:22:50 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:22:50 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:22:50 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:22:50 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:23:52 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[05-Aug-25 21:23:53 - INFO] - ZeMusic.core.userbot - Stopping Assistants...
+[05-Aug-25 21:23:53 - INFO] - ZeMusic.core.postgres - تم قطع الاتصال بقاعدة البيانات
+[05-Aug-25 21:23:53 - INFO] - ZeMusic.core.postgres - تم إغلاق اتصال PostgreSQL
+[05-Aug-25 21:23:53 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[05-Aug-25 21:23:56 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:23:56 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:23:56 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:23:56 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:23:56 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:23:56 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:23:57 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:23:57 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 21:23:57 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 21:23:57 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 21:24:02 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 21:24:02 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 21:24:02 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 21:24:04 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 21:24:04 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 21:24:35 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 21:24:35 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
+[05-Aug-25 21:28:27 - ERROR] - pyrogram.dispatcher - Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 226, in handler_worker
+    if await handler.check(self.client, parsed_update):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/handlers/handler.py", line 35, in check
+    return await self.filters(client, update)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 79, in __call__
+    y = await self.other(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 48, in __call__
+    x = await self.base(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/play/Ashtrak.py", line 14, in subscription
+    await app.get_chat_member(channel, user_id)
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/chats/get_chat_member.py", line 80, in get_chat_member
+    r = await self.invoke(
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/advanced/invoke.py", line 79, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 389, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 357, in send
+    RPCError.raise_it(result, type(data))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/errors/rpc_error.py", line 91, in raise_it
+    raise getattr(
+    ...<5 lines>...
+      is_signed=is_signed)
+pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+[05-Aug-25 21:32:28 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[05-Aug-25 21:32:28 - INFO] - ZeMusic.core.userbot - Stopping Assistants...
+[05-Aug-25 21:32:28 - INFO] - ZeMusic.core.postgres - تم قطع الاتصال بقاعدة البيانات
+[05-Aug-25 21:32:28 - INFO] - ZeMusic.core.postgres - تم إغلاق اتصال PostgreSQL
+[05-Aug-25 21:32:28 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:32:33 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 21:32:33 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 21:32:38 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 21:32:38 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 21:32:38 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 21:32:40 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 21:32:40 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 21:33:11 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 21:33:11 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
+[05-Aug-25 21:34:46 - ERROR] - pyrogram.dispatcher - Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 226, in handler_worker
+    if await handler.check(self.client, parsed_update):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/handlers/handler.py", line 35, in check
+    return await self.filters(client, update)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 79, in __call__
+    y = await self.other(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 48, in __call__
+    x = await self.base(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/play/Ashtrak.py", line 14, in subscription
+    await app.get_chat_member(channel, user_id)
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/chats/get_chat_member.py", line 80, in get_chat_member
+    r = await self.invoke(
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/advanced/invoke.py", line 79, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 389, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 357, in send
+    RPCError.raise_it(result, type(data))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/errors/rpc_error.py", line 91, in raise_it
+    raise getattr(
+    ...<5 lines>...
+      is_signed=is_signed)
+pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+[05-Aug-25 21:36:03 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:36:03 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:36:03 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:36:03 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:36:03 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:36:03 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:36:34 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[05-Aug-25 21:36:34 - INFO] - ZeMusic.core.userbot - Stopping Assistants...
+[05-Aug-25 21:36:34 - INFO] - ZeMusic.core.postgres - تم قطع الاتصال بقاعدة البيانات
+[05-Aug-25 21:36:34 - INFO] - ZeMusic.core.postgres - تم إغلاق اتصال PostgreSQL
+[05-Aug-25 21:36:34 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[05-Aug-25 21:36:39 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:36:39 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:36:39 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:36:39 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:36:39 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:36:39 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:36:40 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:36:40 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 21:36:40 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 21:36:40 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 21:36:46 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 21:36:46 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 21:36:46 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 21:36:48 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 21:36:48 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 21:38:12 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 21:38:12 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
+[05-Aug-25 21:42:44 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:42:44 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:42:44 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:42:44 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:42:44 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:42:44 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:44:05 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[05-Aug-25 21:44:05 - INFO] - ZeMusic.core.userbot - Stopping Assistants...
+[05-Aug-25 21:44:05 - INFO] - ZeMusic.core.postgres - تم قطع الاتصال بقاعدة البيانات
+[05-Aug-25 21:44:05 - INFO] - ZeMusic.core.postgres - تم إغلاق اتصال PostgreSQL
+[05-Aug-25 21:44:05 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:44:10 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:44:10 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 21:44:10 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 21:44:10 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 21:44:16 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[05-Aug-25 21:44:16 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 21:44:16 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 21:44:18 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 21:44:18 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 21:45:24 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 21:45:24 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19

@@ -1,0 +1,117 @@
+🚀 بدء تشغيل بوت الموسيقى...
+📦 تفعيل البيئة الافتراضية...
+🗄️ التحقق من حالة PostgreSQL...
+🔍 التحقق من الاتصال بقاعدة البيانات...
+✅ PostgreSQL يعمل بنجاح!
+🔧 تحميل متغيرات البيئة...
+🎵 بدء تشغيل البوت...
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 21:32:33 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 21:32:33 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[05-Aug-25 21:32:33 - INFO] - __main__ - تم إعداد PostgreSQL بنجاح ✅
+[05-Aug-25 21:32:33 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[05-Aug-25 21:32:38 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+/workspace/ZeMusic/plugins/play/download.py:148: RuntimeWarning: coroutine 'init_db' was never awaited
+  init_db()
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+[05-Aug-25 21:32:38 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[05-Aug-25 21:32:38 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[05-Aug-25 21:32:40 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[05-Aug-25 21:32:40 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[05-Aug-25 21:33:11 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 21:33:11 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
+[05-Aug-25 21:34:46 - ERROR] - pyrogram.dispatcher - Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 226, in handler_worker
+    if await handler.check(self.client, parsed_update):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/handlers/handler.py", line 35, in check
+    return await self.filters(client, update)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 79, in __call__
+    y = await self.other(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/filters.py", line 48, in __call__
+    x = await self.base(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ZeMusic/plugins/play/Ashtrak.py", line 14, in subscription
+    await app.get_chat_member(channel, user_id)
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/chats/get_chat_member.py", line 80, in get_chat_member
+    r = await self.invoke(
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/advanced/invoke.py", line 79, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 389, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/session/session.py", line 357, in send
+    RPCError.raise_it(result, type(data))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/errors/rpc_error.py", line 91, in raise_it
+    raise getattr(
+    ...<5 lines>...
+      is_signed=is_signed)
+pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
+ERROR: [youtube] cTXLxXj88kw: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+[05-Aug-25 21:36:34 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[05-Aug-25 21:36:34 - INFO] - ZeMusic.core.userbot - Stopping Assistants...
+[05-Aug-25 21:36:34 - INFO] - ZeMusic.core.postgres - تم قطع الاتصال بقاعدة البيانات
+[05-Aug-25 21:36:34 - INFO] - ZeMusic.core.postgres - تم إغلاق اتصال PostgreSQL
+[05-Aug-25 21:36:34 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[PATCH] ntgcalls compatibility aliases created successfully
+PyTgCalls v1.0.9 powered by NTgCalls v1.2.3, Copyright (C) 2021-2025 Laky-64 <https://github.com/Laky-64>
+Licensed under the terms of the GNU Lesser General Public License v3 or later (LGPLv3+)
+
+[93mUpdate Available!
+New PyTgCalls v2.2.5 is now available!
+[0m
+خطأ في تسجيل البحث: null value in column "user_id" of relation "search_history" violates not-null constraint
+DETAIL:  Failing row contains (1, null, null, عليكي عيون, cTXLxXj88kw, 0, youtube, ar, 2025-08-05 21:34:47.433184, 0, f, t, null).
+خطأ في قاعدة البيانات: relation "audio_files" does not exist
+خطأ في التحميل الأصلي: ERROR: [youtube] cTXLxXj88kw: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+فشلت خدمة التحويل https://api.vevioz.com/api/widget/mp3: Expecting value: line 1 column 1 (char 0)
+فشلت خدمة التحويل https://yt5s.com/en/api/convert: Expecting value: line 1 column 1 (char 0)
+فشلت خدمة التحويل https://api.onlinevideoconverter.pro/api/convert: 'download_url'
+جميع خدمات التحويل فشلت
+I m not admin in the MUST_JOIN chat eei_5o!

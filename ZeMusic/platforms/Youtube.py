@@ -151,6 +151,9 @@ class YouTubeAPI:
             "-f",
             "best[height<=?720][width<=?1280]",
             f"--cookies {cookies()}",
+            "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "--extractor-retries", "3",
+            "--retries", "3",
             f"{link}",
         ]
         proc = await asyncio.create_subprocess_exec(
@@ -162,7 +165,35 @@ class YouTubeAPI:
         if stdout:
             return 1, stdout.decode().split("\n")[0]
         else:
-            return 0, stderr.decode()
+            error_msg = stderr.decode()
+            # Try with different user agent if bot detection
+            if "Sign in to confirm you're not a bot" in error_msg:
+                # Try with different approach
+                try:
+                    import config
+                    if hasattr(config, 'INVIDIOUS_SERVERS') and config.INVIDIOUS_SERVERS:
+                        # Extract video ID and try with Invidious
+                        video_id = link.split('/')[-1] if '/' in link else link.split('=')[-1]
+                        invidious_url = f"{config.INVIDIOUS_SERVERS[0]}/watch?v={video_id}"
+                        cmd_fallback = [
+                            "yt-dlp",
+                            "-g",
+                            "-f",
+                            "best[height<=?720][width<=?1280]",
+                            "--user-agent", "Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36",
+                            invidious_url,
+                        ]
+                        proc2 = await asyncio.create_subprocess_exec(
+                            *cmd_fallback,
+                            stdout=asyncio.subprocess.PIPE,
+                            stderr=asyncio.subprocess.PIPE,
+                        )
+                        stdout2, _ = await proc2.communicate()
+                        if stdout2:
+                            return 1, stdout2.decode().split("\n")[0]
+                except:
+                    pass
+            return 0, error_msg
 
     async def playlist(self, link, limit, videoid: Union[bool, str] = None):
         if videoid:
@@ -172,7 +203,8 @@ class YouTubeAPI:
 
         cmd = (
             f"yt-dlp -i --compat-options no-youtube-unavailable-videos "
-            f'--get-id --flat-playlist --playlist-end {limit} --skip-download "{link}" '
+            f'--cookies {cookies()} --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" '
+            f'--extractor-retries 3 --retries 3 --get-id --flat-playlist --playlist-end {limit} --skip-download "{link}" '
             f"2>/dev/null"
         )
 
@@ -319,6 +351,12 @@ class YouTubeAPI:
                 "quiet": True,
                 "no_warnings": True,
                 "cookiefile": f"{cookies()}",
+                "extractor_retries": 5,
+                "retries": 5,
+                "fragment_retries": 5,
+                "http_headers": {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                },
             }
 
             x = YoutubeDL(ydl_optssx)

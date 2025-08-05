@@ -551,24 +551,49 @@ async def remove_nonadmin_chat(chat_id: int):
 
 
 async def is_on_off(on_off: int) -> bool:
-    onoff = await onoffdb.find_one({"on_off": on_off})
-    if not onoff:
-        return False
-    return True
+    if config.DATABASE_TYPE == "postgresql":
+        from ZeMusic.core.postgres import fetch_value
+        try:
+            result = await fetch_value("SELECT value FROM system_settings WHERE key = $1", f"on_off_{on_off}")
+            return result is not None and result == "true"
+        except:
+            return False
+    else:
+        onoff = await onoffdb.find_one({"on_off": on_off})
+        if not onoff:
+            return False
+        return True
 
 
 async def add_on(on_off: int):
-    is_on = await is_on_off(on_off)
-    if is_on:
-        return
-    return await onoffdb.insert_one({"on_off": on_off})
+    if config.DATABASE_TYPE == "postgresql":
+        from ZeMusic.core.postgres import execute_query
+        try:
+            await execute_query(
+                "INSERT INTO system_settings (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = $2",
+                f"on_off_{on_off}", "true"
+            )
+        except:
+            pass
+    else:
+        is_on = await is_on_off(on_off)
+        if is_on:
+            return
+        return await onoffdb.insert_one({"on_off": on_off})
 
 
 async def add_off(on_off: int):
-    is_off = await is_on_off(on_off)
-    if not is_off:
-        return
-    return await onoffdb.delete_one({"on_off": on_off})
+    if config.DATABASE_TYPE == "postgresql":
+        from ZeMusic.core.postgres import execute_query
+        try:
+            await execute_query("DELETE FROM system_settings WHERE key = $1", f"on_off_{on_off}")
+        except:
+            pass
+    else:
+        is_off = await is_on_off(on_off)
+        if not is_off:
+            return
+        return await onoffdb.delete_one({"on_off": on_off})
 
 
 async def is_maintenance():

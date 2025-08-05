@@ -14,6 +14,9 @@ async def subscription(_, __: Client, message: Message):
         await app.get_chat_member(channel, user_id)
     except UserNotParticipant: 
         return False
+    except Exception:
+        # إذا فشل التحقق (مثل عدم وجود صلاحيات)، اسمح بالمرور
+        return True
     return True
     
 subscribed = filters.create(subscription)

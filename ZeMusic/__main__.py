@@ -1,6 +1,12 @@
 import asyncio
 import importlib
 
+# Apply compatibility patch before importing pytgcalls
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import ntgcalls_patch
+
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
 
@@ -64,10 +70,9 @@ async def init():
     try:
         await Mody.stream_call("https://te.legra.ph/file/29f784eb49d230ab62e9e.mp4")
     except NoActiveGroupCall:
-        LOGGER("ZeMusic").error(
-            "Please turn on the videochat of your log group\channel.\n\nStopping Bot..."
+        LOGGER("ZeMusic").warning(
+            "No active group call found. Bot will continue without initial stream..."
         )
-        exit()
     except:
         pass
     await Mody.decorators()
