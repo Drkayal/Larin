@@ -8,15 +8,15 @@ from typing import Optional, Dict, Any, List
 from dataclasses import dataclass, field
 import json
 
-@dataclass
 class BaseModel:
     """
     النموذج الأساسي لجميع جداول قاعدة البيانات
     """
     
-    # الحقول المشتركة
-    created_at: Optional[datetime] = field(default_factory=datetime.utcnow)
-    updated_at: Optional[datetime] = field(default_factory=datetime.utcnow)
+    def __init__(self):
+        """تهيئة الحقول المشتركة"""
+        self.created_at = datetime.utcnow()
+        self.updated_at = datetime.utcnow()
     
     def to_dict(self) -> Dict[str, Any]:
         """تحويل النموذج إلى قاموس"""

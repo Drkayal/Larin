@@ -138,11 +138,40 @@ COOKIE_METHOD = "browser"
 COOKIE_FILE = COOKIES_FILES[0] if COOKIES_FILES else "cookies.txt"
 
 # ============================================
+# إعدادات نظام التحميل المتقدم والتخزين المؤقت
+# ============================================
+MAX_CONCURRENT_DOWNLOADS = int(getenv("MAX_CONCURRENT_DOWNLOADS", 50))  # زيادة للآلاف من المستخدمين
+CACHE_EXPIRATION_HOURS = int(getenv("CACHE_EXPIRATION_HOURS", 168))  # أسبوع كامل
+MAX_AUDIO_SIZE_MB = int(getenv("MAX_AUDIO_SIZE_MB", 0))  # 0 = بدون حدود
+ENABLE_AUDIO_OPTIMIZATION = bool(getenv("ENABLE_AUDIO_OPTIMIZATION", True))
+DOWNLOADS_DIR = getenv("DOWNLOADS_DIR", "downloads")
+ENABLE_SEARCH_CACHE = bool(getenv("ENABLE_SEARCH_CACHE", True))
+CACHE_MAX_SIZE = int(getenv("CACHE_MAX_SIZE", 10000))  # زيادة للآلاف من المستخدمين
+AUDIO_QUALITY = getenv("AUDIO_QUALITY", "320")  # أعلى جودة افتراضية
+ENABLE_DOWNLOAD_STATS = bool(getenv("ENABLE_DOWNLOAD_STATS", True))
+CLEANUP_INTERVAL_HOURS = int(getenv("CLEANUP_INTERVAL_HOURS", 24))  # تنظيف يومي
+
+# إعدادات yt-dlp المتقدمة
+YT_DLP_RETRIES = int(getenv("YT_DLP_RETRIES", 30))
+YT_DLP_FRAGMENT_RETRIES = int(getenv("YT_DLP_FRAGMENT_RETRIES", 30))
+YT_DLP_SOCKET_TIMEOUT = int(getenv("YT_DLP_SOCKET_TIMEOUT", 60))
+YT_DLP_THROTTLED_RATE_LIMIT = int(getenv("YT_DLP_THROTTLED_RATE_LIMIT", 5000000))
+YT_DLP_RATE_LIMIT = int(getenv("YT_DLP_RATE_LIMIT", 6000000))
+YT_DLP_BUFFER_SIZE = int(getenv("YT_DLP_BUFFER_SIZE", 32768))  # 4096 * 8
+YT_DLP_HTTP_CHUNK_SIZE = int(getenv("YT_DLP_HTTP_CHUNK_SIZE", 10485760))
+
+# إعدادات FFmpeg للتحسين
+FFMPEG_AUDIO_CODEC = getenv("FFMPEG_AUDIO_CODEC", "mp3")
+FFMPEG_AUDIO_BITRATE = getenv("FFMPEG_AUDIO_BITRATE", "320k")  # متطابق مع AUDIO_QUALITY
+FFMPEG_AUDIO_CHANNELS = int(getenv("FFMPEG_AUDIO_CHANNELS", 2))
+FFMPEG_SAMPLE_RATE = int(getenv("FFMPEG_SAMPLE_RATE", 44100))
+
+# ============================================
 CHANNEL_NAME = getenv("CHANNEL_NAME", "السورس")
 CHANNEL_LINK = getenv("CHANNEL_LINK", "K55DD")
 STORE_NAME = getenv("STORE_NAME", "المتجر")
 STORE_LINK = getenv("STORE_LINK", "YMMYN")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "K55DD")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/K55DD")
 
 # Set this to True if you want the assistant to automatically leave chats after an interval
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", True))

@@ -678,9 +678,233 @@ class BanDAL(BaseDAL):
             LOGGER(__name__).error(f"خطأ في إزالة حظر المحادثة {chat_id}: {e}")
             return False
 
+class DownloadDAL(BaseDAL):
+    """
+    طبقة الوصول لبيانات التحميل والتخزين المؤقت
+    """
+    
+    async def get_cached_audio(self, video_id: str) -> Optional[Dict[str, Any]]:
+        """
+        جلب معلومات الملف الصوتي من التخزين المؤقت
+        """
+        query = """
+        SELECT video_id, title, uploader, duration, file_path, file_size, 
+               audio_quality, file_format, thumbnail_url, view_count, 
+               like_count, upload_date, download_count, last_accessed, 
+               is_available, metadata
+        FROM audio_cache 
+        WHERE video_id = $1 AND is_available = TRUE
+        """
+        result = await self._fetch_one(query, video_id)
+        
+        if result:
+            # تحديث آخر وصول
+            await self.update_last_accessed(video_id)
+            
+        return result
+    
+    async def save_audio_cache(self, video_info: Dict[str, Any]) -> bool:
+        """
+        حفظ معلومات الملف الصوتي في التخزين المؤقت
+        """
+        query = """
+        INSERT INTO audio_cache (
+            video_id, title, uploader, duration, file_path, file_size,
+            audio_quality, file_format, thumbnail_url, view_count,
+            like_count, upload_date, metadata
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+        ON CONFLICT (video_id) 
+        DO UPDATE SET
+            title = EXCLUDED.title,
+            file_path = EXCLUDED.file_path,
+            file_size = EXCLUDED.file_size,
+            download_count = audio_cache.download_count + 1,
+            last_accessed = CURRENT_TIMESTAMP,
+            updated_at = CURRENT_TIMESTAMP
+        """
+        
+        try:
+            await self._execute(
+                query,
+                video_info.get('video_id'),
+                video_info.get('title'),
+                video_info.get('uploader'),
+                video_info.get('duration', 0),
+                video_info.get('file_path'),
+                video_info.get('file_size', 0),
+                video_info.get('audio_quality', '320'),
+                video_info.get('file_format', 'mp3'),
+                video_info.get('thumbnail_url'),
+                video_info.get('view_count', 0),
+                video_info.get('like_count', 0),
+                video_info.get('upload_date'),
+                video_info.get('metadata', {})
+            )
+            return True
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في حفظ التخزين المؤقت: {e}")
+            return False
+    
+    async def update_last_accessed(self, video_id: str) -> bool:
+        """
+        تحديث آخر وقت وصول للملف
+        """
+        query = """
+        UPDATE audio_cache 
+        SET last_accessed = CURRENT_TIMESTAMP 
+        WHERE video_id = $1
+        """
+        try:
+            await self._execute(query, video_id)
+            return True
+        except:
+            return False
+    
+    async def get_search_history(self, query: str, limit: int = 10) -> List[Dict[str, Any]]:
+        """
+        جلب تاريخ البحث للاستعلام المحدد
+        """
+        search_query = """
+        SELECT DISTINCT sh.video_id, sh.query, ac.title, ac.uploader, 
+               sh.created_at, ac.download_count
+        FROM search_history sh
+        LEFT JOIN audio_cache ac ON sh.video_id = ac.video_id
+        WHERE sh.query ILIKE $1 AND sh.success = TRUE
+        ORDER BY sh.created_at DESC, ac.download_count DESC NULLS LAST
+        LIMIT $2
+        """
+        return await self._fetch_all(search_query, f"%{query}%", limit)
+    
+    async def log_search(self, user_id: int, chat_id: int, query: str, 
+                        video_id: str = None, result_count: int = 0,
+                        response_time_ms: int = 0, was_cached: bool = False,
+                        success: bool = True, error_message: str = None) -> bool:
+        """
+        تسجيل عملية البحث
+        """
+        insert_query = """
+        INSERT INTO search_history (
+            user_id, chat_id, query, video_id, result_count, 
+            response_time_ms, was_cached, success, error_message
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        """
+        
+        try:
+            await self._execute(
+                insert_query, user_id, chat_id, query, video_id,
+                result_count, response_time_ms, was_cached, success, error_message
+            )
+            return True
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في تسجيل البحث: {e}")
+            return False
+    
+    async def log_download(self, user_id: int, chat_id: int, video_id: str,
+                          audio_title: str, file_size: int = 0,
+                          download_time_seconds: int = 0, audio_quality: str = '320',
+                          was_cached: bool = False, success: bool = True,
+                          error_code: str = None, error_message: str = None) -> bool:
+        """
+        تسجيل عملية التحميل
+        """
+        insert_query = """
+        INSERT INTO download_stats (
+            user_id, chat_id, video_id, audio_title, file_size,
+            download_time_seconds, audio_quality, was_cached, 
+            success, error_code, error_message
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        """
+        
+        try:
+            await self._execute(
+                insert_query, user_id, chat_id, video_id, audio_title,
+                file_size, download_time_seconds, audio_quality, was_cached,
+                success, error_code, error_message
+            )
+            return True
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في تسجيل التحميل: {e}")
+            return False
+    
+    async def get_popular_content(self, limit: int = 50) -> List[Dict[str, Any]]:
+        """
+        جلب المحتوى الأكثر شعبية
+        """
+        query = """
+        SELECT video_id, title, uploader, download_count, 
+               unique_users_count, trending_score, last_downloaded
+        FROM popular_content
+        ORDER BY trending_score DESC, download_count DESC
+        LIMIT $1
+        """
+        return await self._fetch_all(query, limit)
+    
+    async def update_popular_content(self, video_id: str, title: str, 
+                                   uploader: str = None) -> bool:
+        """
+        تحديث إحصائيات المحتوى الشعبي
+        """
+        query = """
+        INSERT INTO popular_content (video_id, title, uploader, download_count, unique_users_count)
+        VALUES ($1, $2, $3, 1, 1)
+        ON CONFLICT (video_id)
+        DO UPDATE SET
+            download_count = popular_content.download_count + 1,
+            last_downloaded = CURRENT_TIMESTAMP,
+            trending_score = (popular_content.download_count + 1) * 
+                           (EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - popular_content.created_at)) / 86400.0 + 1),
+            updated_at = CURRENT_TIMESTAMP
+        """
+        
+        try:
+            await self._execute(query, video_id, title, uploader)
+            return True
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في تحديث المحتوى الشعبي: {e}")
+            return False
+    
+    async def cleanup_old_cache(self, days_old: int = 7) -> int:
+        """
+        تنظيف الملفات القديمة من التخزين المؤقت
+        """
+        query = """
+        DELETE FROM audio_cache 
+        WHERE last_accessed < CURRENT_TIMESTAMP - INTERVAL '%s days'
+        AND download_count < 5
+        """
+        
+        try:
+            result = await self._execute(query % days_old)
+            return int(result.split()[-1]) if result else 0
+        except Exception as e:
+            LOGGER(__name__).error(f"خطأ في تنظيف التخزين المؤقت: {e}")
+            return 0
+    
+    async def get_download_stats_summary(self, days: int = 30) -> Dict[str, Any]:
+        """
+        جلب ملخص إحصائيات التحميل
+        """
+        query = """
+        SELECT 
+            COUNT(*) as total_downloads,
+            COUNT(DISTINCT user_id) as unique_users,
+            COUNT(DISTINCT video_id) as unique_videos,
+            AVG(download_time_seconds) as avg_download_time,
+            SUM(file_size) as total_size_bytes,
+            COUNT(CASE WHEN was_cached THEN 1 END) as cached_downloads,
+            COUNT(CASE WHEN success THEN 1 END) as successful_downloads
+        FROM download_stats
+        WHERE download_date >= CURRENT_TIMESTAMP - INTERVAL '%s days'
+        """
+        
+        result = await self._fetch_one(query % days)
+        return result or {}
+
+
 # إنشاء instances عامة
 user_dal = UserDAL()
 chat_dal = ChatDAL()
 chat_settings_dal = ChatSettingsDAL()
 auth_dal = AuthDAL()
 ban_dal = BanDAL()
+download_dal = DownloadDAL()

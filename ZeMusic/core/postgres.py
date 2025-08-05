@@ -11,6 +11,29 @@ from ZeMusic.logging import LOGGER
 # Global connection pool
 _connection_pool: Optional[Pool] = None
 
+@asynccontextmanager
+async def get_postgres_connection():
+    """
+    الحصول على اتصال PostgreSQL من pool
+    """
+    global _connection_pool
+    
+    if not _connection_pool:
+        # إنشاء pool جديد إذا لم يكن موجوداً
+        try:
+            _connection_pool = await asyncpg.create_pool(
+                config.POSTGRES_URI,
+                min_size=5,
+                max_size=20,
+                timeout=30.0
+            )
+        except Exception as e:
+            LOGGER(__name__).error(f"فشل في إنشاء pool PostgreSQL: {e}")
+            raise
+    
+    async with _connection_pool.acquire() as connection:
+        yield connection
+
 class PostgreSQLConnection:
     """
     PostgreSQL Connection Manager

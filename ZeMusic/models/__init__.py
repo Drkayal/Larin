@@ -10,6 +10,7 @@ from .auth import AuthorizedUser, SudoUser
 from .bans import BannedUser, GBannedUser, BlacklistedChat
 from .activity import ActiveChat, PlayQueue, Assistant
 from .system import SystemSetting, BotStats, ActivityLog
+from .downloads import AudioCache, SearchHistory, DownloadStats, CacheMetrics, PopularContent
 
 __all__ = [
     # Base
@@ -38,4 +39,11 @@ __all__ = [
     "SystemSetting",
     "BotStats",
     "ActivityLog",
+    
+    # Downloads & Cache
+    "AudioCache",
+    "SearchHistory",
+    "DownloadStats",
+    "CacheMetrics",
+    "PopularContent",
 ]

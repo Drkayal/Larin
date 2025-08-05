@@ -6,7 +6,10 @@ from pyrogram import __version__ as pyrover
 from pyrogram import filters
 from pyrogram.errors import MessageIdInvalid
 from pyrogram.types import InputMediaPhoto, Message
-from pytgcalls.__version__ import __version__ as pytgver
+try:
+    from pytgcalls.__version__ import __version__ as pytgver
+except ImportError:
+    pytgver = "1.0.9"
 
 import config
 from ZeMusic import app

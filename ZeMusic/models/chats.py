@@ -5,38 +5,55 @@ Chat Models
 
 from datetime import datetime
 from typing import Optional, Dict, Any
-from dataclasses import dataclass, field
 
 from .base import BaseModel
 
-@dataclass
 class Chat(BaseModel):
     """
     نموذج المحادثة
     يمثل جدول chats في قاعدة البيانات
     """
     
-    # المعرف الأساسي
-    chat_id: int
+    def __init__(self, chat_id: int, chat_type: str, title: Optional[str] = None,
+                 username: Optional[str] = None, description: Optional[str] = None,
+                 member_count: int = 0, is_active: bool = True,
+                 joined_at: Optional[datetime] = None, 
+                 last_activity: Optional[datetime] = None,
+                 created_at: Optional[datetime] = None,
+                 updated_at: Optional[datetime] = None):
+        """تهيئة نموذج المحادثة"""
+        super().__init__()
+        
+        # المعرف الأساسي
+        self.chat_id = chat_id
+        
+        # نوع المحادثة
+        self.chat_type = chat_type
+        
+        # معلومات المحادثة
+        self.title = title
+        self.username = username
+        self.description = description
+        self.member_count = member_count
+        
+        # حالة المحادثة
+        self.is_active = is_active
+        
+        # التواريخ
+        self.joined_at = joined_at or datetime.utcnow()
+        self.last_activity = last_activity or datetime.utcnow()
+        
+        # تحديث التواريخ المشتركة إذا تم تمريرها
+        if created_at:
+            self.created_at = created_at
+        if updated_at:
+            self.updated_at = updated_at
+        
+        # التحقق من صحة البيانات وتنظيفها
+        self.validate()
     
-    # نوع المحادثة
-    chat_type: str  # 'private', 'group', 'supergroup', 'channel'
-    
-    # معلومات المحادثة
-    title: Optional[str] = None
-    username: Optional[str] = None
-    description: Optional[str] = None
-    member_count: int = 0
-    
-    # حالة المحادثة
-    is_active: bool = True
-    
-    # التواريخ
-    joined_at: datetime = field(default_factory=datetime.utcnow)
-    last_activity: datetime = field(default_factory=datetime.utcnow)
-    
-    def __post_init__(self):
-        """تنفيذ بعد إنشاء النموذج"""
+    def validate(self):
+        """التحقق من صحة البيانات وتنظيفها"""
         # التأكد من صحة chat_id
         if not isinstance(self.chat_id, int):
             raise ValueError("chat_id يجب أن يكون رقم صحيح")
@@ -44,7 +61,7 @@ class Chat(BaseModel):
         # التأكد من نوع المحادثة
         valid_types = ['private', 'group', 'supergroup', 'channel']
         if self.chat_type not in valid_types:
-            raise ValueError(f"chat_type يجب أن يكون أحد: {valid_types}")
+            raise ValueError(f"chat_type يجب أن يكون من: {valid_types}")
         
         # تنظيف البيانات
         if self.title:
@@ -71,69 +88,86 @@ class Chat(BaseModel):
     
     @property
     def display_name(self) -> str:
-        """اسم العرض للمحادثة"""
+        """الاسم المعروض للمحادثة"""
         if self.title:
             return self.title
-        if self.username:
+        elif self.username:
             return f"@{self.username}"
-        return f"Chat {abs(self.chat_id)}"
+        else:
+            return str(self.chat_id)
     
     def update_activity(self):
-        """تحديث آخر نشاط"""
+        """تحديث وقت آخر نشاط"""
         self.last_activity = datetime.utcnow()
-        self.update_timestamp()
+        self.updated_at = datetime.utcnow()
     
     def update_member_count(self, count: int):
         """تحديث عدد الأعضاء"""
-        self.member_count = max(0, count)
-        self.update_timestamp()
+        if count >= 0:
+            self.member_count = count
+            self.updated_at = datetime.utcnow()
     
-    @classmethod
-    def from_telegram_chat(cls, telegram_chat):
-        """إنشاء من كائن Telegram Chat"""
-        return cls(
-            chat_id=telegram_chat.id,
-            chat_type=telegram_chat.type.value if hasattr(telegram_chat.type, 'value') else str(telegram_chat.type),
-            title=telegram_chat.title,
-            username=telegram_chat.username,
-            description=getattr(telegram_chat, 'description', None),
-            member_count=getattr(telegram_chat, 'members_count', 0),
-        )
+    def deactivate(self):
+        """إلغاء تفعيل المحادثة"""
+        self.is_active = False
+        self.updated_at = datetime.utcnow()
     
-    def __str__(self) -> str:
-        return f"Chat({self.chat_id}, {self.display_name})"
+    def activate(self):
+        """تفعيل المحادثة"""
+        self.is_active = True
+        self.updated_at = datetime.utcnow()
 
 
-@dataclass 
 class ChatSettings(BaseModel):
     """
     نموذج إعدادات المحادثة
     يمثل جدول chat_settings في قاعدة البيانات
     """
     
-    # المعرف الأساسي
-    id: Optional[int] = field(default=None)
-    chat_id: int = 0
+    def __init__(self, chat_id: int, id: Optional[int] = None,
+                 language: str = "ar", play_mode: str = "everyone", 
+                 play_type: str = "music", channel_play_mode: Optional[int] = None,
+                 upvote_count: int = 5, auto_end: bool = False,
+                 skip_mode: bool = True, non_admin_commands: bool = False,
+                 search_enabled: bool = True, welcome_enabled: bool = False,
+                 logs_enabled: bool = False,
+                 created_at: Optional[datetime] = None,
+                 updated_at: Optional[datetime] = None):
+        """تهيئة نموذج إعدادات المحادثة"""
+        super().__init__()
+        
+        # المعرف الأساسي
+        self.chat_id = chat_id
+        self.id = id
+        
+        # إعدادات اللغة والتشغيل
+        self.language = language
+        self.play_mode = play_mode
+        self.play_type = play_type
+        
+        # إعدادات متقدمة
+        self.channel_play_mode = channel_play_mode
+        self.upvote_count = upvote_count
+        self.auto_end = auto_end
+        self.skip_mode = skip_mode
+        self.non_admin_commands = non_admin_commands
+        
+        # إعدادات الميزات
+        self.search_enabled = search_enabled
+        self.welcome_enabled = welcome_enabled
+        self.logs_enabled = logs_enabled
+        
+        # تحديث التواريخ المشتركة إذا تم تمريرها
+        if created_at:
+            self.created_at = created_at
+        if updated_at:
+            self.updated_at = updated_at
+        
+        # التحقق من صحة البيانات وتنظيفها
+        self.validate()
     
-    # إعدادات اللغة والتشغيل
-    language: str = "ar"
-    play_mode: str = "everyone"  # 'everyone', 'admins'
-    play_type: str = "music"     # 'music', 'video'
-    
-    # إعدادات متقدمة
-    channel_play_mode: Optional[int] = None
-    upvote_count: int = 5
-    auto_end: bool = False
-    skip_mode: bool = True
-    non_admin_commands: bool = False
-    
-    # إعدادات الميزات
-    search_enabled: bool = True
-    welcome_enabled: bool = False
-    logs_enabled: bool = False
-    
-    def __post_init__(self):
-        """تنفيذ بعد إنشاء النموذج"""
+    def validate(self):
+        """التحقق من صحة البيانات وتنظيفها"""
         # التأكد من صحة chat_id
         if not isinstance(self.chat_id, int):
             raise ValueError("chat_id يجب أن يكون رقم صحيح")
@@ -160,52 +194,48 @@ class ChatSettings(BaseModel):
     
     def update_play_mode(self, mode: str):
         """تحديث وضع التشغيل"""
-        if mode in ['everyone', 'admins']:
+        valid_modes = ['everyone', 'admins']
+        if mode in valid_modes:
             self.play_mode = mode
             self.update_timestamp()
     
     def update_play_type(self, play_type: str):
         """تحديث نوع التشغيل"""
-        if play_type in ['music', 'video']:
+        valid_types = ['music', 'video']
+        if play_type in valid_types:
             self.play_type = play_type
             self.update_timestamp()
     
-    def update_upvote_count(self, count: int):
-        """تحديث عدد الأصوات المطلوبة"""
-        self.upvote_count = max(1, min(50, count))
+    def toggle_search(self):
+        """تبديل حالة البحث"""
+        self.search_enabled = not self.search_enabled
         self.update_timestamp()
     
-    def enable_feature(self, feature: str):
-        """تفعيل ميزة"""
-        if hasattr(self, f"{feature}_enabled"):
-            setattr(self, f"{feature}_enabled", True)
-            self.update_timestamp()
+    def toggle_welcome(self):
+        """تبديل حالة الترحيب"""
+        self.welcome_enabled = not self.welcome_enabled
+        self.update_timestamp()
     
-    def disable_feature(self, feature: str):
-        """إيقاف ميزة"""
-        if hasattr(self, f"{feature}_enabled"):
-            setattr(self, f"{feature}_enabled", False)
-            self.update_timestamp()
+    def toggle_logs(self):
+        """تبديل حالة السجلات"""
+        self.logs_enabled = not self.logs_enabled
+        self.update_timestamp()
     
-    def is_feature_enabled(self, feature: str) -> bool:
-        """فحص تفعيل ميزة"""
-        return getattr(self, f"{feature}_enabled", False)
+    def update_timestamp(self):
+        """تحديث الوقت"""
+        self.updated_at = datetime.utcnow()
     
-    def get_settings_dict(self) -> Dict[str, Any]:
-        """الحصول على الإعدادات كقاموس"""
-        return {
-            'language': self.language,
-            'play_mode': self.play_mode,
-            'play_type': self.play_type,
-            'channel_play_mode': self.channel_play_mode,
-            'upvote_count': self.upvote_count,
-            'auto_end': self.auto_end,
-            'skip_mode': self.skip_mode,
-            'non_admin_commands': self.non_admin_commands,
-            'search_enabled': self.search_enabled,
-            'welcome_enabled': self.welcome_enabled,
-            'logs_enabled': self.logs_enabled,
-        }
-    
-    def __str__(self) -> str:
-        return f"ChatSettings(chat_id={self.chat_id}, language={self.language})"
+    def reset_to_defaults(self):
+        """إعادة تعيين الإعدادات للقيم الافتراضية"""
+        self.language = "ar"
+        self.play_mode = "everyone"
+        self.play_type = "music"
+        self.channel_play_mode = None
+        self.upvote_count = 5
+        self.auto_end = False
+        self.skip_mode = True
+        self.non_admin_commands = False
+        self.search_enabled = True
+        self.welcome_enabled = False
+        self.logs_enabled = False
+        self.update_timestamp()

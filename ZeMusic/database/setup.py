@@ -106,9 +106,49 @@ async def create_tables() -> bool:
     """
     try:
         schema_file = os.path.join(os.getcwd(), "database_schema.sql")
-        return await execute_sql_file(schema_file)
+        success = await execute_sql_file(schema_file)
+        
+        # إنشاء جداول التحميل المتقدم
+        if success:
+            success = await create_download_tables()
+            
+        return success
     except Exception as e:
         LOGGER(__name__).error(f"خطأ في إنشاء الجداول: {e}")
+        return False
+
+async def create_download_tables() -> bool:
+    """
+    إنشاء جداول نظام التحميل المتقدم
+    """
+    try:
+        from ZeMusic.models.downloads import (
+            AudioCache, SearchHistory, DownloadStats, 
+            CacheMetrics, PopularContent
+        )
+        
+        # إنشاء جداول التحميل
+        models = [
+            AudioCache(),
+            SearchHistory(),
+            DownloadStats(),
+            CacheMetrics(),
+            PopularContent()
+        ]
+        
+        for model in models:
+            try:
+                await execute_query(model.create_sql)
+                LOGGER(__name__).info(f"تم إنشاء جدول {model.table_name} بنجاح")
+            except Exception as e:
+                LOGGER(__name__).error(f"خطأ في إنشاء جدول {model.table_name}: {e}")
+                return False
+        
+        LOGGER(__name__).info("تم إنشاء جميع جداول التحميل بنجاح")
+        return True
+        
+    except Exception as e:
+        LOGGER(__name__).error(f"خطأ في إنشاء جداول التحميل: {e}")
         return False
 
 async def insert_initial_data() -> bool:

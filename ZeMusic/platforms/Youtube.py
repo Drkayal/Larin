@@ -17,10 +17,22 @@ from ZeMusic.utils.decorators import asyncify
 
 
 def cookies():
+    """الحصول على ملف cookies عشوائي مع تفضيل الملفات المحدثة"""
     folder_path = f"{os.getcwd()}/cookies"
     txt_files = glob.glob(os.path.join(folder_path, "*.txt"))
     if not txt_files:
-        raise FileNotFoundError("No .txt files found in the specified folder.")
+        # إنشاء ملف cookies أساسي إذا لم يوجد
+        basic_cookies = """# Netscape HTTP Cookie File
+.youtube.com	TRUE	/	FALSE	0	PREF	tz=UTC&hl=en
+.youtube.com	TRUE	/	FALSE	0	YSC	dQw4w9WgXcQ"""
+        
+        os.makedirs(folder_path, exist_ok=True)
+        basic_path = os.path.join(folder_path, "basic_cookies.txt")
+        with open(basic_path, 'w') as f:
+            f.write(basic_cookies)
+        return "cookies/basic_cookies.txt"
+    
+    # اختيار ملف cookies عشوائي
     cookie_txt_file = random.choice(txt_files)
     return f"""cookies/{str(cookie_txt_file).split("/")[-1]}"""
 
