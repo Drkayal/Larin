@@ -31,23 +31,20 @@ class Mody(Client):
                 chat_id=config.LOGGER_ID,
                 text=f"<u><b>» {self.mention} ʙᴏᴛ sᴛᴀʀᴛᴇᴅ :</b><u>\n\nɪᴅ : <code>{self.id}</code>\nɴᴀᴍᴇ : {self.name}\nᴜsᴇʀɴᴀᴍᴇ : @{self.username}",
             )
+            
+            a = await self.get_chat_member(config.LOGGER_ID, self.id)
+            if a.status != ChatMemberStatus.ADMINISTRATOR:
+                LOGGER(__name__).warning(
+                    "Bot is not an admin in the log group/channel. Continuing anyway..."
+                )
         except (errors.ChannelInvalid, errors.PeerIdInvalid):
-            LOGGER(__name__).error(
-                "Bot has failed to access the log group/channel. Make sure that you have added your bot to your log group/channel."
+            LOGGER(__name__).warning(
+                "Bot cannot access the log group/channel. Continuing without logging to channel..."
             )
-            exit()
         except Exception as ex:
-            LOGGER(__name__).error(
-                f"Bot has failed to access the log group/channel.\n  Reason : {type(ex).__name__}."
+            LOGGER(__name__).warning(
+                f"Bot cannot access the log group/channel. Reason: {type(ex).__name__}. Continuing anyway..."
             )
-            exit()
-
-        a = await self.get_chat_member(config.LOGGER_ID, self.id)
-        if a.status != ChatMemberStatus.ADMINISTRATOR:
-            LOGGER(__name__).error(
-                "Please promote your bot as an admin in your log group/channel."
-            )
-            exit()
         LOGGER(__name__).info(f"تم تسغيل {self.name} بنجاح..")
 
     async def stop(self):
