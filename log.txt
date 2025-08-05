@@ -3233,3 +3233,7 @@ pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [40
 [05-Aug-25 21:36:48 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
 [05-Aug-25 21:36:48 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
 
+[05-Aug-25 21:38:12 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[05-Aug-25 21:38:12 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
