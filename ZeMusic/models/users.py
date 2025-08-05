@@ -4,19 +4,17 @@ User Model
 """
 
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Dict, Any
 from dataclasses import dataclass, field
 
-from .base import BaseModel
-
 @dataclass
-class User(BaseModel):
+class User:
     """
     نموذج المستخدم
     يمثل جدول users في قاعدة البيانات
     """
     
-    # المعرف الأساسي
+    # المعرف الأساسي (بدون قيمة افتراضية)
     user_id: int
     
     # معلومات المستخدم الأساسية
@@ -31,6 +29,8 @@ class User(BaseModel):
     is_active: bool = True
     
     # التواريخ
+    created_at: Optional[datetime] = field(default_factory=datetime.utcnow)
+    updated_at: Optional[datetime] = field(default_factory=datetime.utcnow)
     joined_at: datetime = field(default_factory=datetime.utcnow)
     last_activity: datetime = field(default_factory=datetime.utcnow)
     
@@ -47,6 +47,32 @@ class User(BaseModel):
             self.last_name = self.last_name.strip()[:255]
         if self.username:
             self.username = self.username.strip().replace('@', '')[:255]
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """تحويل النموذج إلى قاموس"""
+        result = {}
+        for key, value in self.__dict__.items():
+            if isinstance(value, datetime):
+                result[key] = value.isoformat()
+            elif isinstance(value, dict):
+                result[key] = value
+            elif isinstance(value, list):
+                result[key] = value
+            else:
+                result[key] = value
+        return result
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]):
+        """إنشاء النموذج من قاموس"""
+        # تحويل التواريخ من string إلى datetime
+        for key in ['created_at', 'updated_at', 'joined_at', 'last_activity']:
+            if key in data and isinstance(data[key], str):
+                try:
+                    data[key] = datetime.fromisoformat(data[key])
+                except ValueError:
+                    pass
+        return cls(**data)
     
     @property
     def full_name(self) -> str:

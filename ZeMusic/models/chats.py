@@ -10,16 +10,16 @@ from dataclasses import dataclass, field
 from .base import BaseModel
 
 @dataclass
-class Chat(BaseModel):
+class Chat:
     """
     نموذج المحادثة
     يمثل جدول chats في قاعدة البيانات
     """
     
-    # المعرف الأساسي
+    # المعرف الأساسي (بدون قيمة افتراضية)
     chat_id: int
     
-    # نوع المحادثة
+    # نوع المحادثة (بدون قيمة افتراضية)
     chat_type: str  # 'private', 'group', 'supergroup', 'channel'
     
     # معلومات المحادثة
@@ -32,6 +32,8 @@ class Chat(BaseModel):
     is_active: bool = True
     
     # التواريخ
+    created_at: Optional[datetime] = field(default_factory=datetime.utcnow)
+    updated_at: Optional[datetime] = field(default_factory=datetime.utcnow)
     joined_at: datetime = field(default_factory=datetime.utcnow)
     last_activity: datetime = field(default_factory=datetime.utcnow)
     
@@ -53,6 +55,32 @@ class Chat(BaseModel):
             self.username = self.username.strip().replace('@', '')[:255]
         if self.description:
             self.description = self.description.strip()
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """تحويل النموذج إلى قاموس"""
+        result = {}
+        for key, value in self.__dict__.items():
+            if isinstance(value, datetime):
+                result[key] = value.isoformat()
+            elif isinstance(value, dict):
+                result[key] = value
+            elif isinstance(value, list):
+                result[key] = value
+            else:
+                result[key] = value
+        return result
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]):
+        """إنشاء النموذج من قاموس"""
+        # تحويل التواريخ من string إلى datetime
+        for key in ['created_at', 'updated_at', 'joined_at', 'last_activity']:
+            if key in data and isinstance(data[key], str):
+                try:
+                    data[key] = datetime.fromisoformat(data[key])
+                except ValueError:
+                    pass
+        return cls(**data)
     
     @property
     def is_private(self) -> bool:
@@ -105,15 +133,17 @@ class Chat(BaseModel):
 
 
 @dataclass 
-class ChatSettings(BaseModel):
+class ChatSettings:
     """
     نموذج إعدادات المحادثة
     يمثل جدول chat_settings في قاعدة البيانات
     """
     
-    # المعرف الأساسي
+    # المعرف الأساسي (بدون قيمة افتراضية)
+    chat_id: int
+    
+    # معرف اختياري
     id: Optional[int] = field(default=None)
-    chat_id: int = 0
     
     # إعدادات اللغة والتشغيل
     language: str = "ar"
@@ -131,6 +161,10 @@ class ChatSettings(BaseModel):
     search_enabled: bool = True
     welcome_enabled: bool = False
     logs_enabled: bool = False
+    
+    # التواريخ
+    created_at: Optional[datetime] = field(default_factory=datetime.utcnow)
+    updated_at: Optional[datetime] = field(default_factory=datetime.utcnow)
     
     def __post_init__(self):
         """تنفيذ بعد إنشاء النموذج"""
@@ -150,6 +184,32 @@ class ChatSettings(BaseModel):
         
         # التأكد من الحدود
         self.upvote_count = max(1, min(50, self.upvote_count))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """تحويل النموذج إلى قاموس"""
+        result = {}
+        for key, value in self.__dict__.items():
+            if isinstance(value, datetime):
+                result[key] = value.isoformat()
+            elif isinstance(value, dict):
+                result[key] = value
+            elif isinstance(value, list):
+                result[key] = value
+            else:
+                result[key] = value
+        return result
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]):
+        """إنشاء النموذج من قاموس"""
+        # تحويل التواريخ من string إلى datetime
+        for key in ['created_at', 'updated_at']:
+            if key in data and isinstance(data[key], str):
+                try:
+                    data[key] = datetime.fromisoformat(data[key])
+                except ValueError:
+                    pass
+        return cls(**data)
     
     def update_language(self, language: str):
         """تحديث اللغة"""

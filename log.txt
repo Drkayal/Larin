@@ -54,3 +54,92 @@
 [05-Aug-25 01:26:28 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
 [05-Aug-25 01:26:28 - INFO] - ZeMusic.misc - Local Database Initialized.
 [05-Aug-25 01:26:28 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:31:23 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:31:23 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:31:23 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:31:23 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:31:23 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:31:23 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:32:05 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:32:05 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:32:05 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:32:05 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:32:05 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:32:05 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:33:40 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:33:40 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:33:40 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:33:40 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:33:40 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:33:40 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:33:41 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:33:41 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:33:41 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:33:41 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:33:59 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:33:59 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:33:59 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:33:59 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:33:59 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:33:59 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:34:00 - INFO] - __main__ - إعداد قاعدة بيانات PostgreSQL...
+[05-Aug-25 01:34:00 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[05-Aug-25 01:34:00 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[05-Aug-25 01:34:00 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[05-Aug-25 01:34:00 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: permission denied for schema public
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "users" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "users" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "users" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "users" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "authorized_users" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "authorized_users" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "authorized_users" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "active_chats" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "active_chats" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "bot_stats" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "system_settings" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "bot_stats" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[05-Aug-25 01:34:00 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[05-Aug-25 01:34:00 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[05-Aug-25 01:34:00 - ERROR] - ZeMusic.database.setup - خطأ في إنشاء جدول audio_cache: permission denied for schema public
+[05-Aug-25 01:34:00 - ERROR] - __main__ - فشل في إعداد قاعدة البيانات، توقف البوت...
