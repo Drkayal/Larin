@@ -196,6 +196,35 @@ FFMPEG_AUDIO_CHANNELS = int(getenv("FFMPEG_AUDIO_CHANNELS", 2))
 FFMPEG_SAMPLE_RATE = int(getenv("FFMPEG_SAMPLE_RATE", 44100))
 
 # ============================================
+# إعدادات النظام الذكي الجديد
+# ============================================
+
+# قناة التخزين الذكي (للتخزين في قناة تيليجرام)
+CACHE_CHANNEL_USERNAME = getenv("CACHE_CHANNEL_USERNAME", "BootLoL")
+
+# تحويل يوزر القناة إلى الشكل المناسب
+CACHE_CHANNEL_ID = None
+if CACHE_CHANNEL_USERNAME:
+    # إذا كان ID رقمي، نحوله للصيغة الصحيحة
+    if CACHE_CHANNEL_USERNAME.isdigit() or (CACHE_CHANNEL_USERNAME.startswith('-') and CACHE_CHANNEL_USERNAME[1:].isdigit()):
+        try:
+            channel_id = int(CACHE_CHANNEL_USERNAME)
+            if not str(channel_id).startswith('-100') and channel_id > 0:
+                CACHE_CHANNEL_ID = f"-100{channel_id}"
+            else:
+                CACHE_CHANNEL_ID = str(channel_id)
+        except ValueError:
+            CACHE_CHANNEL_ID = None
+    # إذا كان يوزر، نتركه كما هو
+    elif CACHE_CHANNEL_USERNAME.startswith('@') or not CACHE_CHANNEL_USERNAME.startswith('-'):
+        # إزالة @ إن وجدت
+        username = CACHE_CHANNEL_USERNAME.replace('@', '')
+        CACHE_CHANNEL_ID = f"@{username}"
+    else:
+        # صيغة ID مباشرة
+        CACHE_CHANNEL_ID = CACHE_CHANNEL_USERNAME
+
+# ============================================
 CHANNEL_NAME = getenv("CHANNEL_NAME", "السورس")
 CHANNEL_LINK = getenv("CHANNEL_LINK", "K55DD")
 STORE_NAME = getenv("STORE_NAME", "المتجر")

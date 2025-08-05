@@ -36,6 +36,12 @@ import atexit
 from contextlib import asynccontextmanager
 import orjson
 
+# إضافة دعم PostgreSQL
+import config
+if config.DATABASE_TYPE == "postgresql":
+    from ZeMusic.database.dal import DownloadDAL
+    download_dal = DownloadDAL()
+
 # تطبيق UVLoop لتحسين أداء asyncio
 
 def get_audio_duration(file_path: str) -> int:
@@ -101,7 +107,7 @@ from pyrogram.types import Message, Audio
 from pyrogram.enums import ParseMode
 
 import config
-from ZeMusic.core.pyrogram_client import pyrogram_manager  # تغيير اسم الوحدة
+from ZeMusic import app  # استيراد app بدلاً من pyrogram_manager
 from ZeMusic.logging import LOGGER
 from ZeMusic.utils.database import is_search_enabled, is_search_enabled1
 
@@ -203,54 +209,60 @@ os.makedirs("downloads", exist_ok=True)
 
 async def init_database():
     """تهيئة قاعدة البيانات بشكل غير متزامن"""
-    conn = sqlite3.connect(DB_FILE)
-    cursor = conn.cursor()
-    
-    # تحسين هيكل الجدول
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS channel_index (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            message_id INTEGER UNIQUE,
-            file_id TEXT UNIQUE,
-            file_unique_id TEXT,
-            
-            search_hash TEXT UNIQUE,
-            title_normalized TEXT,
-            artist_normalized TEXT,
-            keywords_vector TEXT,
-            
-            original_title TEXT,
-            original_artist TEXT,
-            duration INTEGER,
-            file_size INTEGER,
-            
-            access_count INTEGER DEFAULT 0,
-            last_accessed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            popularity_rank REAL DEFAULT 0,
-            
-            phonetic_hash TEXT,
-            partial_matches TEXT,
-            
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
-    
-    # تحسين الفهارس
-    indexes = [
-        "CREATE INDEX IF NOT EXISTS idx_search_hash ON channel_index(search_hash)",
-        "CREATE INDEX IF NOT EXISTS idx_title_norm ON channel_index(title_normalized)",
-        "CREATE INDEX IF NOT EXISTS idx_artist_norm ON channel_index(artist_normalized)",
-        "CREATE INDEX IF NOT EXISTS idx_popularity ON channel_index(popularity_rank DESC)",
-        "CREATE INDEX IF NOT EXISTS idx_message_id ON channel_index(message_id)",
-        "CREATE INDEX IF NOT EXISTS idx_file_id ON channel_index(file_id)",
-        "CREATE INDEX IF NOT EXISTS idx_keywords ON channel_index(keywords_vector)"
-    ]
-    
-    for index_sql in indexes:
-        cursor.execute(index_sql)
-    
-    conn.commit()
-    conn.close()
+    if config.DATABASE_TYPE == "postgresql":
+        # PostgreSQL - لا حاجة لتهيئة يدوية، الجداول تُنشأ تلقائياً
+        LOGGER(__name__).info("✅ PostgreSQL مُفعل - قاعدة البيانات جاهزة")
+        return
+    else:
+        # SQLite - التهيئة اليدوية
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        
+        # تحسين هيكل الجدول
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS channel_index (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                message_id INTEGER UNIQUE,
+                file_id TEXT UNIQUE,
+                file_unique_id TEXT,
+                
+                search_hash TEXT UNIQUE,
+                title_normalized TEXT,
+                artist_normalized TEXT,
+                keywords_vector TEXT,
+                
+                original_title TEXT,
+                original_artist TEXT,
+                duration INTEGER,
+                file_size INTEGER,
+                
+                access_count INTEGER DEFAULT 0,
+                last_accessed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                popularity_rank REAL DEFAULT 0,
+                
+                phonetic_hash TEXT,
+                partial_matches TEXT,
+                
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        
+        # تحسين الفهارس
+        indexes = [
+            "CREATE INDEX IF NOT EXISTS idx_search_hash ON channel_index(search_hash)",
+            "CREATE INDEX IF NOT EXISTS idx_title_norm ON channel_index(title_normalized)",
+            "CREATE INDEX IF NOT EXISTS idx_artist_norm ON channel_index(artist_normalized)",
+            "CREATE INDEX IF NOT EXISTS idx_popularity ON channel_index(popularity_rank DESC)",
+            "CREATE INDEX IF NOT EXISTS idx_message_id ON channel_index(message_id)",
+            "CREATE INDEX IF NOT EXISTS idx_file_id ON channel_index(file_id)",
+            "CREATE INDEX IF NOT EXISTS idx_keywords ON channel_index(keywords_vector)"
+        ]
+        
+        for index_sql in indexes:
+            cursor.execute(index_sql)
+        
+        conn.commit()
+        conn.close()
 
 # تهيئة قاعدة البيانات عند بدء الوحدة
 # سيتم تهيئة قاعدة البيانات عند أول استخدام
@@ -894,7 +906,7 @@ class HyperSpeedDownloader:
     
     async def cache_to_channel(self, audio_info: Dict, search_query: str) -> Optional[str]:
         """حفظ الملف في قناة التخزين باستخدام Pyrogram"""
-        if not SMART_CACHE_CHANNEL or not pyrogram_manager.bot_client:
+        if not SMART_CACHE_CHANNEL or not app:
             return None
         
         try:
@@ -912,7 +924,7 @@ class HyperSpeedDownloader:
 🔍 {search_query[:50]}"""
             
             # رفع الملف للقناة باستخدام Pyrogram
-            message = await pyrogram_manager.bot_client.send_audio(
+            message = await app.send_audio(
                 chat_id=SMART_CACHE_CHANNEL,
                 audio=audio_path,
                 caption=caption,
@@ -1824,97 +1836,145 @@ async def search_in_database_cache(query: str) -> Optional[Dict]:
         
         LOGGER(__name__).info(f"🗄️ البحث في قاعدة البيانات: '{normalized_query}' (كلمات: {search_keywords})")
         
-        conn = sqlite3.connect(DB_FILE)
-        cursor = conn.cursor()
-        
-        # البحث الذكي المحسن مع معالجة الاختلافات في الكتابة العربية
-        search_conditions = []
-        search_params = []
-        
-        # إضافة البحث الدقيق أولاً
-        search_conditions.append("(title_normalized LIKE ? OR artist_normalized LIKE ?)")
-        search_params.extend([f"%{normalized_query}%", f"%{normalized_query}%"])
-        
-        # معالجة الاختلافات الشائعة في الكتابة العربية
-        arabic_variants = {
-            'وحشتني': ['وحشتني', 'وحشتيني', 'وحشني', 'وحشتنى'],
-            'احبك': ['احبك', 'أحبك', 'احبّك', 'أحبّك'],
-            'حبيبي': ['حبيبي', 'حبيبى'],
-            'عليك': ['عليك', 'عليكي'],
-            'انت': ['انت', 'أنت', 'إنت']
-        }
-        
-        # البحث بالمتغيرات العربية
-        for original_word in search_keywords:
-            if len(original_word) > 2:
-                variants = arabic_variants.get(original_word, [original_word])
-                for variant in variants:
-                    search_conditions.append("(title_normalized LIKE ? OR artist_normalized LIKE ? OR keywords_vector LIKE ?)")
-                    search_params.extend([f"%{variant}%", f"%{variant}%", f"%{variant}%"])
-        
-        # البحث العام بالكلمات المفردة (احتياطي)
-        for keyword in search_keywords:
-            if len(keyword) > 2:
-                search_conditions.append("(title_normalized LIKE ? OR artist_normalized LIKE ? OR keywords_vector LIKE ?)")
-                search_params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
-        
-        # استعلام البحث مع ترتيب حسب الشعبية وآخر وصول
-        query_sql = f"""
-        SELECT message_id, file_id, file_unique_id, original_title, original_artist, 
-               duration, file_size, access_count, last_accessed, popularity_rank,
-               title_normalized, artist_normalized
-        FROM channel_index 
-        WHERE ({' OR '.join(search_conditions)})
-        ORDER BY popularity_rank DESC, access_count DESC, last_accessed DESC
-        LIMIT 5
-        """
-        
-        cursor.execute(query_sql, search_params)
-        results = cursor.fetchall()
-        
-        LOGGER(__name__).info(f"🔍 تم العثور على {len(results)} نتيجة في قاعدة البيانات")
-        
-        if results:
-            # اختيار أفضل نتيجة
-            best_result = results[0]
-            
-            # تحديث إحصائيات الوصول
-            cursor.execute("""
-                UPDATE channel_index 
-                SET access_count = access_count + 1, 
-                    last_accessed = CURRENT_TIMESTAMP,
-                    popularity_rank = popularity_rank + 0.1
-                WHERE message_id = ?
-            """, (best_result[0],))
-            
-            conn.commit()
-            conn.close()
-            
-            # حساب نسبة التطابق
-            title_words = set(best_result[10].split())  # title_normalized
-            artist_words = set(best_result[11].split())  # artist_normalized
-            query_words = set(search_keywords)
-            
-            all_content_words = title_words | artist_words
-            match_ratio = len(query_words & all_content_words) / len(query_words) if query_words else 0
-            
-            # التحقق من الحد الأدنى للتطابق (80% على الأقل)
-            MIN_MATCH_RATIO = 0.8
-            if match_ratio < MIN_MATCH_RATIO:
-                LOGGER(__name__).info(f"❌ نسبة التطابق منخفضة جداً: {match_ratio:.1%} (الحد الأدنى: {MIN_MATCH_RATIO:.1%})")
-                conn.close()
+        if config.DATABASE_TYPE == "postgresql":
+            # PostgreSQL - استخدام DownloadDAL
+            try:
+                # البحث في audio_cache
+                search_results = await download_dal.get_search_history(query, limit=5)
+                
+                if search_results:
+                    best_result = search_results[0]
+                    
+                    # حساب نسبة التطابق
+                    title_words = set(best_result.get('title', '').split())
+                    artist_words = set(best_result.get('uploader', '').split())
+                    query_words = set(search_keywords)
+                    
+                    all_content_words = title_words | artist_words
+                    match_ratio = len(query_words & all_content_words) / len(query_words) if query_words else 0
+                    
+                    # التحقق من الحد الأدنى للتطابق (80% على الأقل)
+                    MIN_MATCH_RATIO = 0.8
+                    if match_ratio < MIN_MATCH_RATIO:
+                        LOGGER(__name__).info(f"❌ نسبة التطابق منخفضة جداً: {match_ratio:.1%} (الحد الأدنى: {MIN_MATCH_RATIO:.1%})")
+                        return None
+                    
+                    LOGGER(__name__).info(f"✅ تم العثور على مطابقة قوية في PostgreSQL: {match_ratio:.1%}")
+                    
+                    return {
+                        'success': True,
+                        'cached': True,
+                        'from_database': True,
+                        'video_id': best_result.get('video_id'),
+                        'title': best_result.get('title'),
+                        'uploader': best_result.get('uploader'),
+                        'duration': best_result.get('duration', 0),
+                        'file_path': best_result.get('file_path'),
+                        'file_size': best_result.get('file_size', 0),
+                        'audio_quality': best_result.get('audio_quality', '320'),
+                        'download_count': best_result.get('download_count', 0),
+                        'match_ratio': match_ratio
+                    }
+                else:
+                    LOGGER(__name__).info("❌ لم يتم العثور على نتائج في PostgreSQL")
+                    return None
+                    
+            except Exception as e:
+                LOGGER(__name__).error(f"❌ خطأ في البحث بـ PostgreSQL: {e}")
                 return None
+        else:
+            # SQLite - الكود الأصلي
+            conn = sqlite3.connect(DB_FILE)
+            cursor = conn.cursor()
             
-            LOGGER(__name__).info(f"✅ تم العثور على مطابقة قوية في قاعدة البيانات: {match_ratio:.1%}")
+            # البحث الذكي المحسن مع معالجة الاختلافات في الكتابة العربية
+            search_conditions = []
+            search_params = []
             
-            return {
-                'success': True,
-                'cached': True,
-                'from_database': True,
-                'message_id': best_result[0],
-                'file_id': best_result[1],
-                'file_unique_id': best_result[2],
-                'title': best_result[3],  # original_title
+            # إضافة البحث الدقيق أولاً
+            search_conditions.append("(title_normalized LIKE ? OR artist_normalized LIKE ?)")
+            search_params.extend([f"%{normalized_query}%", f"%{normalized_query}%"])
+            
+            # معالجة الاختلافات الشائعة في الكتابة العربية
+            arabic_variants = {
+                'وحشتني': ['وحشتني', 'وحشتيني', 'وحشني', 'وحشتنى'],
+                'احبك': ['احبك', 'أحبك', 'احبّك', 'أحبّك'],
+                'حبيبي': ['حبيبي', 'حبيبى'],
+                'عليك': ['عليك', 'عليكي'],
+                'انت': ['انت', 'أنت', 'إنت']
+            }
+            
+            # البحث بالمتغيرات العربية
+            for original_word in search_keywords:
+                if len(original_word) > 2:
+                    variants = arabic_variants.get(original_word, [original_word])
+                    for variant in variants:
+                        search_conditions.append("(title_normalized LIKE ? OR artist_normalized LIKE ? OR keywords_vector LIKE ?)")
+                        search_params.extend([f"%{variant}%", f"%{variant}%", f"%{variant}%"])
+            
+            # البحث العام بالكلمات المفردة (احتياطي)
+            for keyword in search_keywords:
+                if len(keyword) > 2:
+                    search_conditions.append("(title_normalized LIKE ? OR artist_normalized LIKE ? OR keywords_vector LIKE ?)")
+                    search_params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
+            
+            # استعلام البحث مع ترتيب حسب الشعبية وآخر وصول
+            query_sql = f"""
+            SELECT message_id, file_id, file_unique_id, original_title, original_artist, 
+                   duration, file_size, access_count, last_accessed, popularity_rank,
+                   title_normalized, artist_normalized
+            FROM channel_index 
+            WHERE ({' OR '.join(search_conditions)})
+            ORDER BY popularity_rank DESC, access_count DESC, last_accessed DESC
+            LIMIT 5
+            """
+            
+            cursor.execute(query_sql, search_params)
+            results = cursor.fetchall()
+            
+            LOGGER(__name__).info(f"🔍 تم العثور على {len(results)} نتيجة في قاعدة البيانات")
+            
+            if results:
+                # اختيار أفضل نتيجة
+                best_result = results[0]
+                
+                # تحديث إحصائيات الوصول
+                cursor.execute("""
+                    UPDATE channel_index 
+                    SET access_count = access_count + 1, 
+                        last_accessed = CURRENT_TIMESTAMP,
+                        popularity_rank = popularity_rank + 0.1
+                    WHERE message_id = ?
+                """, (best_result[0],))
+                
+                conn.commit()
+                conn.close()
+                
+                # حساب نسبة التطابق
+                title_words = set(best_result[10].split())  # title_normalized
+                artist_words = set(best_result[11].split())  # artist_normalized
+                query_words = set(search_keywords)
+                
+                all_content_words = title_words | artist_words
+                match_ratio = len(query_words & all_content_words) / len(query_words) if query_words else 0
+                
+                # التحقق من الحد الأدنى للتطابق (80% على الأقل)
+                MIN_MATCH_RATIO = 0.8
+                if match_ratio < MIN_MATCH_RATIO:
+                    LOGGER(__name__).info(f"❌ نسبة التطابق منخفضة جداً: {match_ratio:.1%} (الحد الأدنى: {MIN_MATCH_RATIO:.1%})")
+                    conn.close()
+                    return None
+                
+                LOGGER(__name__).info(f"✅ تم العثور على مطابقة قوية في قاعدة البيانات: {match_ratio:.1%}")
+                
+                return {
+                    'success': True,
+                    'cached': True,
+                    'from_database': True,
+                    'message_id': best_result[0],
+                    'file_id': best_result[1],
+                    'file_unique_id': best_result[2],
+                    'title': best_result[3],  # original_title
                 'uploader': best_result[4],  # original_artist
                 'duration': best_result[5],
                 'file_size': best_result[6],
@@ -2043,36 +2103,74 @@ async def save_to_database_cache(file_id: str, file_unique_id: str, message_id: 
         duration = result.get('duration', 0)
         file_size = result.get('file_size', 0)
         
-        title_normalized = normalize_search_text(title)
-        artist_normalized = normalize_search_text(artist)
-        
-        # إنشاء vector الكلمات المفتاحية
-        keywords_vector = f"{title_normalized} {artist_normalized} {normalize_search_text(query)}"
-        
-        # إنشاء هاش البحث
-        search_hash = hashlib.md5((title_normalized + artist_normalized).encode()).hexdigest()
-        
-        conn = sqlite3.connect(DB_FILE)
-        cursor = conn.cursor()
-        
-        # إدخال البيانات (أو تحديثها إذا كانت موجودة)
-        cursor.execute("""
-            INSERT OR REPLACE INTO channel_index 
-            (message_id, file_id, file_unique_id, search_hash, title_normalized, 
-             artist_normalized, keywords_vector, original_title, original_artist, 
-             duration, file_size, access_count, popularity_rank)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1.0)
-        """, (
-            message_id, file_id, file_unique_id, search_hash,
-            title_normalized, artist_normalized, keywords_vector,
-            title, artist, duration, file_size
-        ))
-        
-        conn.commit()
-        conn.close()
-        
-        LOGGER(__name__).info(f"✅ تم حفظ الملف في قاعدة البيانات: {title[:30]}")
-        return True
+        if config.DATABASE_TYPE == "postgresql":
+            # PostgreSQL - استخدام DownloadDAL
+            try:
+                video_info = {
+                    'video_id': result.get('video_id', f"msg_{message_id}"),
+                    'title': title,
+                    'uploader': artist,
+                    'duration': duration,
+                    'file_path': result.get('file_path', ''),
+                    'file_size': file_size,
+                    'audio_quality': result.get('audio_quality', '320'),
+                    'file_format': 'mp3',
+                    'thumbnail_url': result.get('thumbnail_url', ''),
+                    'view_count': result.get('view_count', 0),
+                    'like_count': result.get('like_count', 0),
+                    'upload_date': datetime.now().isoformat(),
+                    'metadata': {
+                        'query': query,
+                        'file_id': file_id,
+                        'file_unique_id': file_unique_id,
+                        'message_id': message_id
+                    }
+                }
+                
+                success = await download_dal.save_audio_cache(video_info)
+                
+                if success:
+                    LOGGER(__name__).info(f"✅ تم حفظ الملف في PostgreSQL: {title[:30]}")
+                    return True
+                else:
+                    LOGGER(__name__).error(f"❌ فشل في حفظ الملف في PostgreSQL: {title[:30]}")
+                    return False
+                    
+            except Exception as e:
+                LOGGER(__name__).error(f"❌ خطأ في حفظ PostgreSQL: {e}")
+                return False
+        else:
+            # SQLite - الكود الأصلي
+            title_normalized = normalize_search_text(title)
+            artist_normalized = normalize_search_text(artist)
+            
+            # إنشاء vector الكلمات المفتاحية
+            keywords_vector = f"{title_normalized} {artist_normalized} {normalize_search_text(query)}"
+            
+            # إنشاء هاش البحث
+            search_hash = hashlib.md5((title_normalized + artist_normalized).encode()).hexdigest()
+            
+            conn = sqlite3.connect(DB_FILE)
+            cursor = conn.cursor()
+            
+            # إدخال البيانات (أو تحديثها إذا كانت موجودة)
+            cursor.execute("""
+                INSERT OR REPLACE INTO channel_index 
+                (message_id, file_id, file_unique_id, search_hash, title_normalized, 
+                 artist_normalized, keywords_vector, original_title, original_artist, 
+                 duration, file_size, access_count, popularity_rank)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1.0)
+            """, (
+                message_id, file_id, file_unique_id, search_hash,
+                title_normalized, artist_normalized, keywords_vector,
+                title, artist, duration, file_size
+            ))
+            
+            conn.commit()
+            conn.close()
+            
+            LOGGER(__name__).info(f"✅ تم حفظ الملف في قاعدة البيانات: {title[:30]}")
+            return True
         
     except Exception as e:
         LOGGER(__name__).error(f"❌ خطأ في حفظ قاعدة البيانات: {e}")
@@ -2098,42 +2196,78 @@ async def search_in_telegram_cache(query: str, bot_client) -> Optional[Dict]:
         
         # الخطوة 1: البحث السريع في قاعدة البيانات أولاً (أسرع)
         try:
-            conn = sqlite3.connect(DB_FILE)
-            cursor = conn.cursor()
-            
-            # بحث متقدم بالكلمات المفتاحية مع معالجة الاختلافات العربية
-            search_conditions = []
-            search_params = []
-            
-            # إضافة البحث الدقيق أولاً
-            search_conditions.append("(title_normalized LIKE ? OR artist_normalized LIKE ?)")
-            search_params.extend([f"%{normalized_query}%", f"%{normalized_query}%"])
-            
-            # معالجة الاختلافات الشائعة في الكتابة العربية
-            arabic_variants = {
-                'وحشتني': ['وحشتني', 'وحشتيني', 'وحشني', 'وحشتنى'],
-                'احبك': ['احبك', 'أحبك', 'احبّك', 'أحبّك'],
-                'حبيبي': ['حبيبي', 'حبيبى'],
-                'عليك': ['عليك', 'عليكي'],
-                'انت': ['انت', 'أنت', 'إنت']
-            }
-            
-            # البحث بالمتغيرات العربية
-            for original_word in search_keywords:
-                if len(original_word) > 2:
-                    variants = arabic_variants.get(original_word, [original_word])
-                    for variant in variants:
-                        search_conditions.append("(title_normalized LIKE ? OR artist_normalized LIKE ? OR keywords_vector LIKE ?)")
-                        search_params.extend([f"%{variant}%", f"%{variant}%", f"%{variant}%"])
-            
-            # استعلام محسن مع ترتيب ذكي
-            query_sql = f"""
-            SELECT message_id, file_id, file_unique_id, original_title, original_artist, 
-                   duration, file_size, access_count, last_accessed, popularity_rank,
-                   title_normalized, artist_normalized, keywords_vector
-            FROM channel_index 
-            WHERE ({' OR '.join(search_conditions)})
-            ORDER BY 
+            if config.DATABASE_TYPE == "postgresql":
+                # PostgreSQL - البحث في audio_cache
+                search_results = await download_dal.get_search_history(query, limit=3)
+                
+                if search_results:
+                    best_result = search_results[0]
+                    
+                    # حساب نسبة التطابق
+                    title_words = set(best_result.get('title', '').split())
+                    artist_words = set(best_result.get('uploader', '').split())
+                    query_words = set(search_keywords)
+                    
+                    all_content_words = title_words | artist_words
+                    match_ratio = len(query_words & all_content_words) / len(query_words) if query_words else 0
+                    
+                    # التحقق من الحد الأدنى للتطابق (70% على الأقل)
+                    MIN_MATCH_RATIO = 0.7
+                    if match_ratio >= MIN_MATCH_RATIO:
+                        LOGGER(__name__).info(f"✅ تم العثور على مطابقة في PostgreSQL: {match_ratio:.1%}")
+                        
+                        return {
+                            'success': True,
+                            'cached': True,
+                            'from_database': True,
+                            'video_id': best_result.get('video_id'),
+                            'title': best_result.get('title'),
+                            'uploader': best_result.get('uploader'),
+                            'duration': best_result.get('duration', 0),
+                            'file_path': best_result.get('file_path'),
+                            'file_size': best_result.get('file_size', 0),
+                            'audio_quality': best_result.get('audio_quality', '320'),
+                            'download_count': best_result.get('download_count', 0),
+                            'match_ratio': match_ratio
+                        }
+            else:
+                # SQLite - البحث الأصلي
+                conn = sqlite3.connect(DB_FILE)
+                cursor = conn.cursor()
+                
+                # بحث متقدم بالكلمات المفتاحية مع معالجة الاختلافات العربية
+                search_conditions = []
+                search_params = []
+                
+                # إضافة البحث الدقيق أولاً
+                search_conditions.append("(title_normalized LIKE ? OR artist_normalized LIKE ?)")
+                search_params.extend([f"%{normalized_query}%", f"%{normalized_query}%"])
+                
+                # معالجة الاختلافات الشائعة في الكتابة العربية
+                arabic_variants = {
+                    'وحشتني': ['وحشتني', 'وحشتيني', 'وحشني', 'وحشتنى'],
+                    'احبك': ['احبك', 'أحبك', 'احبّك', 'أحبّك'],
+                    'حبيبي': ['حبيبي', 'حبيبى'],
+                    'عليك': ['عليك', 'عليكي'],
+                    'انت': ['انت', 'أنت', 'إنت']
+                }
+                
+                # البحث بالمتغيرات العربية
+                for original_word in search_keywords:
+                    if len(original_word) > 2:
+                        variants = arabic_variants.get(original_word, [original_word])
+                        for variant in variants:
+                            search_conditions.append("(title_normalized LIKE ? OR artist_normalized LIKE ? OR keywords_vector LIKE ?)")
+                            search_params.extend([f"%{variant}%", f"%{variant}%", f"%{variant}%"])
+                
+                # استعلام محسن مع ترتيب ذكي
+                query_sql = f"""
+                SELECT message_id, file_id, file_unique_id, original_title, original_artist, 
+                       duration, file_size, access_count, last_accessed, popularity_rank,
+                       title_normalized, artist_normalized, keywords_vector
+                FROM channel_index 
+                WHERE ({' OR '.join(search_conditions)})
+                ORDER BY
                 -- أولوية للمطابقة الكاملة
                 CASE WHEN title_normalized LIKE '%{normalized_query}%' THEN 1 ELSE 2 END,
                 -- ثم حسب الشعبية
@@ -2562,57 +2696,100 @@ async def save_to_database_cache_enhanced(file_id: str, file_unique_id: str, mes
         keywords_vector = enhanced_info.get('keywords_vector', '')
         original_query = enhanced_info.get('original_query', query)
         
-        # تطبيع النصوص
-        title_normalized = normalize_search_text(title)
-        artist_normalized = normalize_search_text(artist)
-        
-        # إنشاء هاش بحث إضافي
-        combined_hash = hashlib.md5((title_normalized + artist_normalized + original_query).encode()).hexdigest()[:16]
-        
-        conn = sqlite3.connect(DB_FILE)
-        cursor = conn.cursor()
-        
-        # التحقق من وجود السجل أولاً
-        cursor.execute("SELECT id FROM channel_index WHERE message_id = ? OR search_hash = ?", 
-                      (message_id, search_hash))
-        existing = cursor.fetchone()
-        
-        if existing:
-            # تحديث السجل الموجود
-            cursor.execute("""
-                UPDATE channel_index 
-                SET file_id = ?, file_unique_id = ?, title_normalized = ?, 
-                    artist_normalized = ?, keywords_vector = ?, original_title = ?, 
-                    original_artist = ?, duration = ?, file_size = ?, 
-                    access_count = access_count + 1, popularity_rank = popularity_rank + 0.5,
-                    last_accessed = CURRENT_TIMESTAMP
-                WHERE message_id = ? OR search_hash = ?
-            """, (
-                file_id, file_unique_id, title_normalized, artist_normalized, 
-                keywords_vector, title, artist, duration, file_size, 
-                message_id, search_hash
-            ))
-            LOGGER(__name__).info(f"🔄 تم تحديث السجل الموجود في قاعدة البيانات")
+        if config.DATABASE_TYPE == "postgresql":
+            # PostgreSQL - استخدام DownloadDAL مع معلومات محسنة
+            try:
+                video_info = {
+                    'video_id': enhanced_info.get('video_id', f"msg_{message_id}"),
+                    'title': title,
+                    'uploader': artist,
+                    'duration': duration,
+                    'file_path': enhanced_info.get('file_path', ''),
+                    'file_size': file_size,
+                    'audio_quality': enhanced_info.get('audio_quality', '320'),
+                    'file_format': 'mp3',
+                    'thumbnail_url': enhanced_info.get('thumbnail_url', ''),
+                    'view_count': enhanced_info.get('view_count', 0),
+                    'like_count': enhanced_info.get('like_count', 0),
+                    'upload_date': datetime.now().isoformat(),
+                    'metadata': {
+                        'query': query,
+                        'file_id': file_id,
+                        'file_unique_id': file_unique_id,
+                        'message_id': message_id,
+                        'enhanced': True,
+                        'source': source,
+                        'search_hash': search_hash,
+                        'keywords_vector': keywords_vector,
+                        'original_query': original_query
+                    }
+                }
+                
+                success = await download_dal.save_audio_cache(video_info)
+                
+                if success:
+                    LOGGER(__name__).info(f"✅ تم حفظ البيانات المحسنة في PostgreSQL: {title[:30]}")
+                    return True
+                else:
+                    LOGGER(__name__).error(f"❌ فشل في حفظ البيانات المحسنة في PostgreSQL: {title[:30]}")
+                    return False
+                    
+            except Exception as e:
+                LOGGER(__name__).error(f"❌ خطأ في حفظ PostgreSQL المحسن: {e}")
+                return False
         else:
-            # إدخال سجل جديد
-            cursor.execute("""
-                INSERT INTO channel_index 
-                (message_id, file_id, file_unique_id, search_hash, title_normalized, 
-                 artist_normalized, keywords_vector, original_title, original_artist, 
-                 duration, file_size, access_count, popularity_rank, phonetic_hash, partial_matches)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1.0, ?, ?)
-            """, (
-                message_id, file_id, file_unique_id, search_hash,
-                title_normalized, artist_normalized, keywords_vector,
-                title, artist, duration, file_size, combined_hash, original_query
-            ))
-            LOGGER(__name__).info(f"➕ تم إضافة سجل جديد لقاعدة البيانات")
-        
-        conn.commit()
-        conn.close()
-        
-        LOGGER(__name__).info(f"✅ تم حفظ البيانات المحسنة: {title[:30]}")
-        return True
+            # SQLite - الكود الأصلي
+            # تطبيع النصوص
+            title_normalized = normalize_search_text(title)
+            artist_normalized = normalize_search_text(artist)
+            
+            # إنشاء هاش بحث إضافي
+            combined_hash = hashlib.md5((title_normalized + artist_normalized + original_query).encode()).hexdigest()[:16]
+            
+            conn = sqlite3.connect(DB_FILE)
+            cursor = conn.cursor()
+            
+            # التحقق من وجود السجل أولاً
+            cursor.execute("SELECT id FROM channel_index WHERE message_id = ? OR search_hash = ?", 
+                          (message_id, search_hash))
+            existing = cursor.fetchone()
+            
+            if existing:
+                # تحديث السجل الموجود
+                cursor.execute("""
+                    UPDATE channel_index 
+                    SET file_id = ?, file_unique_id = ?, title_normalized = ?, 
+                        artist_normalized = ?, keywords_vector = ?, original_title = ?, 
+                        original_artist = ?, duration = ?, file_size = ?, 
+                        access_count = access_count + 1, popularity_rank = popularity_rank + 0.5,
+                        last_accessed = CURRENT_TIMESTAMP
+                    WHERE message_id = ? OR search_hash = ?
+                """, (
+                    file_id, file_unique_id, title_normalized, artist_normalized, 
+                    keywords_vector, title, artist, duration, file_size, 
+                    message_id, search_hash
+                ))
+                LOGGER(__name__).info(f"🔄 تم تحديث السجل الموجود في قاعدة البيانات")
+            else:
+                # إدخال سجل جديد
+                cursor.execute("""
+                    INSERT INTO channel_index 
+                    (message_id, file_id, file_unique_id, search_hash, title_normalized, 
+                     artist_normalized, keywords_vector, original_title, original_artist, 
+                     duration, file_size, access_count, popularity_rank, phonetic_hash, partial_matches)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1.0, ?, ?)
+                """, (
+                    message_id, file_id, file_unique_id, search_hash,
+                    title_normalized, artist_normalized, keywords_vector,
+                    title, artist, duration, file_size, combined_hash, original_query
+                ))
+                LOGGER(__name__).info(f"➕ تم إضافة سجل جديد لقاعدة البيانات")
+            
+            conn.commit()
+            conn.close()
+            
+            LOGGER(__name__).info(f"✅ تم حفظ البيانات المحسنة: {title[:30]}")
+            return True
         
     except Exception as e:
         LOGGER(__name__).error(f"❌ خطأ في حفظ قاعدة البيانات المحسنة: {e}")
@@ -3293,16 +3470,16 @@ async def process_smart_youtube_download(event, status_msg, query: str, user_id:
         
         # محاولة النظام المختلط أولاً (API + yt-dlp)
         try:
-            from ZeMusic.plugins.play.youtube_api_downloader import search_and_download_hybrid
-            hybrid_result = await search_and_download_hybrid(query)
+            from .youtube_api_downloader import download_youtube_hybrid
+            success, hybrid_result = await download_youtube_hybrid(query, "downloads")
             
-            if hybrid_result and hybrid_result.get('success'):
+            if success and hybrid_result:
                 LOGGER(__name__).info(f"✅ نجح التحميل المختلط: {hybrid_result['title']}")
                 result = {
                     'audio_path': hybrid_result['file_path'],
                     'title': hybrid_result['title'],
-                    'duration': hybrid_result['duration'],
-                    'uploader': hybrid_result['uploader'],
+                    'duration': hybrid_result.get('duration', 0),
+                    'uploader': hybrid_result.get('channel', 'Unknown'),
                     'video_id': hybrid_result['video_id'],
                     'method': 'hybrid_api_ytdlp'
                 }
@@ -3720,116 +3897,181 @@ async def search_local_cache(query: str) -> Optional[Dict]:
             LOGGER(__name__).error(f"❌ خطأ في تنظيف الاستعلام: {e}")
             return None
         
-        # التحقق من وجود قاعدة البيانات
-        if not os.path.exists(DATABASE_PATH):
-            LOGGER(__name__).warning(f"⚠️ قاعدة البيانات غير موجودة: {DATABASE_PATH}")
-            return None
-        
-        # الاتصال بقاعدة البيانات
-        try:
-            conn = sqlite3.connect(DATABASE_PATH, timeout=5.0)
-            cursor = conn.cursor()
-            LOGGER(__name__).debug("✅ تم الاتصال بقاعدة البيانات")
-            
-        except sqlite3.Error as db_error:
-            LOGGER(__name__).error(f"❌ خطأ في الاتصال بقاعدة البيانات: {db_error}")
-            return None
-        
-        # التحقق من وجود الجدول
-        try:
-            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='cached_audio'")
-            table_exists = cursor.fetchone()
-            
-            if not table_exists:
-                LOGGER(__name__).warning("⚠️ جدول cached_audio غير موجود")
-                return None
+        if config.DATABASE_TYPE == "postgresql":
+            # PostgreSQL - استخدام DownloadDAL
+            try:
+                LOGGER(__name__).info("🗄️ البحث في PostgreSQL...")
                 
-            LOGGER(__name__).debug("✅ جدول cached_audio موجود")
-            
-        except sqlite3.Error as e:
-            LOGGER(__name__).error(f"❌ خطأ في فحص الجدول: {e}")
-            return None
-        
-        # بناء استعلام البحث المتقدم
-        search_conditions = []
-        search_params = []
-        
-        try:
-            for keyword in search_keywords:
-                if keyword.strip():  # تجاهل الكلمات الفارغة
-                    search_conditions.append(
-                        "(LOWER(title) LIKE ? OR LOWER(artist) LIKE ? OR LOWER(keywords) LIKE ?)"
-                    )
-                    keyword_lower = keyword.lower()
-                    search_params.extend([f"%{keyword_lower}%", f"%{keyword_lower}%", f"%{keyword_lower}%"])
-            
-            if not search_conditions:
-                LOGGER(__name__).warning("⚠️ لا توجد شروط بحث صالحة")
-                return None
+                # البحث في audio_cache
+                search_results = await download_dal.get_search_history(query, limit=1)
                 
-            where_clause = " AND ".join(search_conditions)
-            query_sql = f"""
-            SELECT video_id, title, artist, duration, file_path, thumb, message_id, keywords, created_at
-            FROM cached_audio 
-            WHERE {where_clause}
-            ORDER BY created_at DESC LIMIT 1
-            """
-            
-            LOGGER(__name__).debug(f"📋 استعلام SQL: {query_sql}")
-            LOGGER(__name__).debug(f"📋 معاملات البحث: {len(search_params)} معامل")
-            
-        except Exception as e:
-            LOGGER(__name__).error(f"❌ خطأ في بناء استعلام البحث: {e}")
-            return None
-        
-        # تنفيذ الاستعلام
-        try:
-            cursor.execute(query_sql, search_params)
-            result = cursor.fetchone()
-            
-            if result:
-                # التحقق من صحة البيانات المسترجعة
-                try:
-                    result_dict = {
-                        "video_id": result[0] if result[0] else "unknown",
-                        "title": result[1] if result[1] else "عنوان غير محدد",
-                        "artist": result[2] if result[2] else "فنان غير محدد",
-                        "duration": int(result[3]) if result[3] and str(result[3]).isdigit() else 0,
-                        "file_path": result[4] if result[4] else None,
-                        "thumb": result[5] if result[5] else None,
-                        "message_id": int(result[6]) if result[6] and str(result[6]).isdigit() else None,
-                        "keywords": result[7] if result[7] else "",
-                        "source": "local_cache",
-                        "created_at": result[8] if result[8] else "غير محدد"
-                    }
+                if search_results:
+                    result = search_results[0]
                     
-                    # التحقق من وجود الملف إذا كان محدداً
-                    if result_dict["file_path"] and not os.path.exists(result_dict["file_path"]):
-                        LOGGER(__name__).warning(f"⚠️ الملف المحفوظ غير موجود: {result_dict['file_path']}")
-                        result_dict["file_path"] = None
+                    # حساب نسبة التطابق
+                    title_words = set(result.get('title', '').split())
+                    artist_words = set(result.get('uploader', '').split())
+                    query_words = set(search_keywords)
                     
+                    all_content_words = title_words | artist_words
+                    match_ratio = len(query_words & all_content_words) / len(query_words) if query_words else 0
+                    
+                    # التحقق من الحد الأدنى للتطابق (70% على الأقل)
+                    MIN_MATCH_RATIO = 0.7
+                    if match_ratio >= MIN_MATCH_RATIO:
+                        result_dict = {
+                            "video_id": result.get('video_id', 'unknown'),
+                            "title": result.get('title', 'عنوان غير محدد'),
+                            "artist": result.get('uploader', 'فنان غير محدد'),
+                            "duration": int(result.get('duration', 0)),
+                            "file_path": result.get('file_path'),
+                            "thumb": None,
+                            "message_id": None,
+                            "keywords": f"{result.get('title', '')} {result.get('uploader', '')}".lower(),
+                            "source": "postgresql_cache",
+                            "created_at": result.get('upload_date', 'غير محدد'),
+                            "match_ratio": match_ratio
+                        }
+                        
+                        # التحقق من وجود الملف إذا كان محدداً
+                        if result_dict["file_path"] and not os.path.exists(result_dict["file_path"]):
+                            LOGGER(__name__).warning(f"⚠️ الملف المحفوظ غير موجود: {result_dict['file_path']}")
+                            result_dict["file_path"] = None
+                        
+                        elapsed_time = time.time() - start_time
+                        LOGGER(__name__).info(
+                            f"✅ تم العثور في PostgreSQL:\n"
+                            f"   🎵 العنوان: {result_dict['title']}\n"
+                            f"   👤 الفنان: {result_dict['artist']}\n"
+                            f"   📁 الملف: {'✅ موجود' if result_dict['file_path'] else '❌ غير موجود'}\n"
+                            f"   🎯 نسبة التطابق: {match_ratio:.1%}\n"
+                            f"   ⏱️ الوقت: {elapsed_time:.2f} ثانية"
+                        )
+                        
+                        return result_dict
+                    else:
+                        LOGGER(__name__).info(f"❌ نسبة التطابق منخفضة: {match_ratio:.1%} (الحد الأدنى: {MIN_MATCH_RATIO:.1%})")
+                        return None
+                else:
                     elapsed_time = time.time() - start_time
-                    LOGGER(__name__).info(
-                        f"✅ تم العثور في الكاش المحلي:\n"
-                        f"   🎵 العنوان: {result_dict['title']}\n"
-                        f"   👤 الفنان: {result_dict['artist']}\n"
-                        f"   📁 الملف: {'✅ موجود' if result_dict['file_path'] else '❌ غير موجود'}\n"
-                        f"   ⏱️ الوقت: {elapsed_time:.2f} ثانية"
-                    )
-                    
-                    return result_dict
-                    
-                except Exception as e:
-                    LOGGER(__name__).error(f"❌ خطأ في معالجة نتيجة البحث: {e}")
+                    LOGGER(__name__).info(f"🔍 لم يتم العثور على نتائج في PostgreSQL (⏱️ {elapsed_time:.2f}s)")
                     return None
-            else:
-                elapsed_time = time.time() - start_time
-                LOGGER(__name__).info(f"🔍 لم يتم العثور على نتائج في الكاش المحلي (⏱️ {elapsed_time:.2f}s)")
+                    
+            except Exception as e:
+                LOGGER(__name__).error(f"❌ خطأ في البحث بـ PostgreSQL: {e}")
                 return None
+        else:
+            # SQLite - الكود الأصلي
+            # التحقق من وجود قاعدة البيانات
+            if not os.path.exists(DATABASE_PATH):
+                LOGGER(__name__).warning(f"⚠️ قاعدة البيانات غير موجودة: {DATABASE_PATH}")
+                return None
+            
+            # الاتصال بقاعدة البيانات
+            try:
+                conn = sqlite3.connect(DATABASE_PATH, timeout=5.0)
+                cursor = conn.cursor()
+                LOGGER(__name__).debug("✅ تم الاتصال بقاعدة البيانات")
                 
-        except sqlite3.Error as e:
-            LOGGER(__name__).error(f"❌ خطأ في تنفيذ استعلام البحث: {e}")
-            return None
+            except sqlite3.Error as db_error:
+                LOGGER(__name__).error(f"❌ خطأ في الاتصال بقاعدة البيانات: {db_error}")
+                return None
+            
+            # التحقق من وجود الجدول
+            try:
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='cached_audio'")
+                table_exists = cursor.fetchone()
+                
+                if not table_exists:
+                    LOGGER(__name__).warning("⚠️ جدول cached_audio غير موجود")
+                    return None
+                    
+                LOGGER(__name__).debug("✅ جدول cached_audio موجود")
+                
+            except sqlite3.Error as e:
+                LOGGER(__name__).error(f"❌ خطأ في فحص الجدول: {e}")
+                return None
+            
+            # بناء استعلام البحث المتقدم
+            search_conditions = []
+            search_params = []
+            
+            try:
+                for keyword in search_keywords:
+                    if keyword.strip():  # تجاهل الكلمات الفارغة
+                        search_conditions.append(
+                            "(LOWER(title) LIKE ? OR LOWER(artist) LIKE ? OR LOWER(keywords) LIKE ?)"
+                        )
+                        keyword_lower = keyword.lower()
+                        search_params.extend([f"%{keyword_lower}%", f"%{keyword_lower}%", f"%{keyword_lower}%"])
+                
+                if not search_conditions:
+                    LOGGER(__name__).warning("⚠️ لا توجد شروط بحث صالحة")
+                    return None
+                    
+                where_clause = " AND ".join(search_conditions)
+                query_sql = f"""
+                SELECT video_id, title, artist, duration, file_path, thumb, message_id, keywords, created_at
+                FROM cached_audio 
+                WHERE {where_clause}
+                ORDER BY created_at DESC LIMIT 1
+                """
+                
+                LOGGER(__name__).debug(f"📋 استعلام SQL: {query_sql}")
+                LOGGER(__name__).debug(f"📋 معاملات البحث: {len(search_params)} معامل")
+                
+            except Exception as e:
+                LOGGER(__name__).error(f"❌ خطأ في بناء استعلام البحث: {e}")
+                return None
+            
+            # تنفيذ الاستعلام
+            try:
+                cursor.execute(query_sql, search_params)
+                result = cursor.fetchone()
+                
+                if result:
+                    # التحقق من صحة البيانات المسترجعة
+                    try:
+                        result_dict = {
+                            "video_id": result[0] if result[0] else "unknown",
+                            "title": result[1] if result[1] else "عنوان غير محدد",
+                            "artist": result[2] if result[2] else "فنان غير محدد",
+                            "duration": int(result[3]) if result[3] and str(result[3]).isdigit() else 0,
+                            "file_path": result[4] if result[4] else None,
+                            "thumb": result[5] if result[5] else None,
+                            "message_id": int(result[6]) if result[6] and str(result[6]).isdigit() else None,
+                            "keywords": result[7] if result[7] else "",
+                            "source": "local_cache",
+                            "created_at": result[8] if result[8] else "غير محدد"
+                        }
+                        
+                        # التحقق من وجود الملف إذا كان محدداً
+                        if result_dict["file_path"] and not os.path.exists(result_dict["file_path"]):
+                            LOGGER(__name__).warning(f"⚠️ الملف المحفوظ غير موجود: {result_dict['file_path']}")
+                            result_dict["file_path"] = None
+                        
+                        elapsed_time = time.time() - start_time
+                        LOGGER(__name__).info(
+                            f"✅ تم العثور في الكاش المحلي:\n"
+                            f"   🎵 العنوان: {result_dict['title']}\n"
+                            f"   👤 الفنان: {result_dict['artist']}\n"
+                            f"   📁 الملف: {'✅ موجود' if result_dict['file_path'] else '❌ غير موجود'}\n"
+                            f"   ⏱️ الوقت: {elapsed_time:.2f} ثانية"
+                        )
+                        
+                        return result_dict
+                        
+                    except Exception as e:
+                        LOGGER(__name__).error(f"❌ خطأ في معالجة نتيجة البحث: {e}")
+                        return None
+                else:
+                    elapsed_time = time.time() - start_time
+                    LOGGER(__name__).info(f"🔍 لم يتم العثور على نتائج في الكاش المحلي (⏱️ {elapsed_time:.2f}s)")
+                    return None
+                    
+            except sqlite3.Error as e:
+                LOGGER(__name__).error(f"❌ خطأ في تنفيذ استعلام البحث: {e}")
+                return None
         
     except Exception as e:
         elapsed_time = time.time() - start_time
@@ -4341,31 +4583,65 @@ async def save_to_cache(video_id: str, title: str, artist: str, duration: int, f
     try:
         LOGGER(__name__).info(f"💾 حفظ في الكاش: {title}")
         
-        # حفظ في قاعدة البيانات المحلية
+        # حفظ في قاعدة البيانات
         try:
-            conn = sqlite3.connect(DATABASE_PATH)
-            cursor = conn.cursor()
-            
-            # إدراج أو تحديث السجل
-            cursor.execute("""
-                INSERT OR REPLACE INTO cached_audio 
-                (video_id, title, artist, duration, file_path, thumb, message_id, keywords, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
-            """, (
-                video_id,
-                title,
-                artist,
-                duration,
-                file_path,
-                None,  # thumb
-                audio_message.id,
-                f"{title} {artist}".lower(),  # keywords
-            ))
-            
-            conn.commit()
-            conn.close()
-            
-            LOGGER(__name__).info("✅ تم حفظ في قاعدة البيانات المحلية")
+            if config.DATABASE_TYPE == "postgresql":
+                # PostgreSQL - استخدام DownloadDAL
+                try:
+                    video_info = {
+                        'video_id': video_id,
+                        'title': title,
+                        'uploader': artist,
+                        'duration': duration,
+                        'file_path': file_path,
+                        'file_size': 0,  # سيتم تحديثه لاحقاً
+                        'audio_quality': '320',
+                        'file_format': 'mp3',
+                        'thumbnail_url': '',
+                        'view_count': 0,
+                        'like_count': 0,
+                        'upload_date': datetime.now().isoformat(),
+                        'metadata': {
+                            'message_id': audio_message.id,
+                            'thumb_path': thumb_path,
+                            'keywords': f"{title} {artist}".lower()
+                        }
+                    }
+                    
+                    success = await download_dal.save_audio_cache(video_info)
+                    
+                    if success:
+                        LOGGER(__name__).info("✅ تم حفظ في PostgreSQL")
+                    else:
+                        LOGGER(__name__).error("❌ فشل في حفظ PostgreSQL")
+                        
+                except Exception as e:
+                    LOGGER(__name__).error(f"❌ خطأ في حفظ PostgreSQL: {e}")
+            else:
+                # SQLite - الكود الأصلي
+                conn = sqlite3.connect(DATABASE_PATH)
+                cursor = conn.cursor()
+                
+                # إدراج أو تحديث السجل
+                cursor.execute("""
+                    INSERT OR REPLACE INTO cached_audio 
+                    (video_id, title, artist, duration, file_path, thumb, message_id, keywords, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+                """, (
+                    video_id,
+                    title,
+                    artist,
+                    duration,
+                    file_path,
+                    None,  # thumb
+                    audio_message.id,
+                    f"{title} {artist}".lower(),  # keywords
+                ))
+                
+                conn.commit()
+                conn.close()
+                
+                LOGGER(__name__).info("✅ تم حفظ في قاعدة البيانات المحلية")
             
         except Exception as e:
             LOGGER(__name__).error(f"❌ خطأ في حفظ قاعدة البيانات: {e}")
@@ -4373,7 +4649,7 @@ async def save_to_cache(video_id: str, title: str, artist: str, duration: int, f
         # حفظ في قناة التخزين (إذا كانت متاحة)
         try:
             import config
-            from ZeMusic.core.pyrogram_client import pyrogram_manager
+            from ZeMusic import app
             
             if hasattr(config, 'CACHE_CHANNEL_ID') and config.CACHE_CHANNEL_ID:
                 LOGGER(__name__).info(f"💾 حفظ المقطع في قناة التخزين...")
@@ -4388,9 +4664,9 @@ async def save_to_cache(video_id: str, title: str, artist: str, duration: int, f
                 }
                 
                 # حفظ في قناة التخزين باستخدام save_to_smart_cache
-                if pyrogram_manager and pyrogram_manager.bot_client:
+                if app:
                     saved = await save_to_smart_cache(
-                        pyrogram_manager.bot_client, 
+                        app,
                         file_path, 
                         result_data, 
                         f"{title} {artist}",
