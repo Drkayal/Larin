@@ -91,3 +91,26 @@ Traceback (most recent call last):
       is_signed=is_signed)
 pyrogram.errors.exceptions.bad_request_400.ChatAdminRequired: Telegram says: [400 CHAT_ADMIN_REQUIRED] - The method requires chat admin privileges (caused by "channels.GetParticipant")
 ERROR: [youtube] cTXLxXj88kw: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+[05-Aug-25 21:32:28 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[05-Aug-25 21:32:28 - INFO] - ZeMusic.core.userbot - Stopping Assistants...
+[05-Aug-25 21:32:28 - INFO] - ZeMusic.core.postgres - تم قطع الاتصال بقاعدة البيانات
+[05-Aug-25 21:32:28 - INFO] - ZeMusic.core.postgres - تم إغلاق اتصال PostgreSQL
+[05-Aug-25 21:32:28 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[PATCH] ntgcalls compatibility aliases created successfully
+خطأ في إنشاء الجداول: module 'config' has no attribute 'DATABASE_URL'
+PyTgCalls v1.0.9 powered by NTgCalls v1.2.3, Copyright (C) 2021-2025 Laky-64 <https://github.com/Laky-64>
+Licensed under the terms of the GNU Lesser General Public License v3 or later (LGPLv3+)
+
+[93mUpdate Available!
+New PyTgCalls v2.2.5 is now available!
+[0m
+I m not admin in the MUST_JOIN chat eei_5o!
+خطأ في البحث بقاعدة البيانات: module 'config' has no attribute 'DATABASE_URL'
+خطأ في تسجيل البحث: module 'config' has no attribute 'DATABASE_URL'
+خطأ في قاعدة البيانات: module 'config' has no attribute 'DATABASE_URL'
+خطأ في التحميل الأصلي: ERROR: [youtube] cTXLxXj88kw: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+فشلت خدمة التحويل https://api.vevioz.com/api/widget/mp3: Expecting value: line 1 column 1 (char 0)
+فشلت خدمة التحويل https://yt5s.com/en/api/convert: Expecting value: line 1 column 1 (char 0)
+فشلت خدمة التحويل https://api.onlinevideoconverter.pro/api/convert: 'download_url'
+جميع خدمات التحويل فشلت
+I m not admin in the MUST_JOIN chat eei_5o!

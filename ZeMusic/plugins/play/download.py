@@ -5,7 +5,7 @@ import config
 import aiohttp
 import aiofiles
 import yt_dlp
-import psycopg2
+# استخدام PostgreSQL wrapper بدلاً من psycopg2 المباشر
 import cachetools
 from datetime import timedelta
 from pyrogram import Client, filters
@@ -16,19 +16,17 @@ from ZeMusic import app
 from ZeMusic.plugins.play.filters import command
 from ZeMusic.utils.decorators import AdminActual
 from ZeMusic.utils.database import is_search_enabled, enable_search, disable_search
+from ZeMusic.core.postgres import execute_query, fetch_value, fetch_all
 
 # ----- إعداد التخزين المؤقت -----
 CACHE_EXPIRATION = timedelta(hours=24)
 search_cache = cachetools.TTLCache(maxsize=1000, ttl=CACHE_EXPIRATION.total_seconds())
 
 # ----- تهيئة قاعدة البيانات التلقائية -----
-def init_db():
+async def init_db():
     try:
-        conn = psycopg2.connect(config.DATABASE_URL)
-        conn.autocommit = True
-        cur = conn.cursor()
-        
-        cur.execute("""
+        # إنشاء جدول audio_files
+        await execute_query("""
         CREATE TABLE IF NOT EXISTS audio_files (
             id SERIAL PRIMARY KEY,
             video_id TEXT UNIQUE,
@@ -40,7 +38,8 @@ def init_db():
         )
         """)
         
-        cur.execute("""
+        # إنشاء جدول search_history  
+        await execute_query("""
         CREATE TABLE IF NOT EXISTS search_history (
             id SERIAL PRIMARY KEY,
             query TEXT,
@@ -49,29 +48,20 @@ def init_db():
         )
         """)
         
-        cur.close()
-        conn.close()
     except Exception as e:
         print(f"خطأ في إنشاء الجداول: {str(e)}")
 
 # ----- وظائف قاعدة البيانات -----
 async def get_cached_audio(video_id: str):
     try:
-        conn = psycopg2.connect(config.DATABASE_URL)
-        cur = conn.cursor()
-        
-        cur.execute("""
+        result = await fetch_all("""
         SELECT file_path, file_size 
         FROM audio_files 
-        WHERE video_id = %s
-        """, (video_id,))
-        
-        result = cur.fetchone()
-        cur.close()
-        conn.close()
+        WHERE video_id = $1
+        """, video_id)
         
         if result:
-            return {'path': result[0], 'size': result[1]}
+            return {'path': result[0][0], 'size': result[0][1]}
         return None
     except Exception as e:
         print(f"خطأ في قاعدة البيانات: {str(e)}")
@@ -79,35 +69,21 @@ async def get_cached_audio(video_id: str):
 
 async def save_audio_to_db(video_id: str, title: str, file_path: str, file_size: int):
     try:
-        conn = psycopg2.connect(config.DATABASE_URL)
-        cur = conn.cursor()
-        
-        cur.execute("""
+        await execute_query("""
         INSERT INTO audio_files (video_id, title, file_path, file_size)
-        VALUES (%s, %s, %s, %s)
+        VALUES ($1, $2, $3, $4)
         ON CONFLICT (video_id) DO UPDATE 
         SET download_count = audio_files.download_count + 1
-        """, (video_id, title, file_path, file_size))
-        
-        conn.commit()
-        cur.close()
-        conn.close()
+        """, video_id, title, file_path, file_size)
     except Exception as e:
         print(f"خطأ في حفظ الملف: {str(e)}")
 
 async def log_search(query: str, video_id: str):
     try:
-        conn = psycopg2.connect(config.DATABASE_URL)
-        cur = conn.cursor()
-        
-        cur.execute("""
+        await execute_query("""
         INSERT INTO search_history (query, video_id)
-        VALUES (%s, %s)
-        """, (query, video_id))
-        
-        conn.commit()
-        cur.close()
-        conn.close()
+        VALUES ($1, $2)
+        """, query, video_id)
     except Exception as e:
         print(f"خطأ في تسجيل البحث: {str(e)}")
 
@@ -169,7 +145,7 @@ def remove_if_exists(path):
         os.remove(path)
 
 # ----- تهيئة قاعدة البيانات عند البدء -----
-init_db()
+# سيتم تهيئة قاعدة البيانات تلقائياً عند أول استخدام
 
 channel = "KHAYAL70"      
 lnk = f"https://t.me/{config.CHANNEL_LINK}"
@@ -293,38 +269,33 @@ async def process_video_download(client, message, m, video_info, query):
 
 async def search_in_db(query: str):
     try:
-        conn = psycopg2.connect(config.DATABASE_URL)
-        cur = conn.cursor()
-        
-        cur.execute("""
+        # البحث عن video_id من تاريخ البحث
+        result = await fetch_all("""
         SELECT video_id 
         FROM search_history 
-        WHERE query ILIKE %s 
+        WHERE query ILIKE $1 
         ORDER BY created_at DESC 
         LIMIT 1
-        """, (f"%{query}%",))
+        """, f"%{query}%")
         
-        result = cur.fetchone()
         if not result:
             return None
         
-        video_id = result[0]
-        cur.execute("""
+        video_id = result[0][0]
+        
+        # البحث عن معلومات الصوت
+        audio_info = await fetch_all("""
         SELECT video_id, title, file_path
         FROM audio_files 
-        WHERE video_id = %s
-        """, (video_id,))
-        
-        audio_info = cur.fetchone()
-        cur.close()
-        conn.close()
+        WHERE video_id = $1
+        """, video_id)
         
         if audio_info:
             return {
-                'id': audio_info[0],
-                'title': audio_info[1],
-                'url': f"https://www.youtube.com/watch?v={audio_info[0]}",
-                'file_path': audio_info[2]
+                'id': audio_info[0][0],
+                'title': audio_info[0][1],
+                'url': f"https://www.youtube.com/watch?v={audio_info[0][0]}",
+                'file_path': audio_info[0][2]
             }
         return None
     except Exception as e:
