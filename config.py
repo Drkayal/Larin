@@ -20,6 +20,24 @@ GPT_NAME = getenv("GPT_NAME","")
 # Get your mongo url from cloud.mongodb.com
 MONGO_DB_URI = getenv("MONGO_DB_URI")
 
+# PostgreSQL Database Configuration
+POSTGRES_HOST = getenv("POSTGRES_HOST", "localhost")
+POSTGRES_PORT = int(getenv("POSTGRES_PORT", 5432))
+POSTGRES_DB = getenv("POSTGRES_DB", "zemusic_bot")
+POSTGRES_USER = getenv("POSTGRES_USER", "postgres")
+POSTGRES_PASSWORD = getenv("POSTGRES_PASSWORD", "")
+# Build PostgreSQL URI if not provided directly
+if getenv("POSTGRES_URI"):
+    POSTGRES_URI = getenv("POSTGRES_URI")
+else:
+    if POSTGRES_PASSWORD:
+        POSTGRES_URI = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+    else:
+        POSTGRES_URI = f"postgresql://{POSTGRES_USER}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+
+# Database Type Selection (mongodb or postgresql)
+DATABASE_TYPE = getenv("DATABASE_TYPE", "mongodb").lower()
+
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 480))
 
 # Chat id of a group for logging bot s activities

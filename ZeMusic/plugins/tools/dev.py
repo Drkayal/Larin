@@ -12,6 +12,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from ZeMusic import app
 from config import OWNER_ID
+import config
 
 
 async def aexec(code, client, message):
@@ -209,3 +210,41 @@ async def shellrunner(_, message: Message):
     else:
         await edit_or_reply(message, text="<b>OUTPUT :</b>\n<code>None</code>")
     await message.stop_propagation()
+
+
+@app.on_message(filters.command(["dbtest", "اختبار_قاعدة_البيانات_سريع"]) & filters.user(OWNER_ID))
+async def quick_db_test(client, message: Message):
+    """اختبار سريع لقاعدة البيانات للمطور الأساسي"""
+    
+    if config.DATABASE_TYPE == "postgresql":
+        test_msg = await message.reply_text("🔍 **اختبار سريع لـ PostgreSQL...**")
+        try:
+            from ZeMusic.core.postgres import fetch_one
+            
+            # اختبار اتصال بسيط
+            result = await fetch_one("SELECT version(), current_database(), current_user")
+            if result:
+                db_version = result['version'][:50] + "..." if len(result['version']) > 50 else result['version']
+                
+                await test_msg.edit_text(
+                    f"✅ **PostgreSQL متصل ويعمل بشكل طبيعي**\n\n"
+                    f"📋 **معلومات سريعة:**\n"
+                    f"├ قاعدة البيانات: `{result['current_database']}`\n"
+                    f"├ المستخدم: `{result['current_user']}`\n"
+                    f"└ الإصدار: `{db_version}`\n\n"
+                    f"💡 **للاختبار الشامل:** `/testdb`"
+                )
+            else:
+                await test_msg.edit_text("❌ **خطأ:** لا يمكن الحصول على معلومات قاعدة البيانات")
+                
+        except Exception as e:
+            await test_msg.edit_text(f"❌ **خطأ في PostgreSQL:**\n```\n{str(e)}\n```")
+    else:
+        await message.reply_text(
+            f"🟡 **MongoDB نشط**\n\n"
+            f"📋 **معلومات:**\n"
+            f"├ النوع: MongoDB\n"
+            f"├ الحالة: متصل\n"
+            f"└ وضع PostgreSQL: غير مفعل\n\n"
+            f"💡 **لتفعيل PostgreSQL:** تعيين `DATABASE_TYPE=postgresql`"
+        )

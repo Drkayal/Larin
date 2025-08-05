@@ -4,6 +4,14 @@ from typing import Dict, List, Union
 from ZeMusic import userbot
 from ZeMusic.core.mongo import mongodb
 
+# إضافة دعم PostgreSQL
+import config
+if config.DATABASE_TYPE == "postgresql":
+    from ZeMusic.database.dal import (
+        user_dal, chat_dal, chat_settings_dal, 
+        auth_dal, ban_dal
+    )
+
 authdb = mongodb.adminauth
 authuserdb = mongodb.authuser
 autoenddb = mongodb.autoend
@@ -244,6 +252,9 @@ async def skip_off(chat_id: int):
 
 
 async def get_upvote_count(chat_id: int) -> int:
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_settings_dal.get_upvote_count(chat_id)
+    
     mode = count.get(chat_id)
     if not mode:
         mode = await countdb.find_one({"chat_id": chat_id})
@@ -255,6 +266,9 @@ async def get_upvote_count(chat_id: int) -> int:
 
 
 async def set_upvotes(chat_id: int, mode: int):
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_settings_dal.set_upvotes(chat_id, mode)
+    
     count[chat_id] = mode
     await countdb.update_one(
         {"chat_id": chat_id}, {"$set": {"mode": mode}}, upsert=True
@@ -309,6 +323,9 @@ async def set_cmode(chat_id: int, mode: int):
 
 
 async def get_playtype(chat_id: int) -> str:
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_settings_dal.get_playtype(chat_id)
+    
     mode = playtype.get(chat_id)
     if not mode:
         mode = await playtypedb.find_one({"chat_id": chat_id})
@@ -321,6 +338,9 @@ async def get_playtype(chat_id: int) -> str:
 
 
 async def set_playtype(chat_id: int, mode: str):
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_settings_dal.set_playtype(chat_id, mode)
+    
     playtype[chat_id] = mode
     await playtypedb.update_one(
         {"chat_id": chat_id}, {"$set": {"mode": mode}}, upsert=True
@@ -328,6 +348,9 @@ async def set_playtype(chat_id: int, mode: str):
 
 
 async def get_playmode(chat_id: int) -> str:
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_settings_dal.get_playmode(chat_id)
+    
     mode = playmode.get(chat_id)
     if not mode:
         mode = await playmodedb.find_one({"chat_id": chat_id})
@@ -340,6 +363,9 @@ async def get_playmode(chat_id: int) -> str:
 
 
 async def set_playmode(chat_id: int, mode: str):
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_settings_dal.set_playmode(chat_id, mode)
+    
     playmode[chat_id] = mode
     await playmodedb.update_one(
         {"chat_id": chat_id}, {"$set": {"mode": mode}}, upsert=True
@@ -347,6 +373,9 @@ async def set_playmode(chat_id: int, mode: str):
 
 
 async def get_lang(chat_id: int) -> str:
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_settings_dal.get_lang(chat_id)
+    
     mode = langm.get(chat_id)
     if not mode:
         lang = await langdb.find_one({"chat_id": chat_id})
@@ -359,6 +388,9 @@ async def get_lang(chat_id: int) -> str:
 
 
 async def set_lang(chat_id: int, lang: str):
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_settings_dal.set_lang(chat_id, lang)
+    
     langm[chat_id] = lang
     await langdb.update_one({"chat_id": chat_id}, {"$set": {"lang": lang}}, upsert=True)
 
@@ -513,6 +545,9 @@ async def maintenance_on():
 
 
 async def is_served_user(user_id: int) -> bool:
+    if config.DATABASE_TYPE == "postgresql":
+        return await user_dal.is_served_user(user_id)
+    
     user = await usersdb.find_one({"user_id": user_id})
     if not user:
         return False
@@ -520,6 +555,9 @@ async def is_served_user(user_id: int) -> bool:
 
 
 async def get_served_users() -> list:
+    if config.DATABASE_TYPE == "postgresql":
+        return await user_dal.get_served_users()
+    
     users_list = []
     async for user in usersdb.find({"user_id": {"$gt": 0}}):
         users_list.append(user)
@@ -527,6 +565,9 @@ async def get_served_users() -> list:
 
 
 async def add_served_user(user_id: int):
+    if config.DATABASE_TYPE == "postgresql":
+        return await user_dal.add_served_user(user_id)
+    
     is_served = await is_served_user(user_id)
     if is_served:
         return
@@ -534,6 +575,9 @@ async def add_served_user(user_id: int):
 
 
 async def get_served_chats() -> list:
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_dal.get_served_chats()
+    
     chats_list = []
     async for chat in chatsdb.find({"chat_id": {"$lt": 0}}):
         chats_list.append(chat)
@@ -541,6 +585,9 @@ async def get_served_chats() -> list:
 
 
 async def is_served_chat(chat_id: int) -> bool:
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_dal.is_served_chat(chat_id)
+    
     chat = await chatsdb.find_one({"chat_id": chat_id})
     if not chat:
         return False
@@ -548,6 +595,9 @@ async def is_served_chat(chat_id: int) -> bool:
 
 
 async def add_served_chat(chat_id: int):
+    if config.DATABASE_TYPE == "postgresql":
+        return await chat_dal.add_served_chat(chat_id)
+    
     is_served = await is_served_chat(chat_id)
     if is_served:
         return
@@ -555,6 +605,9 @@ async def add_served_chat(chat_id: int):
 
 
 async def blacklisted_chats() -> list:
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.blacklisted_chats()
+    
     chats_list = []
     async for chat in blacklist_chatdb.find({"chat_id": {"$lt": 0}}):
         chats_list.append(chat["chat_id"])
@@ -562,6 +615,9 @@ async def blacklisted_chats() -> list:
 
 
 async def blacklist_chat(chat_id: int) -> bool:
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.blacklist_chat(chat_id)
+    
     if not await blacklist_chatdb.find_one({"chat_id": chat_id}):
         await blacklist_chatdb.insert_one({"chat_id": chat_id})
         return True
@@ -569,6 +625,9 @@ async def blacklist_chat(chat_id: int) -> bool:
 
 
 async def whitelist_chat(chat_id: int) -> bool:
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.whitelist_chat(chat_id)
+    
     if await blacklist_chatdb.find_one({"chat_id": chat_id}):
         await blacklist_chatdb.delete_one({"chat_id": chat_id})
         return True
@@ -583,6 +642,9 @@ async def _get_authusers(chat_id: int) -> Dict[str, int]:
 
 
 async def get_authuser_names(chat_id: int) -> List[str]:
+    if config.DATABASE_TYPE == "postgresql":
+        return await auth_dal.get_authuser_names(chat_id)
+    
     _notes = []
     for note in await _get_authusers(chat_id):
         _notes.append(note)
@@ -590,6 +652,9 @@ async def get_authuser_names(chat_id: int) -> List[str]:
 
 
 async def get_authuser(chat_id: int, name: str) -> Union[bool, dict]:
+    if config.DATABASE_TYPE == "postgresql":
+        return await auth_dal.get_authuser(chat_id, name)
+    
     name = name
     _notes = await _get_authusers(chat_id)
     if name in _notes:
@@ -599,6 +664,9 @@ async def get_authuser(chat_id: int, name: str) -> Union[bool, dict]:
 
 
 async def save_authuser(chat_id: int, name: str, note: dict):
+    if config.DATABASE_TYPE == "postgresql":
+        return await auth_dal.save_authuser(chat_id, name, note)
+    
     name = name
     _notes = await _get_authusers(chat_id)
     _notes[name] = note
@@ -609,6 +677,9 @@ async def save_authuser(chat_id: int, name: str, note: dict):
 
 
 async def delete_authuser(chat_id: int, name: str) -> bool:
+    if config.DATABASE_TYPE == "postgresql":
+        return await auth_dal.delete_authuser(chat_id, name)
+    
     notesd = await _get_authusers(chat_id)
     name = name
     if name in notesd:
@@ -623,6 +694,9 @@ async def delete_authuser(chat_id: int, name: str) -> bool:
 
 
 async def get_gbanned() -> list:
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.get_gbanned()
+    
     results = []
     async for user in gbansdb.find({"user_id": {"$gt": 0}}):
         user_id = user["user_id"]
@@ -631,6 +705,9 @@ async def get_gbanned() -> list:
 
 
 async def is_gbanned_user(user_id: int) -> bool:
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.is_gbanned_user(user_id)
+    
     user = await gbansdb.find_one({"user_id": user_id})
     if not user:
         return False
@@ -638,6 +715,9 @@ async def is_gbanned_user(user_id: int) -> bool:
 
 
 async def add_gban_user(user_id: int):
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.add_gban_user(user_id)
+    
     is_gbanned = await is_gbanned_user(user_id)
     if is_gbanned:
         return
@@ -645,6 +725,9 @@ async def add_gban_user(user_id: int):
 
 
 async def remove_gban_user(user_id: int):
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.remove_gban_user(user_id)
+    
     is_gbanned = await is_gbanned_user(user_id)
     if not is_gbanned:
         return
@@ -652,6 +735,9 @@ async def remove_gban_user(user_id: int):
 
 
 async def get_sudoers() -> list:
+    if config.DATABASE_TYPE == "postgresql":
+        return await auth_dal.get_sudoers()
+    
     sudoers = await sudoersdb.find_one({"sudo": "sudo"})
     if not sudoers:
         return []
@@ -659,6 +745,9 @@ async def get_sudoers() -> list:
 
 
 async def add_sudo(user_id: int) -> bool:
+    if config.DATABASE_TYPE == "postgresql":
+        return await auth_dal.add_sudo(user_id)
+    
     sudoers = await get_sudoers()
     sudoers.append(user_id)
     await sudoersdb.update_one(
@@ -668,6 +757,9 @@ async def add_sudo(user_id: int) -> bool:
 
 
 async def remove_sudo(user_id: int) -> bool:
+    if config.DATABASE_TYPE == "postgresql":
+        return await auth_dal.remove_sudo(user_id)
+    
     sudoers = await get_sudoers()
     sudoers.remove(user_id)
     await sudoersdb.update_one(
@@ -677,6 +769,9 @@ async def remove_sudo(user_id: int) -> bool:
 
 
 async def get_banned_users() -> list:
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.get_banned_users()
+    
     results = []
     async for user in blockeddb.find({"user_id": {"$gt": 0}}):
         user_id = user["user_id"]
@@ -685,12 +780,18 @@ async def get_banned_users() -> list:
 
 
 async def get_banned_count() -> int:
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.get_banned_count()
+    
     users = blockeddb.find({"user_id": {"$gt": 0}})
     users = await users.to_list(length=100000)
     return len(users)
 
 
 async def is_banned_user(user_id: int) -> bool:
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.is_banned_user(user_id)
+    
     user = await blockeddb.find_one({"user_id": user_id})
     if not user:
         return False
@@ -698,6 +799,9 @@ async def is_banned_user(user_id: int) -> bool:
 
 
 async def add_banned_user(user_id: int):
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.add_banned_user(user_id)
+    
     is_gbanned = await is_banned_user(user_id)
     if is_gbanned:
         return
@@ -705,6 +809,9 @@ async def add_banned_user(user_id: int):
 
 
 async def remove_banned_user(user_id: int):
+    if config.DATABASE_TYPE == "postgresql":
+        return await ban_dal.remove_banned_user(user_id)
+    
     is_gbanned = await is_banned_user(user_id)
     if not is_gbanned:
         return

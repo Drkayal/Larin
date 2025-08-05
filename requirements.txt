@@ -1,6 +1,7 @@
 aiofiles
 aiohttp
 asyncio
+asyncpg
 beautifulsoup4
 dnspython
 ffmpeg-python
@@ -26,3 +27,8 @@ youtube-search-python
 telegraph
 numpy
 wget
+# PostgreSQL Dependencies
+asyncpg==0.29.0
+sqlalchemy[asyncio]==2.0.23
+alembic==1.13.1
+psycopg2-binary==2.9.9

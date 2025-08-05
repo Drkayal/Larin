@@ -47,17 +47,29 @@ async def sudo():
     global SUDOERS
     SUDOERS.add(config.DAV)
     SUDOERS.add(config.OWNER_ID)
-    sudoersdb = mongodb.sudoers
-    sudoers = await sudoersdb.find_one({"sudo": "sudo"})
-    sudoers = [] if not sudoers else sudoers["sudoers"]
-    if config.OWNER_ID not in sudoers:
-        sudoers.append(config.OWNER_ID)
-        sudoers.append(config.DAV)
-        await sudoersdb.update_one(
-            {"sudo": "sudo"},
-            {"$set": {"sudoers": sudoers}},
-            upsert=True,
-        )
+    
+    # دعم PostgreSQL
+    if config.DATABASE_TYPE == "postgresql":
+        from ZeMusic.database.dal import auth_dal
+        sudoers = await auth_dal.get_sudoers()
+        if config.OWNER_ID not in sudoers:
+            await auth_dal.add_sudo(config.OWNER_ID)
+            await auth_dal.add_sudo(config.DAV)
+            sudoers = await auth_dal.get_sudoers()
+    else:
+        # MongoDB (الطريقة الأصلية)
+        sudoersdb = mongodb.sudoers
+        sudoers_doc = await sudoersdb.find_one({"sudo": "sudo"})
+        sudoers = [] if not sudoers_doc else sudoers_doc["sudoers"]
+        if config.OWNER_ID not in sudoers:
+            sudoers.append(config.OWNER_ID)
+            sudoers.append(config.DAV)
+            await sudoersdb.update_one(
+                {"sudo": "sudo"},
+                {"$set": {"sudoers": sudoers}},
+                upsert=True,
+            )
+    
     if sudoers:
         for user_id in sudoers:
             SUDOERS.add(user_id)

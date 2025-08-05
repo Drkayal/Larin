@@ -98,9 +98,30 @@ async def bot_stats(client, CallbackQuery, _):
     total = hdd.total / (1024.0**3)
     used = hdd.used / (1024.0**3)
     free = hdd.free / (1024.0**3)
-    call = await mongodb.command("dbstats")
-    datasize = call["dataSize"] / 1024
-    storage = call["storageSize"] / 1024
+    
+    # إحصائيات قاعدة البيانات
+    if config.DATABASE_TYPE == "postgresql":
+        # PostgreSQL stats
+        try:
+            from ZeMusic.core.postgres import fetch_one
+            db_stats = await fetch_one("SELECT pg_database_size(current_database()) as size")
+            datasize = db_stats['size'] / 1024 if db_stats else 0
+            storage = datasize  # PostgreSQL doesn't separate data and storage size
+            collections = 14  # عدد الجداول في PostgreSQL
+            objects = served_chats + served_users  # تقدير تقريبي للكائنات
+        except:
+            datasize = 0
+            storage = 0
+            collections = 14
+            objects = 0
+    else:
+        # MongoDB stats (الطريقة الأصلية)
+        call = await mongodb.command("dbstats")
+        datasize = call["dataSize"] / 1024
+        storage = call["storageSize"] / 1024
+        collections = call["collections"]
+        objects = call["objects"]
+    
     served_chats = len(await get_served_chats())
     served_users = len(await get_served_users())
     text = _["gstats_5"].format(
@@ -123,8 +144,8 @@ async def bot_stats(client, CallbackQuery, _):
         len(await get_sudoers()),
         str(datasize)[:6],
         storage,
-        call["collections"],
-        call["objects"],
+        collections,
+        objects,
     )
     med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)
     try:

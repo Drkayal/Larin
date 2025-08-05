@@ -1,0 +1,117 @@
+"""
+User Model
+نموذج المستخدمين
+"""
+
+from datetime import datetime
+from typing import Optional
+from dataclasses import dataclass, field
+
+from .base import BaseModel
+
+@dataclass
+class User(BaseModel):
+    """
+    نموذج المستخدم
+    يمثل جدول users في قاعدة البيانات
+    """
+    
+    # المعرف الأساسي
+    user_id: int
+    
+    # معلومات المستخدم الأساسية
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    username: Optional[str] = None
+    language_code: str = "ar"
+    
+    # حالة المستخدم
+    is_bot: bool = False
+    is_premium: bool = False
+    is_active: bool = True
+    
+    # التواريخ
+    joined_at: datetime = field(default_factory=datetime.utcnow)
+    last_activity: datetime = field(default_factory=datetime.utcnow)
+    
+    def __post_init__(self):
+        """تنفيذ بعد إنشاء النموذج"""
+        # التأكد من صحة user_id
+        if not isinstance(self.user_id, int) or self.user_id <= 0:
+            raise ValueError("user_id يجب أن يكون رقم صحيح موجب")
+        
+        # تنظيف البيانات
+        if self.first_name:
+            self.first_name = self.first_name.strip()[:255]
+        if self.last_name:
+            self.last_name = self.last_name.strip()[:255]
+        if self.username:
+            self.username = self.username.strip().replace('@', '')[:255]
+    
+    @property
+    def full_name(self) -> str:
+        """الاسم الكامل للمستخدم"""
+        parts = []
+        if self.first_name:
+            parts.append(self.first_name)
+        if self.last_name:
+            parts.append(self.last_name)
+        return " ".join(parts) or f"User {self.user_id}"
+    
+    @property
+    def mention(self) -> str:
+        """منشن المستخدم"""
+        if self.username:
+            return f"@{self.username}"
+        return self.full_name
+    
+    @property
+    def is_private_chat(self) -> bool:
+        """هل هذا مستخدم (وليس مجموعة)"""
+        return self.user_id > 0
+    
+    def update_activity(self):
+        """تحديث آخر نشاط"""
+        self.last_activity = datetime.utcnow()
+        self.update_timestamp()
+    
+    def deactivate(self):
+        """إلغاء تفعيل المستخدم"""
+        self.is_active = False
+        self.update_timestamp()
+    
+    def activate(self):
+        """تفعيل المستخدم"""
+        self.is_active = True
+        self.update_timestamp()
+    
+    def to_telegram_dict(self) -> dict:
+        """تحويل إلى تنسيق Telegram"""
+        return {
+            "id": self.user_id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "username": self.username,
+            "language_code": self.language_code,
+            "is_bot": self.is_bot,
+            "is_premium": self.is_premium,
+        }
+    
+    @classmethod
+    def from_telegram_user(cls, telegram_user):
+        """إنشاء من كائن Telegram User"""
+        return cls(
+            user_id=telegram_user.id,
+            first_name=telegram_user.first_name,
+            last_name=telegram_user.last_name,
+            username=telegram_user.username,
+            language_code=getattr(telegram_user, 'language_code', 'ar'),
+            is_bot=getattr(telegram_user, 'is_bot', False),
+            is_premium=getattr(telegram_user, 'is_premium', False),
+        )
+    
+    def __str__(self) -> str:
+        return f"User({self.user_id}, {self.full_name})"
+    
+    def __repr__(self) -> str:
+        return f"User(user_id={self.user_id}, username={self.username}, full_name='{self.full_name}')"

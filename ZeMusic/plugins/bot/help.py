@@ -3,6 +3,7 @@ from typing import Union
 from pyrogram import filters, types
 from pyrogram.types import InlineKeyboardMarkup, Message
 
+import config
 from ZeMusic import app
 from ZeMusic.utils import help_pannel
 from ZeMusic.utils.database import get_lang
@@ -10,6 +11,31 @@ from ZeMusic.utils.decorators.language import LanguageStart, languageCB
 from ZeMusic.utils.inline.help import help_back_markup, private_help_panel
 from config import BANNED_USERS, START_IMG_URL, SUPPORT_CHAT
 from strings import get_string, helpers
+
+
+async def log_help_usage(user_id: int, help_type: str):
+    """تسجيل استخدام المساعدة في قاعدة البيانات"""
+    try:
+        if config.DATABASE_TYPE == "postgresql":
+            from ZeMusic.core.postgres import execute_query
+            await execute_query(
+                "INSERT INTO activity_logs (user_id, activity_type, details, created_at) "
+                "VALUES ($1, $2, $3, NOW())",
+                user_id,
+                "help_usage",
+                f"Used help: {help_type}"
+            )
+        else:
+            # MongoDB fallback
+            from ZeMusic.misc import mongodb
+            await mongodb.activity_logs.insert_one({
+                "user_id": user_id,
+                "activity_type": "help_usage",
+                "details": f"Used help: {help_type}",
+                "created_at": "now"
+            })
+    except Exception as e:
+        print(f"خطأ في تسجيل استخدام المساعدة: {e}")
 
 
 @app.on_message(filters.command(["مساعده", "help", "المساعده"]) & filters.private & ~BANNED_USERS)
@@ -38,6 +64,10 @@ async def helper_private(
         language = await get_lang(update.chat.id)
         _ = get_string(language)
         keyboard = help_pannel(_)
+        
+        # تسجيل استخدام المساعدة
+        await log_help_usage(update.from_user.id, "private_help")
+        
         await update.reply_photo(
             photo=START_IMG_URL,
             caption=_["help_1"].format(SUPPORT_CHAT),
