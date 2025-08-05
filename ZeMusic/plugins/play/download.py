@@ -19,7 +19,7 @@ from ZeMusic.utils.database import is_search_enabled, enable_search, disable_sea
 
 # ----- إعداد التخزين المؤقت -----
 CACHE_EXPIRATION = timedelta(hours=24)
-search_cache = cachetools.TTLCache(maxsize=1000, tt1=CACHE_EXPIRATION.total_seconds())
+search_cache = cachetools.TTLCache(maxsize=1000, ttl=CACHE_EXPIRATION.total_seconds())
 
 # ----- تهيئة قاعدة البيانات التلقائية -----
 def init_db():
