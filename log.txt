@@ -516,3 +516,9 @@
 [05-Aug-25 01:40:36 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
 [05-Aug-25 01:40:36 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
 
+[05-Aug-25 01:43:54 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:43:54 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:43:54 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:43:54 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:43:54 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:43:54 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..

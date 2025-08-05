@@ -3,38 +3,11 @@ from ZeMusic import app
 import asyncio
 import config
 from pyrogram.types import VideoChatEnded, Message
-from pytgcalls import PyTgCalls
-try:
-    from pytgcalls import StreamType
-except ImportError:
-    # للإصدارات الجديدة
-    class StreamType:
-        audio = "audio"
-        video = "video"
-
-try:
-    from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
-except ImportError:
-    # للإصدارات الجديدة - إنشاء كلاسات بديلة
-    class AudioPiped:
-        def __init__(self, path):
-            self.path = path
-    class AudioVideoPiped:
-        def __init__(self, audio_path, video_path=None):
-            self.audio_path = audio_path
-            self.video_path = video_path
-
+from pytgcalls import PyTgCalls, StreamType
+from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from ZeMusic.core.call import Mody
 from ZeMusic.utils.database import *
-
-try:
-    from pytgcalls.exceptions import (NoActiveGroupCall,TelegramServerError,AlreadyJoinedError)
-except ImportError:
-    from pytgcalls.exceptions import NoActiveGroupCall
-    class TelegramServerError(Exception):
-        pass
-    class AlreadyJoinedError(Exception):
-        pass
+from pytgcalls.exceptions import (NoActiveGroupCall,TelegramServerError,AlreadyJoinedError)
 
 
 async def log_call_participants_check(chat_id: int, user_id: int, participants_count: int):
