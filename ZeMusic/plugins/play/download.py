@@ -3470,16 +3470,16 @@ async def process_smart_youtube_download(event, status_msg, query: str, user_id:
         
         # محاولة النظام المختلط أولاً (API + yt-dlp)
         try:
-            from .youtube_api_downloader import download_youtube_hybrid
-            success, hybrid_result = await download_youtube_hybrid(query, "downloads")
+            from ZeMusic.plugins.play.youtube_api_downloader import search_and_download_hybrid
+            hybrid_result = await search_and_download_hybrid(query)
             
-            if success and hybrid_result:
+            if hybrid_result and hybrid_result.get('success'):
                 LOGGER(__name__).info(f"✅ نجح التحميل المختلط: {hybrid_result['title']}")
                 result = {
                     'audio_path': hybrid_result['file_path'],
                     'title': hybrid_result['title'],
-                    'duration': hybrid_result.get('duration', 0),
-                    'uploader': hybrid_result.get('channel', 'Unknown'),
+                    'duration': hybrid_result['duration'],
+                    'uploader': hybrid_result['uploader'],
                     'video_id': hybrid_result['video_id'],
                     'method': 'hybrid_api_ytdlp'
                 }
