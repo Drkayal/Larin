@@ -3,7 +3,8 @@ from ZeMusic import app
 import asyncio
 import config
 from pyrogram.types import VideoChatEnded, Message
-from pytgcalls import PyTgCalls, StreamType
+from pytgcalls import PyTgCalls
+# from pytgcalls.types.stream import MediaStream
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from ZeMusic.core.call import Mody
 from ZeMusic.utils.database import *
@@ -40,7 +41,7 @@ async def log_call_participants_check(chat_id: int, user_id: int, participants_c
 async def strcall(client, message):
     assistant = await group_assistant(Mody,message.chat.id)
     try:
-        await assistant.join_group_call(message.chat.id, AudioPiped("./ZeMusic/assets/call.mp3"), stream_type=StreamType().pulse_stream)
+        await assistant.join_group_call(message.chat.id, AudioPiped("./ZeMusic/assets/call.mp3"))
         text="<b>الموجودين في المكالمه 🚶🏻 :</b>\n\n"
         participants = await assistant.get_participants(message.chat.id)
         k =0

@@ -6,7 +6,8 @@ from typing import Union
 
 from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
-from pytgcalls import PyTgCalls, StreamType
+from pytgcalls import PyTgCalls
+from pytgcalls.types.stream import MediaStream
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
     NoActiveGroupCall,
@@ -315,7 +316,7 @@ class Call(PyTgCalls):
             await assistant.join_group_call(
                 chat_id,
                 stream,
-                stream_type=StreamType().pulse_stream,
+                # stream_type=StreamType().pulse_stream,
             )
         except NoActiveGroupCall:
             raise AssistantErr(_["call_8"])
