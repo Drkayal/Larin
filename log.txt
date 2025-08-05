@@ -35,3 +35,22 @@
 [05-Aug-25 01:16:46 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
 [05-Aug-25 01:16:46 - INFO] - ZeMusic.misc - Local Database Initialized.
 [05-Aug-25 01:16:46 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:25:37 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:25:37 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:25:37 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:25:37 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:25:37 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:25:37 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:25:38 - ERROR] - __main__ - Assistant client variables not defined, exiting...
+[05-Aug-25 01:25:50 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:25:50 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:25:50 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:25:50 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:25:50 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:25:50 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 01:26:28 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 01:26:28 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 01:26:28 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 01:26:28 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 01:26:28 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 01:26:28 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
