@@ -11,26 +11,7 @@ from datetime import datetime
 
 import config
 from ZeMusic.logging import LOGGER
-# تم تعليق الاستيرادات لتجنب الاستيراد الدائري
-# from ZeMusic.utils.database import (
-#     # User functions
-#     add_served_user, is_served_user, get_served_users,
-#     
-#     # Chat functions  
-#     add_served_chat, is_served_chat, get_served_chats,
-#     
-#     # Settings functions
-#     get_lang, set_lang, get_playmode, set_playmode, get_playtype, set_playtype,
-#     
-#     # Auth functions
-#     get_authuser_names, get_authuser, save_authuser, delete_authuser,
-#     get_sudoers, add_sudo, remove_sudo,
-#     
-#     # Ban functions
-#     get_banned_users, is_banned_user, add_banned_user, remove_banned_user,
-#     get_gbanned, is_gbanned_user, add_gban_user, remove_gban_user,
-#     blacklisted_chats, blacklist_chat, whitelist_chat,
-# )
+# سيتم استيراد الوظائف عند الحاجة لتجنب الاستيراد الدائري
 
 
 class AdvancedTester:

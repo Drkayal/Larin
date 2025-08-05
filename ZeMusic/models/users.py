@@ -5,37 +5,55 @@ User Model
 
 from datetime import datetime
 from typing import Optional, Dict, Any
-from dataclasses import dataclass, field
 
-@dataclass
-class User:
+from .base import BaseModel
+
+class User(BaseModel):
     """
     نموذج المستخدم
     يمثل جدول users في قاعدة البيانات
     """
     
-    # المعرف الأساسي (بدون قيمة افتراضية)
-    user_id: int
+    def __init__(self, user_id: int, first_name: Optional[str] = None, 
+                 last_name: Optional[str] = None, username: Optional[str] = None,
+                 language_code: str = "ar", is_bot: bool = False, 
+                 is_premium: bool = False, is_active: bool = True,
+                 joined_at: Optional[datetime] = None, 
+                 last_activity: Optional[datetime] = None,
+                 created_at: Optional[datetime] = None,
+                 updated_at: Optional[datetime] = None):
+        """تهيئة نموذج المستخدم"""
+        super().__init__()
+        
+        # المعرف الأساسي
+        self.user_id = user_id
+        
+        # معلومات المستخدم الأساسية
+        self.first_name = first_name
+        self.last_name = last_name
+        self.username = username
+        self.language_code = language_code
+        
+        # حالة المستخدم
+        self.is_bot = is_bot
+        self.is_premium = is_premium
+        self.is_active = is_active
+        
+        # التواريخ
+        self.joined_at = joined_at or datetime.utcnow()
+        self.last_activity = last_activity or datetime.utcnow()
+        
+        # تحديث التواريخ المشتركة إذا تم تمريرها
+        if created_at:
+            self.created_at = created_at
+        if updated_at:
+            self.updated_at = updated_at
     
-    # معلومات المستخدم الأساسية
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    username: Optional[str] = None
-    language_code: str = "ar"
+        # التحقق من صحة البيانات وتنظيفها
+        self.validate()
     
-    # حالة المستخدم
-    is_bot: bool = False
-    is_premium: bool = False
-    is_active: bool = True
-    
-    # التواريخ
-    created_at: Optional[datetime] = field(default_factory=datetime.utcnow)
-    updated_at: Optional[datetime] = field(default_factory=datetime.utcnow)
-    joined_at: datetime = field(default_factory=datetime.utcnow)
-    last_activity: datetime = field(default_factory=datetime.utcnow)
-    
-    def __post_init__(self):
-        """تنفيذ بعد إنشاء النموذج"""
+    def validate(self):
+        """التحقق من صحة البيانات وتنظيفها"""
         # التأكد من صحة user_id
         if not isinstance(self.user_id, int) or self.user_id <= 0:
             raise ValueError("user_id يجب أن يكون رقم صحيح موجب")
@@ -48,31 +66,7 @@ class User:
         if self.username:
             self.username = self.username.strip().replace('@', '')[:255]
     
-    def to_dict(self) -> Dict[str, Any]:
-        """تحويل النموذج إلى قاموس"""
-        result = {}
-        for key, value in self.__dict__.items():
-            if isinstance(value, datetime):
-                result[key] = value.isoformat()
-            elif isinstance(value, dict):
-                result[key] = value
-            elif isinstance(value, list):
-                result[key] = value
-            else:
-                result[key] = value
-        return result
-    
-    @classmethod
-    def from_dict(cls, data: Dict[str, Any]):
-        """إنشاء النموذج من قاموس"""
-        # تحويل التواريخ من string إلى datetime
-        for key in ['created_at', 'updated_at', 'joined_at', 'last_activity']:
-            if key in data and isinstance(data[key], str):
-                try:
-                    data[key] = datetime.fromisoformat(data[key])
-                except ValueError:
-                    pass
-        return cls(**data)
+
     
     @property
     def full_name(self) -> str:
