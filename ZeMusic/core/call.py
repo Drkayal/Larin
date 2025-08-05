@@ -589,7 +589,7 @@ class Call(PyTgCalls):
                 if hasattr(update, 'chat_id'):
                     await self.change_stream(client, update.chat_id)
             except Exception as e:
-                LOGGER.error(f"خطأ في stream_end_handler: {e}")
+                LOGGER(__name__).error(f"خطأ في stream_end_handler: {e}")
         
         # تسجيل handlers بدون decorators
         try:
@@ -598,9 +598,9 @@ class Call(PyTgCalls):
                     # إضافة handlers بطريقة مباشرة إذا كانت متاحة
                     pass
         except Exception as e:
-            LOGGER.warning(f"تحذير: لا يمكن إضافة handlers: {e}")
+            LOGGER(__name__).warning(f"تحذير: لا يمكن إضافة handlers: {e}")
         
-        LOGGER.info("تم تهيئة PyTgCalls بدون decorators")
+        LOGGER(__name__).info("تم تهيئة PyTgCalls بدون decorators")
 
 
 Mody = Call()
