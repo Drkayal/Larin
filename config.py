@@ -14,9 +14,9 @@ Muntazer = getenv("muntazer", "CHANNEL_ASHTRAK")
 CHANNEL_ASHTRAK = getenv("CHANNEL_ASHTRAK", "eei_5o")
 
 # Get your token from @BotFather on Telegram.
-BOT_TOKEN = getenv("BOT_TOKEN")
-BOT_NAME = getenv("BOT_NAME","لارين")
-GPT_NAME = getenv("GPT_NAME","")
+BOT_TOKEN = getenv("BOT_TOKEN", "8024375688:AAHYvfceRF22ZVMxlvqkdtfmR4rkWTyQDLo")
+BOT_NAME = getenv("BOT_NAME","سدين")
+GPT_NAME = getenv("GPT_NAME","سدون")
 # Get your mongo url from cloud.mongodb.com
 MONGO_DB_URI = getenv("MONGO_DB_URI")
 
@@ -44,7 +44,7 @@ DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 480))
 LOGGER_ID = int(getenv("LOGGER_ID","-1002034990746"))
 
 # Get this value from @FallenxBot on Telegram by /id
-OWNER_ID = int(getenv("OWNER_ID", 7540129630))
+OWNER_ID = int(getenv("OWNER_ID", 985612253))
 
 ## Fill these variables if you re deploying on heroku.
 # Your heroku app name
