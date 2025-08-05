@@ -4,11 +4,10 @@ import asyncio
 import config
 from pyrogram.types import VideoChatEnded, Message
 from pytgcalls import PyTgCalls
-# from pytgcalls.types.stream import MediaStream
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from ZeMusic.core.call import Mody
 from ZeMusic.utils.database import *
-from pytgcalls.exceptions import (NoActiveGroupCall,TelegramServerError,AlreadyJoinedError)
+from pytgcalls.exceptions import (NoActiveGroupCall, NotInCallError, CallBusy)
 
 
 async def log_call_participants_check(chat_id: int, user_id: int, participants_count: int):

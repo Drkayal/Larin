@@ -2110,3 +2110,21 @@ pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 111] Connect
 [05-Aug-25 02:43:21 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
 [05-Aug-25 02:43:21 - INFO] - ZeMusic.misc - Local Database Initialized.
 [05-Aug-25 02:43:21 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 02:48:06 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 02:48:06 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 02:48:06 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 02:48:06 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 02:48:06 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 02:48:06 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 02:48:29 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 02:48:29 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 02:48:29 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 02:48:29 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 02:48:29 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 02:48:29 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[05-Aug-25 02:48:57 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[05-Aug-25 02:48:57 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[05-Aug-25 02:48:57 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[05-Aug-25 02:48:57 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[05-Aug-25 02:48:57 - INFO] - ZeMusic.misc - Local Database Initialized.
+[05-Aug-25 02:48:57 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
