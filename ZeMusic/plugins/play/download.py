@@ -12,6 +12,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from youtube_search import YoutubeSearch
 from ZeMusic.platforms.Youtube import cookies
+from ZeMusic.platforms.Youtube_fallback import youtube_fallback
 from ZeMusic import app
 from ZeMusic.plugins.play.filters import command
 from ZeMusic.utils.decorators import AdminActual
@@ -174,17 +175,29 @@ async def song_downloader(client, message: Message):
             await process_video_download(client, message, m, cached_result, query)
             return
             
-        results = YoutubeSearch(query, max_results=1).to_dict()
+        # استخدام البحث المحسن مع fallback
+        results = await search_youtube_enhanced(query)
         if not results:
-            await m.edit("- لم يتم العثـور على نتائج حاول مجددا")
+            await m.edit("❌ لم يتم العثور على نتائج في جميع المصادر")
             return
 
-        link = f"https://youtube.com{results[0]['url_suffix']}"
+        # التعامل مع أنواع النتائج المختلفة
+        if 'url_suffix' in results[0]:
+            link = f"https://youtube.com{results[0]['url_suffix']}"
+        else:
+            link = results[0].get('link', f"https://www.youtube.com/watch?v={results[0]['id']}")
         title = results[0]["title"][:40]
         title_clean = re.sub(r'[\\/*?:"<>|]', "", title)  # تنظيف اسم الملف
-        thumbnail = results[0]["thumbnails"][0]
+        # استخراج الصورة المصغرة والـ video ID
+        thumbnail = results[0]["thumbnails"][0] if results[0].get("thumbnails") else ""
         thumb_name = f"{title_clean}.jpg"
-        video_id = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11})', link).group(1)
+        
+        # استخراج video ID مع معالجة أفضل للأخطاء
+        video_id_match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11})', link)
+        if video_id_match:
+            video_id = video_id_match.group(1)
+        else:
+            video_id = results[0].get('id', 'unknown')
 
         # تحميل الصورة المصغرة
         try:
@@ -301,6 +314,63 @@ async def search_in_db(query: str):
     except Exception as e:
         print(f"خطأ في البحث بقاعدة البيانات: {str(e)}")
         return None
+
+async def search_youtube_enhanced(query: str) -> list:
+    """بحث محسن في YouTube مع حلول بديلة"""
+    try:
+        # المحاولة الأولى: YoutubeSearch العادي
+        results = YoutubeSearch(query, max_results=5).to_dict()
+        if results:
+            return results
+    except Exception as e:
+        print(f"فشل البحث العادي: {e}")
+    
+    try:
+        # المحاولة الثانية: Invidious fallback
+        fallback_results = await youtube_fallback.search_youtube(query, 5)
+        if fallback_results:
+            # تحويل النتائج لنفس التنسيق
+            converted_results = []
+            for item in fallback_results:
+                converted_results.append({
+                    'id': item['id'],
+                    'title': item['title'],
+                    'duration': f"{item['duration']//60}:{item['duration']%60:02d}",
+                    'thumbnails': [{'url': item['thumbnail']}],
+                    'link': item['url']
+                })
+            return converted_results
+    except Exception as e:
+        print(f"فشل البحث البديل: {e}")
+    
+    return []
+
+async def download_audio_enhanced(video_id: str, title: str) -> str:
+    """تحميل محسن للصوت مع حلول بديلة"""
+    try:
+        # المحاولة الأولى: yt-dlp العادي
+        return await download_audio_original(f"https://www.youtube.com/watch?v={video_id}", "downloads", title)
+    except Exception as e:
+        print(f"فشل التحميل العادي: {e}")
+    
+    try:
+        # المحاولة الثانية: Invidious
+        audio_url = await youtube_fallback.get_best_audio_url(video_id)
+        if audio_url:
+            # تحميل مباشر من الرابط
+            import aiofiles
+            async with aiohttp.ClientSession() as session:
+                async with session.get(audio_url) as response:
+                    if response.status == 200:
+                        filename = f"downloads/{video_id}.mp3"
+                        async with aiofiles.open(filename, 'wb') as f:
+                            async for chunk in response.content.iter_chunked(8192):
+                                await f.write(chunk)
+                        return filename
+    except Exception as e:
+        print(f"فشل التحميل البديل: {e}")
+    
+    return None
 
 async def download_audio_original(url: str, output_dir: str, title: str) -> str:
     try:
