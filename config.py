@@ -140,16 +140,16 @@ COOKIE_FILE = COOKIES_FILES[0] if COOKIES_FILES else "cookies.txt"
 # ============================================
 # إعدادات نظام التحميل المتقدم والتخزين المؤقت
 # ============================================
-MAX_CONCURRENT_DOWNLOADS = int(getenv("MAX_CONCURRENT_DOWNLOADS", 10))
-CACHE_EXPIRATION_HOURS = int(getenv("CACHE_EXPIRATION_HOURS", 24))
-MAX_AUDIO_SIZE_MB = int(getenv("MAX_AUDIO_SIZE_MB", 50))
+MAX_CONCURRENT_DOWNLOADS = int(getenv("MAX_CONCURRENT_DOWNLOADS", 50))  # زيادة للآلاف من المستخدمين
+CACHE_EXPIRATION_HOURS = int(getenv("CACHE_EXPIRATION_HOURS", 168))  # أسبوع كامل
+MAX_AUDIO_SIZE_MB = int(getenv("MAX_AUDIO_SIZE_MB", 0))  # 0 = بدون حدود
 ENABLE_AUDIO_OPTIMIZATION = bool(getenv("ENABLE_AUDIO_OPTIMIZATION", True))
 DOWNLOADS_DIR = getenv("DOWNLOADS_DIR", "downloads")
 ENABLE_SEARCH_CACHE = bool(getenv("ENABLE_SEARCH_CACHE", True))
-CACHE_MAX_SIZE = int(getenv("CACHE_MAX_SIZE", 1000))
-AUDIO_QUALITY = getenv("AUDIO_QUALITY", "192")  # kbps
+CACHE_MAX_SIZE = int(getenv("CACHE_MAX_SIZE", 10000))  # زيادة للآلاف من المستخدمين
+AUDIO_QUALITY = getenv("AUDIO_QUALITY", "320")  # أعلى جودة افتراضية
 ENABLE_DOWNLOAD_STATS = bool(getenv("ENABLE_DOWNLOAD_STATS", True))
-CLEANUP_INTERVAL_HOURS = int(getenv("CLEANUP_INTERVAL_HOURS", 6))
+CLEANUP_INTERVAL_HOURS = int(getenv("CLEANUP_INTERVAL_HOURS", 24))  # تنظيف يومي
 
 # إعدادات yt-dlp المتقدمة
 YT_DLP_RETRIES = int(getenv("YT_DLP_RETRIES", 30))
