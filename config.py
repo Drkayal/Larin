@@ -44,6 +44,82 @@ GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  # Fill this variable if your upstream repository is private
 
+# ============================================
+# YouTube Data API Keys (متعددة للتدوير)
+# ============================================
+YT_API_KEYS_ENV = getenv("YT_API_KEYS", "[]")
+try:
+    import json
+    YT_API_KEYS = json.loads(YT_API_KEYS_ENV) if YT_API_KEYS_ENV != "[]" else []
+except:
+    YT_API_KEYS = []
+
+# مفاتيح افتراضية (تحديث مطلوب)
+if not YT_API_KEYS:
+    YT_API_KEYS = [
+        "AIzaSyA3x5N5DNYzd5j7L7JMn9XsUYil32Ak77U", "AIzaSyDw09GqGziUHXZ3FjugOypSXD7tedWzIzQ"
+        # أضف مفاتيحك هنا
+    ]
+
+# ============================================
+# خوادم Invidious الأفضل (محدثة 2025)
+# ============================================
+INVIDIOUS_SERVERS_ENV = getenv("INVIDIOUS_SERVERS", "[]")
+try:
+    import json
+    INVIDIOUS_SERVERS = json.loads(INVIDIOUS_SERVERS_ENV) if INVIDIOUS_SERVERS_ENV != "[]" else []
+except:
+    INVIDIOUS_SERVERS = []
+
+# خوادم افتراضية محدثة (مجربة ديسمبر 2024 - يناير 2025)
+if not INVIDIOUS_SERVERS:
+    INVIDIOUS_SERVERS = [
+        "https://inv.nadeko.net",           # 🥇 الأفضل - 99.666% uptime
+        "https://invidious.nerdvpn.de",     # 🥈 ممتاز - 100% uptime  
+        "https://yewtu.be",                 # 🥉 جيد - 89.625% uptime
+        "https://invidious.f5.si",          # ⚡ سريع - Cloudflare
+        "https://invidious.materialio.us",  # 🌟 موثوق
+        "https://invidious.reallyaweso.me", # 🚀 سريع
+        "https://iteroni.com",              # ⚡ جيد
+        "https://iv.catgirl.cloud",         # 😸 ممتاز
+        "https://youtube.alt.tyil.nl",      # 🇳🇱 هولندا
+    ]
+
+# ============================================
+# إعدادات ملفات الكوكيز المتعددة
+# ============================================
+COOKIES_FILES_ENV = getenv("COOKIES_FILES", "[]")
+try:
+    import json
+    COOKIES_FILES = json.loads(COOKIES_FILES_ENV) if COOKIES_FILES_ENV != "[]" else []
+except:
+    COOKIES_FILES = []
+
+# مسارات افتراضية لملفات الكوكيز
+if not COOKIES_FILES:
+    import os
+    cookies_dir = "cookies"
+    if os.path.exists(cookies_dir):
+        COOKIES_FILES = [
+            f"{cookies_dir}/cookies1.txt",
+            f"{cookies_dir}/cookies2.txt", 
+            f"{cookies_dir}/cookies3.txt",
+            f"{cookies_dir}/cookies4.txt",
+            f"{cookies_dir}/cookies5.txt"
+        ]
+        # فلترة الملفات الموجودة فقط
+        COOKIES_FILES = [f for f in COOKIES_FILES if os.path.exists(f)]
+    else:
+        # ملف واحد افتراضي للتوافق
+        COOKIES_FILES = ["cookies.txt"] if os.path.exists("cookies.txt") else []
+
+# ============================================
+# إعدادات الكوكيز (التوافق مع الكود القديم)
+# ============================================
+COOKIE_METHOD = "browser"
+COOKIE_FILE = COOKIES_FILES[0] if COOKIES_FILES else "cookies.txt"
+
+# ============================================
 CHANNEL_NAME = getenv("CHANNEL_NAME", "السورس")
 CHANNEL_LINK = getenv("CHANNEL_LINK", "K55DD")
 STORE_NAME = getenv("STORE_NAME", "المتجر")
