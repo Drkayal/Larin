@@ -36,7 +36,7 @@ else:
         POSTGRES_URI = f"postgresql://{POSTGRES_USER}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
 # Database Type Selection (mongodb or postgresql)
-DATABASE_TYPE = getenv("DATABASE_TYPE", "mongodb").lower()
+DATABASE_TYPE = getenv("DATABASE_TYPE", "postgresql").lower()
 
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 480))
 

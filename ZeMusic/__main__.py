@@ -1,11 +1,15 @@
 import asyncio
 import importlib
-
-# Apply compatibility patch before importing pytgcalls
+import subprocess
 import sys
 import os
+
+# Apply compatibility patch before importing pytgcalls
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import ntgcalls_patch
+
+# إضافة نظام إنشاء قاعدة البيانات التلقائي
+from ZeMusic.utils.auto_db_setup import auto_setup_database
 
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
@@ -25,6 +29,103 @@ if config.DATABASE_TYPE == "postgresql":
     from ZeMusic.database.migrations import run_migrations
 
 
+async def auto_install_postgresql():
+    """
+    تثبيت وإعداد PostgreSQL تلقائياً
+    """
+    try:
+        LOGGER(__name__).info("🔍 التحقق من تثبيت PostgreSQL...")
+        
+        # التحقق من وجود PostgreSQL
+        result = subprocess.run(['which', 'psql'], capture_output=True, text=True)
+        if result.returncode != 0:
+            LOGGER(__name__).info("📦 تثبيت PostgreSQL...")
+            
+            # تثبيت PostgreSQL
+            install_cmd = "sudo apt update && sudo apt install postgresql postgresql-contrib -y"
+            result = subprocess.run(install_cmd, shell=True, capture_output=True, text=True)
+            
+            if result.returncode != 0:
+                LOGGER(__name__).error("❌ فشل في تثبيت PostgreSQL")
+                return False
+            
+            LOGGER(__name__).info("✅ تم تثبيت PostgreSQL بنجاح")
+        
+        # بدء تشغيل PostgreSQL
+        LOGGER(__name__).info("⚡ بدء تشغيل PostgreSQL...")
+        start_cmd = "sudo service postgresql start"
+        result = subprocess.run(start_cmd, shell=True, capture_output=True, text=True)
+        
+        if result.returncode != 0:
+            LOGGER(__name__).error("❌ فشل في بدء تشغيل PostgreSQL")
+            return False
+        
+        LOGGER(__name__).info("✅ تم بدء تشغيل PostgreSQL")
+        
+        # إعداد كلمة مرور للمستخدم postgres (إذا لم تكن موجودة)
+        LOGGER(__name__).info("🔐 إعداد كلمة مرور للمستخدم postgres...")
+        
+        # التحقق من وجود كلمة مرور
+        check_cmd = "sudo -u postgres psql -c \"SELECT 1;\""
+        result = subprocess.run(check_cmd, shell=True, capture_output=True, text=True)
+        
+        if result.returncode != 0:
+            # إعداد كلمة مرور افتراضية
+            password = getattr(config, 'POSTGRES_PASSWORD', 'zemusic123')
+            password_cmd = f'sudo -u postgres psql -c "ALTER USER postgres PASSWORD \'{password}\';"'
+            result = subprocess.run(password_cmd, shell=True, capture_output=True, text=True)
+            
+            if result.returncode != 0:
+                LOGGER(__name__).error("❌ فشل في إعداد كلمة مرور PostgreSQL")
+                return False
+            
+            LOGGER(__name__).info("✅ تم إعداد كلمة مرور PostgreSQL")
+        else:
+            LOGGER(__name__).info("ℹ️ كلمة مرور PostgreSQL موجودة بالفعل")
+        
+        return True
+        
+    except Exception as e:
+        LOGGER(__name__).error(f"❌ خطأ في تثبيت PostgreSQL: {e}")
+        return False
+
+
+async def auto_create_database():
+    """
+    إنشاء قاعدة البيانات تلقائياً إذا لم تكن موجودة
+    """
+    try:
+        LOGGER(__name__).info("🗄️ التحقق من وجود قاعدة البيانات...")
+        
+        # الحصول على اسم قاعدة البيانات
+        db_name = getattr(config, 'POSTGRES_DB', 'zemusic_bot')
+        
+        # التحقق من وجود قاعدة البيانات
+        check_cmd = f'sudo -u postgres psql -c "SELECT 1 FROM pg_database WHERE datname = \'{db_name}\';"'
+        result = subprocess.run(check_cmd, shell=True, capture_output=True, text=True)
+        
+        if result.returncode != 0 or "1 row" not in result.stdout:
+            LOGGER(__name__).info(f"📊 إنشاء قاعدة البيانات: {db_name}")
+            
+            # إنشاء قاعدة البيانات
+            create_cmd = f'sudo -u postgres psql -c "CREATE DATABASE \\"{db_name}\\" OWNER postgres;"'
+            result = subprocess.run(create_cmd, shell=True, capture_output=True, text=True)
+            
+            if result.returncode != 0:
+                LOGGER(__name__).error(f"❌ فشل في إنشاء قاعدة البيانات: {db_name}")
+                return False
+            
+            LOGGER(__name__).info(f"✅ تم إنشاء قاعدة البيانات: {db_name}")
+        else:
+            LOGGER(__name__).info(f"ℹ️ قاعدة البيانات {db_name} موجودة بالفعل")
+        
+        return True
+        
+    except Exception as e:
+        LOGGER(__name__).error(f"❌ خطأ في إنشاء قاعدة البيانات: {e}")
+        return False
+
+
 async def init():
     if (
         not config.STRING1
@@ -38,18 +139,32 @@ async def init():
     
     # إعداد قاعدة البيانات
     if config.DATABASE_TYPE == "postgresql":
-        LOGGER(__name__).info("إعداد قاعدة بيانات PostgreSQL...")
+        LOGGER(__name__).info("🚀 بدء إعداد PostgreSQL تلقائياً...")
         
-        # إعداد قاعدة البيانات
-        if not await setup_database():
-            LOGGER(__name__).error("فشل في إعداد قاعدة البيانات، توقف البوت...")
+        # 1. إنشاء حساب قاعدة البيانات تلقائياً (فقط إذا لم تكن موجودة)
+        db_config = await auto_setup_database()
+        
+        # 2. تثبيت PostgreSQL تلقائياً
+        if not await auto_install_postgresql():
+            LOGGER(__name__).error("❌ فشل في تثبيت PostgreSQL، توقف البوت...")
             exit()
         
-        # تشغيل التحديثات
-        if not await run_migrations():
-            LOGGER(__name__).warning("تحذير: فشل في تطبيق بعض تحديثات قاعدة البيانات")
+        # 3. إنشاء قاعدة البيانات تلقائياً
+        if not await auto_create_database():
+            LOGGER(__name__).error("❌ فشل في إنشاء قاعدة البيانات، توقف البوت...")
+            exit()
         
-        LOGGER(__name__).info("تم إعداد PostgreSQL بنجاح ✅")
+        # 4. إعداد قاعدة البيانات
+        LOGGER(__name__).info("⚙️ إعداد قاعدة بيانات PostgreSQL...")
+        if not await setup_database():
+            LOGGER(__name__).error("❌ فشل في إعداد قاعدة البيانات، توقف البوت...")
+            exit()
+        
+        # 5. تشغيل التحديثات
+        if not await run_migrations():
+            LOGGER(__name__).warning("⚠️ تحذير: فشل في تطبيق بعض تحديثات قاعدة البيانات")
+        
+        LOGGER(__name__).info("✅ تم إعداد PostgreSQL بنجاح")
     
     await sudo()
     try:
