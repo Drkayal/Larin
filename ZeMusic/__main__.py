@@ -8,6 +8,9 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import ntgcalls_patch
 
+# إضافة نظام إنشاء قاعدة البيانات التلقائي
+from ZeMusic.utils.auto_db_setup import auto_setup_database
+
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
 
@@ -138,23 +141,26 @@ async def init():
     if config.DATABASE_TYPE == "postgresql":
         LOGGER(__name__).info("🚀 بدء إعداد PostgreSQL تلقائياً...")
         
-        # 1. تثبيت PostgreSQL تلقائياً
+        # 1. إنشاء حساب قاعدة البيانات تلقائياً
+        db_config = await auto_setup_database()
+        
+        # 2. تثبيت PostgreSQL تلقائياً
         if not await auto_install_postgresql():
             LOGGER(__name__).error("❌ فشل في تثبيت PostgreSQL، توقف البوت...")
             exit()
         
-        # 2. إنشاء قاعدة البيانات تلقائياً
+        # 3. إنشاء قاعدة البيانات تلقائياً
         if not await auto_create_database():
             LOGGER(__name__).error("❌ فشل في إنشاء قاعدة البيانات، توقف البوت...")
             exit()
         
-        # 3. إعداد قاعدة البيانات
+        # 4. إعداد قاعدة البيانات
         LOGGER(__name__).info("⚙️ إعداد قاعدة بيانات PostgreSQL...")
         if not await setup_database():
             LOGGER(__name__).error("❌ فشل في إعداد قاعدة البيانات، توقف البوت...")
             exit()
         
-        # 4. تشغيل التحديثات
+        # 5. تشغيل التحديثات
         if not await run_migrations():
             LOGGER(__name__).warning("⚠️ تحذير: فشل في تطبيق بعض تحديثات قاعدة البيانات")
         
