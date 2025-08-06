@@ -10,6 +10,26 @@ import asyncio
 import asyncpg
 from typing import Dict, Optional
 
+async def check_database_exists() -> bool:
+    """التحقق من وجود قاعدة البيانات"""
+    try:
+        # محاولة الاتصال بقاعدة البيانات الحالية
+        db_name = os.getenv("POSTGRES_DB", "zemusic_bot")
+        user = os.getenv("POSTGRES_USER", "postgres")
+        password = os.getenv("POSTGRES_PASSWORD", "")
+        
+        if password:
+            uri = f"postgresql://{user}:{password}@localhost:5432/{db_name}"
+        else:
+            uri = f"postgresql://{user}@localhost:5432/{db_name}"
+        
+        conn = await asyncpg.connect(uri)
+        await conn.close()
+        return True
+        
+    except:
+        return False
+
 async def create_postgresql_user() -> Dict[str, str]:
     """إنشاء مستخدم PostgreSQL تلقائياً"""
     try:
@@ -122,13 +142,20 @@ def update_config_file(db_config: Dict[str, str]):
 
 async def auto_setup_database():
     """إعداد قاعدة البيانات التلقائي الكامل"""
-    print("🚀 بدء إنشاء حساب قاعدة البيانات تلقائياً...")
+    print("🔍 التحقق من وجود قاعدة البيانات...")
+    
+    # التحقق من وجود قاعدة البيانات
+    if await check_database_exists():
+        print("✅ قاعدة البيانات موجودة بالفعل - لا حاجة لإنشاء حساب جديد")
+        return None
+    
+    print("🚀 قاعدة البيانات غير موجودة - بدء إنشاء حساب قاعدة البيانات تلقائياً...")
     
     # 1. إنشاء حساب قاعدة البيانات
     db_config = await create_database_account()
     
     # 2. عرض المعلومات
-    print("📋 معلومات حساب قاعدة البيانات:")
+    print("📋 معلومات حساب قاعدة البيانات الجديد:")
     for key, value in db_config.items():
         if key == "POSTGRES_PASSWORD":
             print(f"   {key} = {'***' if value else '(فارغ)'}")
