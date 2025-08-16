@@ -181,6 +181,7 @@ async def init() -> None:
 				if all_module in allowed_suffixes:
 					importlib.import_module("ZeMusic.plugins" + all_module)
 					loaded += 1
+					LOGGER("ZeMusic.plugins").info(f"Imported plugin {all_module}")
 			except Exception as e:
 				LOGGER("ZeMusic.plugins").warning(f"فشل استيراد البلجن {all_module}: {type(e).__name__}: {e}")
 				continue
@@ -189,6 +190,7 @@ async def init() -> None:
 		for all_module in ALL_MODULES:
 			try:
 				importlib.import_module("ZeMusic.plugins" + all_module)
+				LOGGER("ZeMusic.plugins").info(f"Imported plugin {all_module}")
 			except Exception as e:
 				LOGGER("ZeMusic.plugins").warning(f"فشل استيراد البلجن {all_module}: {type(e).__name__}: {e}")
 				continue
