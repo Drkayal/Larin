@@ -67,6 +67,7 @@ async def song_downloader(client, message: Message):
         "outtmpl": f"{title_clean}.%(ext)s",  # استخدام اسم نظيف للملف
         "quiet": True,
         "cookiefile": f"{cookies()}",
+        "proxy": "",
     }
 
     try:

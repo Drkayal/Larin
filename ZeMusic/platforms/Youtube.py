@@ -15,6 +15,20 @@ from ZeMusic.utils.database import is_on_off
 from ZeMusic.utils.formatters import time_to_seconds, seconds_to_min
 from ZeMusic.utils.decorators import asyncify
 
+_PROXY_VARS = [
+    "http_proxy", "https_proxy", "HTTP_PROXY", "HTTPS_PROXY",
+    "all_proxy", "ALL_PROXY", "no_proxy", "NO_PROXY",
+]
+
+def _clean_env():
+    env = os.environ.copy()
+    for k in _PROXY_VARS:
+        env.pop(k, None)
+    return env
+
+for _k in _PROXY_VARS:
+    os.environ.pop(_k, None)
+
 
 def cookies():
     """الحصول على ملف cookies موثوق لاستخدامه مع yt-dlp
@@ -81,6 +95,7 @@ async def shell_cmd(cmd):
         cmd,
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
+        env=_clean_env(),
     )
     out, errorz = await proc.communicate()
     if errorz:
@@ -189,7 +204,7 @@ class YouTubeAPI:
             "-g",
             "-f",
             "best[height<=?720][width<=?1280]",
-            f"--cookies {cookies()}",
+            "--cookies", cookies(),
             "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "--extractor-retries", "3",
             "--retries", "3",
@@ -199,6 +214,7 @@ class YouTubeAPI:
             *cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
+            env=_clean_env(),
         )
         stdout, stderr = await proc.communicate()
         if stdout:
@@ -219,6 +235,7 @@ class YouTubeAPI:
                             "-g",
                             "-f",
                             "best[height<=?720][width<=?1280]",
+                            "--cookies", cookies(),
                             "--user-agent", "Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36",
                             invidious_url,
                         ]
@@ -226,6 +243,7 @@ class YouTubeAPI:
                             *cmd_fallback,
                             stdout=asyncio.subprocess.PIPE,
                             stderr=asyncio.subprocess.PIPE,
+                            env=_clean_env(),
                         )
                         stdout2, _ = await proc2.communicate()
                         if stdout2:
@@ -289,6 +307,7 @@ class YouTubeAPI:
             "quiet": True,
             "extract_flat": "in_playlist",
             "cookiefile": f"{cookies()}",
+            "proxy": "",
         }
         with YoutubeDL(options) as ydl:
             info_dict = ydl.extract_info(f"ytsearch: {q}", download=False)
@@ -316,6 +335,7 @@ class YouTubeAPI:
         ytdl_opts = {
             "quiet": True,
             "cookiefile": f"{cookies()}",
+            "proxy": "",
         }
 
         ydl = YoutubeDL(ytdl_opts)
@@ -396,6 +416,7 @@ class YouTubeAPI:
                 "http_headers": {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 },
+                "proxy": "",
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -415,6 +436,7 @@ class YouTubeAPI:
                 "quiet": True,
                 "no_warnings": True,
                 "cookiefile": f"{cookies()}",
+                "proxy": "",
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -438,6 +460,7 @@ class YouTubeAPI:
                 "prefer_ffmpeg": True,
                 "merge_output_format": "mp4",
                 "cookiefile": f"{cookies()}",
+                "proxy": "",
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -461,6 +484,7 @@ class YouTubeAPI:
                     }
                 ],
                 "cookiefile": f"{cookies()}",
+                "proxy": "",
             }
 
             x = YoutubeDL(ydl_optssx)
