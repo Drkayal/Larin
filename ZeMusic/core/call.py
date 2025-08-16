@@ -39,6 +39,11 @@ from ZeMusic.utils.inline.play import stream_markup
 from ZeMusic.utils.stream.autoclear import auto_clean
 from ZeMusic.utils.thumbnails import get_thumb
 from strings import get_string
+from pyrogram.raw.functions.channels import GetFullChannel
+from pyrogram.raw.functions.messages import GetFullChat
+from pyrogram.raw.functions.phone import CreateGroupCall
+from pyrogram.raw.types import InputPeerChannel, InputPeerChat
+from pyrogram.errors import ChatAdminRequired
 
 
 autoend = {}
@@ -50,6 +55,40 @@ async def _clear_(chat_id):
     await remove_active_video_chat(chat_id)
     await remove_active_chat(chat_id)
 
+
+async def _ensure_active_group_call(assistant: Client, chat_id: int) -> bool:
+    """Ensure there is an active voice/video chat in the target chat.
+    Tries to create one via assistant if missing (requires can_manage_video_chats).
+    """
+    try:
+        peer = await assistant.resolve_peer(chat_id)
+        full = None
+        if isinstance(peer, InputPeerChannel):
+            full = await assistant.invoke(GetFullChannel(channel=peer))
+        elif isinstance(peer, InputPeerChat):
+            full = await assistant.invoke(GetFullChat(chat_id=peer.chat_id))
+        else:
+            return False
+        full_chat = getattr(full, "full_chat", None) or full
+        call = getattr(full_chat, "call", None)
+        if call is not None:
+            return True
+        # No active call -> try to create (channels only)
+        if isinstance(peer, InputPeerChannel):
+            try:
+                await assistant.invoke(CreateGroupCall(peer=peer, random_id=assistant.rnd_id() // 9000000000))
+                await asyncio.sleep(1.0)
+                return True
+            except ChatAdminRequired:
+                LOGGER(__name__).warning("Assistant lacks permission to start video chat (ChatAdminRequired)")
+                return False
+            except Exception as e:
+                LOGGER(__name__).warning(f"CreateGroupCall failed: {type(e).__name__}: {e}")
+                return False
+        return False
+    except Exception as e:
+        LOGGER(__name__).warning(f"_ensure_active_group_call failed: {type(e).__name__}: {e}")
+        return False
 
 
 class Call(PyTgCalls):
@@ -285,13 +324,19 @@ class Call(PyTgCalls):
         await assistant.leave_group_call(config.LOGGER_ID)
 
     async def _join_group_call_retry(self, assistant, chat_id: int, stream, attempts: int = 3):
+        # Ensure active call first
+        await _ensure_active_group_call(assistant, chat_id)
         for i in range(attempts):
             try:
+                # small jitter to avoid server spikes
+                await asyncio.sleep(0.5 * (i + 1))
                 await assistant.join_group_call(chat_id, stream)
                 return
             except TelegramServerError as e:
+                # try to ensure call exists then retry
+                await _ensure_active_group_call(assistant, chat_id)
                 if i < attempts - 1:
-                    await asyncio.sleep(2 * (i + 1))
+                    await asyncio.sleep(1.0 + i)
                     continue
                 raise e
 
@@ -329,8 +374,12 @@ class Call(PyTgCalls):
         except AlreadyJoinedError:
             raise AssistantErr(_["call_9"])
         except TelegramServerError:
-            # Retry already attempted; escalate error
-            raise AssistantErr(_["call_10"])
+            # After retries, try one last time as audio-only fallback
+            try:
+                fallback_stream = AudioPiped(link, audio_parameters=HighQualityAudio())
+                await self._join_group_call_retry(assistant, chat_id, fallback_stream, attempts=1)
+            except Exception:
+                raise AssistantErr(_["call_10"])
         except Exception as e:
             # Fallback: if FFmpeg encoder issue on video, retry as audio-only
             try:
