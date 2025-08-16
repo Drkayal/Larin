@@ -1,5 +1,5 @@
 """
-Compatibility patch for py-tgcalls 1.0.9 with ntgcalls 2.x
+Compatibility patch for py-tgcalls 1.0.9 with ntgcalls 1.x/2.x
 This patch creates aliases for StreamStatus attributes to maintain compatibility
 """
 
@@ -9,6 +9,8 @@ import ntgcalls
 if not hasattr(ntgcalls.StreamStatus, 'Playing'):
     if hasattr(ntgcalls.StreamStatus, 'ACTIVE'):
         ntgcalls.StreamStatus.Playing = ntgcalls.StreamStatus.ACTIVE
+    elif hasattr(ntgcalls.StreamStatus, 'PLAYING'):
+        ntgcalls.StreamStatus.Playing = ntgcalls.StreamStatus.PLAYING
 
 if not hasattr(ntgcalls.StreamStatus, 'Paused'):
     if hasattr(ntgcalls.StreamStatus, 'PAUSED'):
