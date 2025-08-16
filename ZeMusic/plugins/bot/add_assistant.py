@@ -68,7 +68,7 @@ def _store_session_in_env(session: str) -> None:
 		pass
 
 
-@app.on_message(filters.user(OWNER_ID) & filters.command(["اضافه حساب مساعد"], ""))
+@app.on_message(filters.user(OWNER_ID) & filters.command(["اضافه حساب مساعد"], prefixes=["/", ""]))
 async def ask_session(_, message: Message):
 	_set_flag(True)
 	await message.reply_text("أرسل الآن كود جلسة Pyrogram للحساب المساعد الجديد.")
