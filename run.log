@@ -84,3 +84,60 @@ Traceback (most recent call last):
   File "/workspace/ZeMusic/core/bot.py", line 1, in <module>
     from pyrogram import Client, errors
 ModuleNotFoundError: No module named 'pyrogram'
+Traceback (most recent call last):
+  File "<frozen runpy>", line 189, in _run_module_as_main
+  File "<frozen runpy>", line 148, in _get_module_details
+  File "<frozen runpy>", line 112, in _get_module_details
+  File "/workspace/ZeMusic/__init__.py", line 1, in <module>
+    from ZeMusic.core.bot import Mody
+  File "/workspace/ZeMusic/core/bot.py", line 4, in <module>
+    import config
+  File "/workspace/config.py", line 4, in <module>
+    from dotenv import load_dotenv
+ModuleNotFoundError: No module named 'dotenv'
+Traceback (most recent call last):
+  File "<frozen runpy>", line 189, in _run_module_as_main
+  File "<frozen runpy>", line 148, in _get_module_details
+  File "<frozen runpy>", line 112, in _get_module_details
+  File "/workspace/ZeMusic/__init__.py", line 3, in <module>
+    from ZeMusic.core.git import git
+  File "/workspace/ZeMusic/core/git.py", line 5, in <module>
+    from git import Repo
+ModuleNotFoundError: No module named 'git'
+Traceback (most recent call last):
+  File "<frozen runpy>", line 189, in _run_module_as_main
+  File "<frozen runpy>", line 148, in _get_module_details
+  File "<frozen runpy>", line 112, in _get_module_details
+  File "/workspace/ZeMusic/__init__.py", line 5, in <module>
+    from ZeMusic.misc import dbb, heroku
+  File "/workspace/ZeMusic/misc.py", line 4, in <module>
+    import heroku3
+ModuleNotFoundError: No module named 'heroku3'
+Traceback (most recent call last):
+  File "<frozen runpy>", line 189, in _run_module_as_main
+  File "<frozen runpy>", line 148, in _get_module_details
+  File "<frozen runpy>", line 112, in _get_module_details
+  File "/workspace/ZeMusic/__init__.py", line 5, in <module>
+    from ZeMusic.misc import dbb, heroku
+  File "/workspace/ZeMusic/misc.py", line 8, in <module>
+    from ZeMusic.core.mongo import mongodb
+  File "/workspace/ZeMusic/core/mongo.py", line 1, in <module>
+    from motor.motor_asyncio import AsyncIOMotorClient
+ModuleNotFoundError: No module named 'motor'
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+Traceback (most recent call last):
+  File "<frozen runpy>", line 189, in _run_module_as_main
+  File "<frozen runpy>", line 148, in _get_module_details
+  File "<frozen runpy>", line 112, in _get_module_details
+  File "/workspace/ZeMusic/__init__.py", line 57, in <module>
+    from .platforms import *
+  File "/workspace/ZeMusic/platforms/__init__.py", line 1, in <module>
+    from .Apple import AppleAPI
+  File "/workspace/ZeMusic/platforms/Apple.py", line 4, in <module>
+    import aiohttp
+ModuleNotFoundError: No module named 'aiohttp'

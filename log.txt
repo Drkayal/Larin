@@ -49437,3 +49437,9 @@ CREATE FUNCTION
 [16-Aug-25 06:15:43 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
 [16-Aug-25 06:15:43 - INFO] - __main__ - ✅ تم إعداد PostgreSQL بنجاح
 [16-Aug-25 06:15:43 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
