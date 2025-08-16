@@ -3,7 +3,7 @@ import re
 import json
 import time
 import asyncio
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 from pyrogram import filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
@@ -24,6 +24,10 @@ _COOKIES_DIR = os.path.join(os.getcwd(), "cookies")
 _TEST_URL = "https://www.youtube.com/watch?v=BaW_jenozKc"
 _PENDING_SCAN_KEY = f"cookies:scan:pending:{OWNER_ID}"
 _AWAIT_UPLOAD_KEY = f"cookies:await_upload:{OWNER_ID}"
+
+# بدائل ذاكرية عند عدم توفر Redis
+_pending_scan_mem: Dict[int, List[str]] = {}
+_await_upload_mem: Dict[int, bool] = {}
 
 
 def _collect_cookie_files() -> List[str]:
@@ -137,6 +141,8 @@ async def cmd_scan_cookies(_, message: Message):
 			client.setex(_PENDING_SCAN_KEY, 900, json.dumps(invalid_paths, ensure_ascii=False))
 		except Exception:
 			pass
+	else:
+		_pending_scan_mem[OWNER_ID] = invalid_paths
 	text = (
 		"✅ فحص الكوكيز انتهى\n\n"
 		f"الصالحة: {len(valid)}\n"
@@ -170,6 +176,8 @@ async def on_delete_confirm(_, cq: CallbackQuery):
 				client.delete(_PENDING_SCAN_KEY)
 			except Exception:
 				pass
+		else:
+			_pending_scan_mem.pop(OWNER_ID, None)
 		return await cq.answer("تم الإلغاء", show_alert=False)
 
 	# confirm
@@ -182,6 +190,8 @@ async def on_delete_confirm(_, cq: CallbackQuery):
 			client.delete(_PENDING_SCAN_KEY)
 		except Exception:
 			invalid_paths = []
+	else:
+		invalid_paths = _pending_scan_mem.pop(OWNER_ID, [])
 	deleted = 0
 	errs = 0
 	for p in invalid_paths:
@@ -203,6 +213,8 @@ async def cmd_add_cookies(_, message: Message):
 			client.setex(_AWAIT_UPLOAD_KEY, 600, "1")
 		except Exception:
 			pass
+	else:
+		_await_upload_mem[OWNER_ID] = True
 	await message.reply_text(
 		"أرسل الآن ملف الكوكيز بصيغة .txt كـ مستند (Document).\n"
 		"سيتم حفظه تلقائياً بدون تعارض في مجلد cookies."
@@ -235,6 +247,8 @@ async def on_cookie_document(_, message: Message):
 			flag = client.get(_AWAIT_UPLOAD_KEY)
 		except Exception:
 			flag = None
+	else:
+		flag = _await_upload_mem.get(OWNER_ID)
 	if not flag:
 		return
 	# استهلاك العلم
@@ -243,6 +257,8 @@ async def on_cookie_document(_, message: Message):
 			client.delete(_AWAIT_UPLOAD_KEY)
 		except Exception:
 			pass
+	else:
+		_await_upload_mem.pop(OWNER_ID, None)
 
 	doc = message.document
 	if not doc:
