@@ -262,7 +262,6 @@ class YouTubeAPI:
             "best[height<=?720][width<=?1280]",
             "--cookies", cookies(),
             "--geo-bypass-country", "US",
-            "--sleep-requests", "1",
             "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "--extractor-retries", "3",
             "--retries", "3",
@@ -294,7 +293,6 @@ class YouTubeAPI:
                             "-f",
                             "best[height<=?720][width<=?1280]",
                             "--geo-bypass-country", "US",
-                            "--sleep-requests", "1",
                             "--cookies", cookies(),
                             "--user-agent", "Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36",
                             invidious_url,
@@ -320,7 +318,7 @@ class YouTubeAPI:
 
         cmd = (
             f"yt-dlp -i --compat-options no-youtube-unavailable-videos "
-            f'--cookies {cookies()} --geo-bypass-country US --sleep-requests 1 '
+            f'--cookies {cookies()} --geo-bypass-country US '
             f'--user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" '
             f'--extractor-retries 3 --retries 3 --get-id --flat-playlist --playlist-end {limit} --skip-download "{link}" '
             f"2>/dev/null"
@@ -370,7 +368,6 @@ class YouTubeAPI:
             "cookiefile": f"{cookies()}",
             "proxy": "",
             "geo_bypass_country": "US",
-            "sleep_requests": 1,
         }
         with YoutubeDL(options) as ydl:
             info_dict = ydl.extract_info(f"ytsearch: {q}", download=False)
@@ -400,7 +397,6 @@ class YouTubeAPI:
             "cookiefile": f"{cookies()}",
             "proxy": "",
             "geo_bypass_country": "US",
-            "sleep_requests": 1,
         }
 
         ydl = YoutubeDL(ytdl_opts)
@@ -483,7 +479,6 @@ class YouTubeAPI:
                 },
                 "proxy": "",
                 "geo_bypass_country": "US",
-                "sleep_requests": 1,
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -505,7 +500,6 @@ class YouTubeAPI:
                 "cookiefile": f"{cookies()}",
                 "proxy": "",
                 "geo_bypass_country": "US",
-                "sleep_requests": 1,
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -531,7 +525,6 @@ class YouTubeAPI:
                 "cookiefile": f"{cookies()}",
                 "proxy": "",
                 "geo_bypass_country": "US",
-                "sleep_requests": 1,
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -557,7 +550,6 @@ class YouTubeAPI:
                 "cookiefile": f"{cookies()}",
                 "proxy": "",
                 "geo_bypass_country": "US",
-                "sleep_requests": 1,
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -583,7 +575,6 @@ class YouTubeAPI:
                     "best[height<=?720][width<=?1280]",
                     f"--cookies {cookies()}",
                     "--geo-bypass-country", "US",
-                    "--sleep-requests", "1",
                     link,
                 ]
 
