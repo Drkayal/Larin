@@ -1,24 +1,24 @@
 nohup: ignoring input
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.misc - Local Database Initialized.
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
-[16-Aug-25 06:01:53 - INFO] - __main__ - 🚀 بدء إعداد PostgreSQL تلقائياً...
-[16-Aug-25 06:01:53 - INFO] - __main__ - 🔍 التحقق من تثبيت PostgreSQL...
-[16-Aug-25 06:01:53 - INFO] - __main__ - ⚡ بدء تشغيل PostgreSQL...
-[16-Aug-25 06:01:53 - INFO] - __main__ - ✅ تم بدء تشغيل PostgreSQL
-[16-Aug-25 06:01:53 - INFO] - __main__ - 🔐 إعداد كلمة مرور للمستخدم postgres...
-[16-Aug-25 06:01:53 - INFO] - __main__ - ℹ️ كلمة مرور PostgreSQL موجودة بالفعل
-[16-Aug-25 06:01:53 - INFO] - __main__ - 🗄️ التحقق من وجود قاعدة البيانات...
-[16-Aug-25 06:01:53 - INFO] - __main__ - ℹ️ قاعدة البيانات zemusic_bot موجودة بالفعل
-[16-Aug-25 06:01:53 - INFO] - __main__ - ⚙️ إعداد قاعدة بيانات PostgreSQL...
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - CREATE TABLE
+[16-Aug-25 06:15:42 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 06:15:42 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 06:15:42 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 06:15:42 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 06:15:42 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 06:15:42 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 06:15:43 - INFO] - __main__ - 🚀 بدء إعداد PostgreSQL تلقائياً...
+[16-Aug-25 06:15:43 - INFO] - __main__ - 🔍 التحقق من تثبيت PostgreSQL...
+[16-Aug-25 06:15:43 - INFO] - __main__ - ⚡ بدء تشغيل PostgreSQL...
+[16-Aug-25 06:15:43 - INFO] - __main__ - ✅ تم بدء تشغيل PostgreSQL
+[16-Aug-25 06:15:43 - INFO] - __main__ - 🔐 إعداد كلمة مرور للمستخدم postgres...
+[16-Aug-25 06:15:43 - INFO] - __main__ - ℹ️ كلمة مرور PostgreSQL موجودة بالفعل
+[16-Aug-25 06:15:43 - INFO] - __main__ - 🗄️ التحقق من وجود قاعدة البيانات...
+[16-Aug-25 06:15:43 - INFO] - __main__ - ℹ️ قاعدة البيانات zemusic_bot موجودة بالفعل
+[16-Aug-25 06:15:43 - INFO] - __main__ - ⚙️ إعداد قاعدة بيانات PostgreSQL...
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - CREATE TABLE
 CREATE TABLE
 CREATE TABLE
 CREATE TABLE
@@ -62,29 +62,16 @@ INSERT 0 0
 CREATE FUNCTION
 CREATE FUNCTION
 CREATE FUNCTION
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
-[16-Aug-25 06:01:53 - INFO] - __main__ - ✅ تم إعداد PostgreSQL بنجاح
-[16-Aug-25 06:01:53 - INFO] - ZeMusic.misc - تم رفع البيانات.
-[16-Aug-25 06:01:57 - INFO] - ZeMusic.core.bot - تم تسغيل 𝐋𝐎𝐋  بنجاح..
-[16-Aug-25 06:01:57 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
-[16-Aug-25 06:01:57 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
-[16-Aug-25 06:01:57 - WARNING] - ZeMusic.userbot - تعذّر تشغيل المساعدين: AuthKeyDuplicated. سيستمر البوت بدون مساعدين.
-[16-Aug-25 06:01:57 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
-
-[16-Aug-25 06:01:58 - WARNING] - ZeMusic.calls - تعذّر تشغيل نظام المكالمات حالياً: AuthKeyDuplicated.
-ERROR: [youtube] BaW_jenozKc: Video unavailable
-[16-Aug-25 06:02:28 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
-[16-Aug-25 06:02:28 - INFO] - ZeMusic - جاري تشغيل البوت
-تم التنصيب على سورس الملك بنجاح
-قناة السورس https://t.me/EF_19
-ERROR: [youtube] BaW_jenozKc: Video unavailable
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[16-Aug-25 06:15:43 - INFO] - __main__ - ✅ تم إعداد PostgreSQL بنجاح
+[16-Aug-25 06:15:43 - INFO] - ZeMusic.misc - تم رفع البيانات.
