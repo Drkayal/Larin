@@ -22,15 +22,56 @@ channel = "KHAYAL70"
 lnk = f"https://t.me/{config.CHANNEL_LINK}"
 Nem = config.BOT_NAME + " ابحث"
 
-@app.on_message(command(["song", "/song", "بحث", Nem,"يوت"]) & filters.channel)
+@app.on_message(command(["song", "/song", "بحث", Nem,"يوت"]) & filters.channel, group=-2)
 async def song_downloader3(client, message: Message):
-    query = " ".join(message.command[1:])
+    query = " ".join(message.command[1:]) if getattr(message, "command", None) else (message.text.split(" ", 1)[1].strip() if message.text and " " in message.text else "")
+    if not query:
+        return await message.reply_text("استخدم: بحث <الاسم> أو song <الاسم>")
     m = await message.reply_text("<b>⇜ جـارِ البحث ..</b>")
     
     try:
         # 1) محاولة من الكاش
         cached = get_cached_search(query)
         if cached:
+            vidid = cached.get('vidid')
+            ca = get_cached_audio(vidid)
+            if ca and os.path.exists(ca.get('path','')):
+                audio_file = ca['path']
+                title = cached.get('title','')[:40]
+                thumbnail = cached.get('thumb','')
+                duration = cached.get('duration','0:00')
+                title_clean = re.sub(r'[\\/*?:"<>|]', "", title)
+                thumb_name = f"{title_clean}.jpg"
+                try:
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(thumbnail) as resp:
+                            if resp.status == 200:
+                                f = await aiofiles.open(thumb_name, mode='wb')
+                                await f.write(await resp.read())
+                                await f.close()
+                except Exception:
+                    pass
+                secmul, dur, dur_arr = 1, 0, (duration or '0:00').split(":")
+                for i in range(len(dur_arr) - 1, -1, -1):
+                    dur += int(float(dur_arr[i])) * secmul
+                    secmul *= 60
+                await message.reply_audio(
+                    audio=audio_file,
+                    caption=f"ᴍʏ ᴡᴏʀʟᴅ 𓏺 @{channel} ",
+                    title=title,
+                    performer=ca.get('uploader','Unknown'),
+                    thumb=thumb_name if os.path.exists(thumb_name) else None,
+                    duration=dur,
+                    reply_markup=InlineKeyboardMarkup(
+                        [
+                            [
+                                [InlineKeyboardButton(text="♪ 𝐋𝐚𝐫𝐢𝐧 ♪", url=lnk)][0],
+                            ],
+                        ]
+                    ),
+                )
+                await m.delete()
+                return
             results = [
                 {
                     'url_suffix': f"/watch?v={cached.get('vidid')}",
@@ -68,7 +109,7 @@ async def song_downloader3(client, message: Message):
     
     # 2) إرسال من الكاش إن وُجد ملف الصوت
     try:
-        vidid = results[0]['url_suffix'].split('v=')[-1]
+        vidid = results[0].get('url_suffix','').split('v=')[-1]
         ca = get_cached_audio(vidid)
         if ca and os.path.exists(ca.get('path','')):
             audio_file = ca['path']
@@ -104,7 +145,7 @@ async def song_downloader3(client, message: Message):
         "format": "bestaudio[ext=m4a]",  # تحديد صيغة M4A
         "keepvideo": False,
         "geo_bypass": True,
-        "outtmpl": f"{title_clean}.%(ext)s",  # استخدام اسم نظيف للملف
+        "outtmpl": "downloads/%(id)s.%(ext)s",
         "quiet": True,
         "cookiefile": f"{cookies()}",
         "proxy": "",
@@ -216,9 +257,8 @@ async def song_downloader3(client, message: Message):
     )
     await m.delete()
 
-    # حذف الملفات المؤقتة
+    # لا تحذف الملف الصوتي لضمان الاستفادة من الكاش في المرات القادمة
     try:
-        remove_if_exists(audio_file)
         remove_if_exists(thumb_name)
     except Exception as e:
         print(e)

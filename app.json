@@ -111,10 +111,10 @@
         "required": false
       },
       "DATABASE_TYPE": {
-        "description": "نوع قاعدة البيانات (mongodb أو postgresql)",
-        "value": "mongodb",
-        "required": true
-      },
+          "description": "نوع قاعدة البيانات (mongodb أو postgresql)",
+          "value": "postgresql",
+          "required": true
+        },
       "POSTGRES_HOST": {
         "description": "عنوان خادم PostgreSQL",
         "value": "",

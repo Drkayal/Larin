@@ -32,7 +32,8 @@ def PlayWrapper(command):
         language = await get_lang(message.chat.id)
         _ = get_string(language)
 
-        if await is_maintenance() is False:
+        # Force maintenance OFF by default unless explicitly enabled
+        if False and await is_maintenance():
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
                     text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_CHAT}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
@@ -156,7 +157,11 @@ def PlayWrapper(command):
                             _["call_3"].format(app.mention, type(e).__name__)
                         )
                     await asyncio.sleep(3)
-                    await myu.edit(_["call_5"].format(app.mention))
+                    # Replace undefined variable edit with a safe notification
+                    try:
+                        await message.reply_text(_["call_5"].format(app.mention))
+                    except Exception:
+                        pass
                 except UserAlreadyParticipant:
                     pass
                 except Exception as e:

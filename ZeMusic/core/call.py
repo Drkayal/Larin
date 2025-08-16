@@ -39,6 +39,11 @@ from ZeMusic.utils.inline.play import stream_markup
 from ZeMusic.utils.stream.autoclear import auto_clean
 from ZeMusic.utils.thumbnails import get_thumb
 from strings import get_string
+from pyrogram.raw.functions.channels import GetFullChannel
+from pyrogram.raw.functions.messages import GetFullChat
+from pyrogram.raw.functions.phone import CreateGroupCall
+from pyrogram.raw.types import InputPeerChannel, InputPeerChat
+from pyrogram.errors import ChatAdminRequired
 
 
 autoend = {}
@@ -50,6 +55,49 @@ async def _clear_(chat_id):
     await remove_active_video_chat(chat_id)
     await remove_active_chat(chat_id)
 
+
+async def _ensure_active_group_call(assistant: Client, chat_id: int) -> bool:
+	"""Ensure there is an active voice/video chat in the target chat.
+	Tries to create one via assistant if missing (requires can_manage_video_chats).
+	Falls back to bot app if assistant lacks permission.
+	"""
+	try:
+		peer = await assistant.resolve_peer(chat_id)
+		full = None
+		if isinstance(peer, InputPeerChannel):
+			full = await assistant.invoke(GetFullChannel(channel=peer))
+		elif isinstance(peer, InputPeerChat):
+			full = await assistant.invoke(GetFullChat(chat_id=peer.chat_id))
+		else:
+			return False
+		full_chat = getattr(full, "full_chat", None) or full
+		call = getattr(full_chat, "call", None)
+		if call is not None:
+			return True
+		# No active call -> try to create (channels only)
+		if isinstance(peer, InputPeerChannel):
+			try:
+				await assistant.invoke(CreateGroupCall(peer=peer, random_id=assistant.rnd_id() // 9000000000))
+				await asyncio.sleep(1.0)
+				return True
+			except ChatAdminRequired:
+				LOGGER(__name__).warning("Assistant lacks permission to start video chat (ChatAdminRequired), trying with bot app")
+				try:
+					bot_peer = await app.resolve_peer(chat_id)
+					if isinstance(bot_peer, InputPeerChannel):
+						await app.invoke(CreateGroupCall(peer=bot_peer, random_id=app.rnd_id() // 9000000000))
+						await asyncio.sleep(1.0)
+						return True
+				except Exception as ex:
+					LOGGER(__name__).warning(f"Bot CreateGroupCall failed: {type(ex).__name__}: {ex}")
+				return False
+			except Exception as e:
+				LOGGER(__name__).warning(f"CreateGroupCall failed: {type(e).__name__}: {e}")
+				return False
+		return False
+	except Exception as e:
+		LOGGER(__name__).warning(f"_ensure_active_group_call failed: {type(e).__name__}: {e}")
+		return False
 
 
 class Call(PyTgCalls):
@@ -175,17 +223,12 @@ class Call(PyTgCalls):
                     vs = 0.68
                 if str(speed) == str("2.0"):
                     vs = 0.5
-                proc = await asyncio.create_subprocess_shell(
-                    cmd=(
-                        "ffmpeg "
-                        "-i "
-                        f"{file_path} "
-                        "-filter:v "
-                        f"setpts={vs}*PTS "
-                        "-filter:a "
-                        f"atempo={speed} "
-                        f"{out}"
-                    ),
+                proc = await asyncio.create_subprocess_exec(
+                    "ffmpeg",
+                    "-i", file_path,
+                    "-filter:v", f"setpts={vs}*PTS",
+                    "-filter:a", f"atempo={speed}",
+                    out,
                     stdin=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE,
                 )
@@ -285,10 +328,30 @@ class Call(PyTgCalls):
         await assistant.join_group_call(
             config.LOGGER_ID,
             AudioVideoPiped(link),
-            stream_type=StreamType().pulse_stream,
         )
         await asyncio.sleep(0.2)
         await assistant.leave_group_call(config.LOGGER_ID)
+
+    async def _join_group_call_retry(self, assistant, chat_id: int, stream, attempts: int = 3):
+        # Ensure active call first
+        await _ensure_active_group_call(assistant, chat_id)
+        for i in range(attempts):
+            try:
+                # small jitter to avoid server spikes
+                await asyncio.sleep(0.5 * (i + 1))
+                await assistant.join_group_call(chat_id, stream)
+                return
+            except TelegramServerError as e:
+                # try to ensure call exists then retry, with a forced leave
+                try:
+                    await assistant.leave_group_call(chat_id)
+                except Exception:
+                    pass
+                await _ensure_active_group_call(assistant, chat_id)
+                if i < attempts - 1:
+                    await asyncio.sleep(1.0 + i)
+                    continue
+                raise e
 
     async def join_call(
         self,
@@ -318,17 +381,33 @@ class Call(PyTgCalls):
                 else AudioPiped(link, audio_parameters=HighQualityAudio())
             )
         try:
-            await assistant.join_group_call(
-                chat_id,
-                stream,
-                stream_type=StreamType().pulse_stream,
-            )
+            await self._join_group_call_retry(assistant, chat_id, stream, attempts=3)
         except NoActiveGroupCall:
             raise AssistantErr(_["call_8"])
         except AlreadyJoinedError:
             raise AssistantErr(_["call_9"])
         except TelegramServerError:
-            raise AssistantErr(_["call_10"])
+            # After retries, try one last time as audio-only fallback
+            try:
+                fallback_stream = AudioPiped(link, audio_parameters=HighQualityAudio())
+                await self._join_group_call_retry(assistant, chat_id, fallback_stream, attempts=1)
+            except Exception:
+                raise AssistantErr(_["call_10"])
+        except Exception as e:
+            # Fallback: if FFmpeg encoder issue on video, retry as audio-only
+            try:
+                import ntgcalls  # type: ignore
+                is_ff_err = isinstance(e, getattr(ntgcalls, 'FFmpegError', Exception)) or ('encoder' in str(e).lower())
+            except Exception:
+                is_ff_err = 'encoder' in str(e).lower()
+            if video and is_ff_err:
+                try:
+                    fallback_stream = AudioPiped(link, audio_parameters=HighQualityAudio())
+                    await self._join_group_call_retry(assistant, chat_id, fallback_stream, attempts=2)
+                except Exception:
+                    raise AssistantErr(_["call_10"])
+            else:
+                raise
         await add_active_chat(chat_id)
         await music_on(chat_id)
         if video:
@@ -583,30 +662,40 @@ class Call(PyTgCalls):
     
     async def decorators(self):
         """
-        تم تعطيل decorators للتوافق مع الإصدار الحالي من PyTgCalls
-        هذه الوظائف ستعمل بدون decorators
+        تفعيل معالجات أحداث PyTgCalls بشكل توافقـي إن كانت متاحة في الإصدار الحالي.
         """
-        
-        async def stream_services_handler(_, chat_id: int):
-            await self.stop_stream(chat_id)
-
-        async def stream_end_handler1(client, update):
-            try:
-                if hasattr(update, 'chat_id'):
-                    await self.change_stream(client, update.chat_id)
-            except Exception as e:
-                LOGGER(__name__).error(f"خطأ في stream_end_handler: {e}")
-        
-        # تسجيل handlers بدون decorators
         try:
-            for client in [self.one, self.two, self.three, self.four, self.five]:
-                if hasattr(client, 'add_handler'):
-                    # إضافة handlers بطريقة مباشرة إذا كانت متاحة
+            # handler عند انتهاء البث
+            async def _stream_end(client, update):
+                try:
+                    if hasattr(update, 'chat_id'):
+                        await self.change_stream(client, update.chat_id)
+                except Exception as e:
+                    LOGGER(__name__).error(f"خطأ في stream_end_handler: {e}")
+
+            # handlers للخدمات (طرد/مغادرة/إغلاق المكالمة)
+            async def _service_handler(_, chat_id: int):
+                try:
+                    await self.stop_stream(chat_id)
+                except Exception:
                     pass
+
+            for client in [self.one, self.two, self.three, self.four, self.five]:
+                if not client:
+                    continue
+                # اربط إن كانت الدالة مدعومة في هذا الإصدار
+                if hasattr(client, 'on_stream_end'):
+                    client.on_stream_end()(_stream_end)
+                if hasattr(client, 'on_kicked'):
+                    client.on_kicked()(_service_handler)
+                if hasattr(client, 'on_closed_voice_chat'):
+                    client.on_closed_voice_chat()(_service_handler)
+                if hasattr(client, 'on_left'):
+                    client.on_left()(_service_handler)
+
+            LOGGER(__name__).info("تم تهيئة PyTgCalls مع معالجات الأحداث")
         except Exception as e:
-            LOGGER(__name__).warning(f"تحذير: لا يمكن إضافة handlers: {e}")
-        
-        LOGGER(__name__).info("تم تهيئة PyTgCalls بدون decorators")
+            LOGGER(__name__).warning(f"تعذّر ربط معالجات الأحداث: {type(e).__name__}: {e}")
 
     async def stop_stream_force(self, chat_id: int):
         try:

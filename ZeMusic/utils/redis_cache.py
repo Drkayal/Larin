@@ -12,6 +12,11 @@ import config
 
 _redis_client: Optional["redis.Redis"] = None
 
+# In-memory fallback stores
+_mem_search: Dict[str, Dict[str, Any]] = {}
+_mem_audio: Dict[str, Dict[str, Any]] = {}
+_mem_flags: Dict[str, str] = {}
+
 
 def _build_redis() -> Optional["redis.Redis"]:
 	if redis is None:
@@ -58,7 +63,8 @@ def _flag_key() -> str:
 def is_music_replies_enabled() -> bool:
 	client = get_client()
 	if not client:
-		return True
+		# default enabled
+		return _mem_flags.get(_flag_key(), "1") == "1"
 	try:
 		val = client.get(_flag_key())
 		if val is None:
@@ -71,7 +77,8 @@ def is_music_replies_enabled() -> bool:
 def set_music_replies_enabled(enabled: bool) -> bool:
 	client = get_client()
 	if not client:
-		return False
+		_mem_flags[_flag_key()] = "1" if enabled else "0"
+		return True
 	try:
 		client.set(_flag_key(), "1" if enabled else "0")
 		return True
@@ -81,10 +88,11 @@ def set_music_replies_enabled(enabled: bool) -> bool:
 
 def get_cached_search(query: str) -> Optional[Dict[str, Any]]:
 	client = get_client()
+	key = _qkey(query)
 	if not client:
-		return None
+		return _mem_search.get(key)
 	try:
-		val = client.get(_qkey(query))
+		val = client.get(key)
 		return json.loads(val) if val else None
 	except Exception:
 		return None
@@ -92,11 +100,12 @@ def get_cached_search(query: str) -> Optional[Dict[str, Any]]:
 
 def set_cached_search(query: str, data: Dict[str, Any], ttl_seconds: Optional[int] = None) -> bool:
 	client = get_client()
+	key = _qkey(query)
 	if not client:
-		return False
+		_mem_search[key] = data
+		return True
 	try:
 		j = json.dumps(data, ensure_ascii=False)
-		key = _qkey(query)
 		ttl = ttl_seconds or int(getattr(config, "CACHE_EXPIRATION_HOURS", 168)) * 3600
 		client.setex(key, ttl, j)
 		return True
@@ -106,10 +115,15 @@ def set_cached_search(query: str, data: Dict[str, Any], ttl_seconds: Optional[in
 
 def get_cached_audio(video_id: str) -> Optional[Dict[str, Any]]:
 	client = get_client()
+	key = _afile_key(video_id)
 	if not client:
-		return None
+		data = _mem_audio.get(key)
+		if not data:
+			return None
+		path = data.get("path")
+		return data if path and os.path.exists(path) else None
 	try:
-		val = client.get(_afile_key(video_id))
+		val = client.get(key)
 		if not val:
 			return None
 		data = json.loads(val)
@@ -117,7 +131,7 @@ def get_cached_audio(video_id: str) -> Optional[Dict[str, Any]]:
 		if path and os.path.exists(path):
 			return data
 		# إن كان المسار غير موجود، احذف الإدخال
-		client.delete(_afile_key(video_id))
+		client.delete(key)
 		return None
 	except Exception:
 		return None
@@ -125,11 +139,12 @@ def get_cached_audio(video_id: str) -> Optional[Dict[str, Any]]:
 
 def set_cached_audio(video_id: str, data: Dict[str, Any], ttl_seconds: Optional[int] = None) -> bool:
 	client = get_client()
+	key = _afile_key(video_id)
 	if not client:
-		return False
+		_mem_audio[key] = data
+		return True
 	try:
 		j = json.dumps(data, ensure_ascii=False)
-		key = _afile_key(video_id)
 		ttl = ttl_seconds or int(getattr(config, "CACHE_EXPIRATION_HOURS", 168)) * 3600
 		client.setex(key, ttl, j)
 		return True
@@ -139,9 +154,11 @@ def set_cached_audio(video_id: str, data: Dict[str, Any], ttl_seconds: Optional[
 
 def ban_audio(video_id: str) -> None:
 	client = get_client()
+	key = _afile_key(video_id)
 	if not client:
+		_mem_audio.pop(key, None)
 		return
 	try:
-		client.delete(_afile_key(video_id))
+		client.delete(key)
 	except Exception:
 		pass

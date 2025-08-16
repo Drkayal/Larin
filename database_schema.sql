@@ -307,6 +307,7 @@ $$ LANGUAGE plpgsql;
 -- =====================================================
 
 -- مشغل لتحديث نشاط المستخدم عند إضافة سجل
+DROP TRIGGER IF EXISTS trigger_update_user_activity ON activity_logs;
 CREATE TRIGGER trigger_update_user_activity
     AFTER INSERT ON activity_logs
     FOR EACH ROW
@@ -314,6 +315,7 @@ CREATE TRIGGER trigger_update_user_activity
     EXECUTE FUNCTION update_user_activity();
 
 -- مشغل لتحديث نشاط المحادثة عند إضافة سجل
+DROP TRIGGER IF EXISTS trigger_update_chat_activity ON activity_logs;
 CREATE TRIGGER trigger_update_chat_activity
     AFTER INSERT ON activity_logs
     FOR EACH ROW
@@ -321,6 +323,7 @@ CREATE TRIGGER trigger_update_chat_activity
     EXECUTE FUNCTION update_chat_activity();
 
 -- مشغل لتحديث timestamp عند تعديل إعدادات المحادثة
+DROP TRIGGER IF EXISTS trigger_update_chat_settings ON chat_settings;
 CREATE TRIGGER trigger_update_chat_settings
     BEFORE UPDATE ON chat_settings
     FOR EACH ROW
@@ -340,3 +343,22 @@ CREATE TRIGGER trigger_update_chat_settings
 -- =====================================================
 -- تم إنشاء قاعدة البيانات بنجاح
 -- =====================================================
+-- توافق: جدول/عرض audio_files للملاءمة مع أكواد قديمة
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.tables 
+        WHERE table_schema = 'public' AND table_name = 'audio_files'
+    ) THEN
+        CREATE TABLE audio_files (
+            id SERIAL PRIMARY KEY,
+            video_id VARCHAR(255) UNIQUE NOT NULL,
+            title TEXT NOT NULL,
+            file_path TEXT,
+            file_size BIGINT DEFAULT 0,
+            audio_quality VARCHAR(10) DEFAULT '320',
+            file_format VARCHAR(10) DEFAULT 'mp3',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+    END IF;
+END $$;

@@ -562,8 +562,8 @@ async def is_on_off(on_off: int) -> bool:
     if config.DATABASE_TYPE == "postgresql":
         from ZeMusic.core.postgres import fetch_value
         try:
-            result = await fetch_value("SELECT value FROM system_settings WHERE key = $1", f"on_off_{on_off}")
-            return result is not None and result == "true"
+            result = await fetch_value("SELECT setting_value FROM system_settings WHERE setting_key = $1", f"on_off_{on_off}")
+            return result is not None and str(result).lower() == "true"
         except:
             return False
     else:
@@ -578,7 +578,7 @@ async def add_on(on_off: int):
         from ZeMusic.core.postgres import execute_query
         try:
             await execute_query(
-                "INSERT INTO system_settings (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = $2",
+                "INSERT INTO system_settings (setting_key, setting_value, setting_type) VALUES ($1, $2, 'string') ON CONFLICT (setting_key) DO UPDATE SET setting_value = $2",
                 f"on_off_{on_off}", "true"
             )
         except:
@@ -594,7 +594,7 @@ async def add_off(on_off: int):
     if config.DATABASE_TYPE == "postgresql":
         from ZeMusic.core.postgres import execute_query
         try:
-            await execute_query("DELETE FROM system_settings WHERE key = $1", f"on_off_{on_off}")
+            await execute_query("DELETE FROM system_settings WHERE setting_key = $1", f"on_off_{on_off}")
         except:
             pass
     else:

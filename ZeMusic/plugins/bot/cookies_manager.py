@@ -10,6 +10,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 
 from ZeMusic import app
 import config
+from ZeMusic.plugins.play.filters import command
 
 from ZeMusic.utils.redis_cache import get_client as get_redis
 
@@ -130,7 +131,7 @@ def _human_list(paths: List[str]) -> str:
 	return "\n".join(f"- {os.path.relpath(p, os.getcwd())}" for p in paths)
 
 
-@app.on_message(filters.user(OWNER_ID) & filters.command(["فحص الكوكيز"], ""))
+@app.on_message(filters.user(OWNER_ID) & command(["فحص الكوكيز", "فحص الكوكي"]))
 async def cmd_scan_cookies(_, message: Message):
 	await message.reply_text("⏳ جارِ فحص ملفات الكوكيز... قد يستغرق ذلك قليلاً")
 	valid, invalid = await _scan_all_cookies()
@@ -205,7 +206,7 @@ async def on_delete_confirm(_, cq: CallbackQuery):
 	await cq.answer("تم التنفيذ", show_alert=False)
 
 
-@app.on_message(filters.user(OWNER_ID) & filters.command(["اضافه كوكيز"], ""))
+@app.on_message(filters.user(OWNER_ID) & command(["اضافه كوكيز", "إضافة كوكيز", "اضافة كوكيز", "اضافه كوكي"]))
 async def cmd_add_cookies(_, message: Message):
 	client = get_redis()
 	if client:
@@ -249,16 +250,21 @@ async def on_cookie_document(_, message: Message):
 			flag = None
 	else:
 		flag = _await_upload_mem.get(OWNER_ID)
+	# إذا لم يكن هناك علم انتظار، اسمح بالحفظ التلقائي فقط لملفات .txt
 	if not flag:
-		return
-	# استهلاك العلم
-	if client:
-		try:
-			client.delete(_AWAIT_UPLOAD_KEY)
-		except Exception:
-			pass
-	else:
-		_await_upload_mem.pop(OWNER_ID, None)
+		doc = message.document
+		fname = (doc.file_name or "").lower() if doc else ""
+		if not fname.endswith(".txt"):
+			return
+	# استهلاك العلم إن وجد
+	if flag:
+		if client:
+			try:
+				client.delete(_AWAIT_UPLOAD_KEY)
+			except Exception:
+				pass
+		else:
+			_await_upload_mem.pop(OWNER_ID, None)
 
 	doc = message.document
 	if not doc:

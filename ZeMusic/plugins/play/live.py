@@ -36,6 +36,23 @@ async def play_live_stream(client, CallbackQuery, _):
         details, track_id = await YouTube.track(vidid, True)
     except:
         return await mystic.edit_text(_["play_3"])
+    # Log search selection when obtained from slider/live
+    try:
+        if config.DATABASE_TYPE == "postgresql":
+            from ZeMusic.database.dal import download_dal
+            await download_dal.log_search(
+                user_id=user_id,
+                chat_id=chat_id,
+                query=str(vidid),
+                video_id=track_id,
+                result_count=1,
+                response_time_ms=0,
+                was_cached=False,
+                success=True,
+                error_message=None,
+            )
+    except Exception:
+        pass
     ffplay = True if fplay == "f" else None
     if not details["duration_min"]:
         try:

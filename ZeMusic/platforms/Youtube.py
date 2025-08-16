@@ -147,8 +147,13 @@ def ban_cookie(path: str):
 
 
 async def shell_cmd(cmd):
-    proc = await asyncio.create_subprocess_shell(
-        cmd,
+    # Deprecated: keep signature for compatibility but route through exec with safe args
+    if isinstance(cmd, str):
+        args = ["bash", "-lc", cmd]
+    else:
+        args = cmd
+    proc = await asyncio.create_subprocess_exec(
+        *args,
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
         env=_clean_env(),
@@ -255,20 +260,22 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
-        cmd = [
+        ytdlp_cmd = [
             "yt-dlp",
             "-g",
             "-f",
             "best[height<=?720][width<=?1280]",
-            "--cookies", cookies(),
             "--geo-bypass-country", "US",
             "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "--extractor-retries", "3",
             "--retries", "3",
-            f"{link}",
         ]
+        ck = cookies()
+        if ck and os.path.exists(ck):
+            ytdlp_cmd.extend(["--cookies", ck])
+        ytdlp_cmd.append(link)
         proc = await asyncio.create_subprocess_exec(
-            *cmd,
+            *ytdlp_cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
             env=_clean_env(),
@@ -278,13 +285,10 @@ class YouTubeAPI:
             return 1, stdout.decode().split("\n")[0]
         else:
             error_msg = stderr.decode()
-            # Try with different user agent if bot detection
             if "Sign in to confirm you're not a bot" in error_msg:
-                # Try with different approach
                 try:
                     import config
                     if hasattr(config, 'INVIDIOUS_SERVERS') and config.INVIDIOUS_SERVERS:
-                        # Extract video ID and try with Invidious
                         video_id = link.split('/')[-1] if '/' in link else link.split('=')[-1]
                         invidious_url = f"{config.INVIDIOUS_SERVERS[0]}/watch?v={video_id}"
                         cmd_fallback = [
@@ -293,10 +297,13 @@ class YouTubeAPI:
                             "-f",
                             "best[height<=?720][width<=?1280]",
                             "--geo-bypass-country", "US",
-                            "--cookies", cookies(),
+                        ]
+                        if ck and os.path.exists(ck):
+                            cmd_fallback.extend(["--cookies", ck])
+                        cmd_fallback.extend([
                             "--user-agent", "Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36",
                             invidious_url,
-                        ]
+                        ])
                         proc2 = await asyncio.create_subprocess_exec(
                             *cmd_fallback,
                             stdout=asyncio.subprocess.PIPE,
@@ -315,19 +322,27 @@ class YouTubeAPI:
             link = self.listbase + link
         if "&" in link:
             link = link.split("&")[0]
-
-        cmd = (
-            f"yt-dlp -i --compat-options no-youtube-unavailable-videos "
-            f'--cookies {cookies()} --geo-bypass-country US '
-            f'--user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" '
-            f'--extractor-retries 3 --retries 3 --get-id --flat-playlist --playlist-end {limit} --skip-download "{link}" '
-            f"2>/dev/null"
-        )
-
-        playlist = await shell_cmd(cmd)
-
+        ck = cookies()
+        cmd = [
+            "yt-dlp",
+            "-i",
+            "--compat-options", "no-youtube-unavailable-videos",
+            "--geo-bypass-country", "US",
+            "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "--extractor-retries", "3",
+            "--retries", "3",
+            "--get-id",
+            "--flat-playlist",
+            "--playlist-end", str(limit),
+            "--skip-download",
+            link,
+        ]
+        if ck and os.path.exists(ck):
+            cmd.insert(1, "--cookies")
+            cmd.insert(2, ck)
+        playlist_out = await shell_cmd(cmd)
         try:
-            result = [key for key in playlist.split("\n") if key]
+            result = [key for key in playlist_out.split("\n") if key]
         except:
             result = []
         return result
@@ -467,10 +482,9 @@ class YouTubeAPI:
                 "format": "bestaudio/best",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
                 "geo_bypass": True,
-                "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
-                "cookiefile": f"{cookies()}",
+                "cookiefile": f"{cookies()}" if (cookies() and os.path.exists(cookies())) else None,
                 "extractor_retries": 5,
                 "retries": 5,
                 "fragment_retries": 5,
@@ -480,7 +494,8 @@ class YouTubeAPI:
                 "proxy": "",
                 "geo_bypass_country": "US",
             }
-
+            # remove None entries
+            ydl_optssx = {k: v for k, v in ydl_optssx.items() if v is not None}
             x = YoutubeDL(ydl_optssx)
             info = x.extract_info(link, False)
             xyz = os.path.join("downloads", f"{info['id']}.{info['ext']}")
@@ -494,14 +509,13 @@ class YouTubeAPI:
                 "format": "(bestvideo[height<=?720][width<=?1280][ext=mp4])+(bestaudio[ext=m4a])",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
                 "geo_bypass": True,
-                "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
-                "cookiefile": f"{cookies()}",
+                "cookiefile": f"{cookies()}" if (cookies() and os.path.exists(cookies())) else None,
                 "proxy": "",
                 "geo_bypass_country": "US",
             }
-
+            ydl_optssx = {k: v for k, v in ydl_optssx.items() if v is not None}
             x = YoutubeDL(ydl_optssx)
             info = x.extract_info(link, False)
             xyz = os.path.join("downloads", f"{info['id']}.{info['ext']}")
@@ -517,16 +531,15 @@ class YouTubeAPI:
                 "format": formats,
                 "outtmpl": fpath,
                 "geo_bypass": True,
-                "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
                 "prefer_ffmpeg": True,
                 "merge_output_format": "mp4",
-                "cookiefile": f"{cookies()}",
+                "cookiefile": f"{cookies()}" if (cookies() and os.path.exists(cookies())) else None,
                 "proxy": "",
                 "geo_bypass_country": "US",
             }
-
+            ydl_optssx = {k: v for k, v in ydl_optssx.items() if v is not None}
             x = YoutubeDL(ydl_optssx)
             x.download([link])
 
@@ -536,7 +549,6 @@ class YouTubeAPI:
                 "format": format_id,
                 "outtmpl": fpath,
                 "geo_bypass": True,
-                "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
                 "prefer_ffmpeg": True,
@@ -547,11 +559,11 @@ class YouTubeAPI:
                         "preferredquality": "192",
                     }
                 ],
-                "cookiefile": f"{cookies()}",
+                "cookiefile": f"{cookies()}" if (cookies() and os.path.exists(cookies())) else None,
                 "proxy": "",
                 "geo_bypass_country": "US",
             }
-
+            ydl_optssx = {k: v for k, v in ydl_optssx.items() if v is not None}
             x = YoutubeDL(ydl_optssx)
             x.download([link])
 

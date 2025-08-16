@@ -189,12 +189,18 @@ YT_DLP_RATE_LIMIT = int(getenv("YT_DLP_RATE_LIMIT", 6000000))
 YT_DLP_BUFFER_SIZE = int(getenv("YT_DLP_BUFFER_SIZE", 32768))  # 4096 * 8
 YT_DLP_HTTP_CHUNK_SIZE = int(getenv("YT_DLP_HTTP_CHUNK_SIZE", 10485760))
 
+# تفعيل/تعطيل مُنزّل YouTube المباشر عبر مفتاح تحكم (افتراضي: معطّل)
+YTDOWNLOADER = int(getenv("YTDOWNLOADER", 0))
+
 # إعدادات FFmpeg للتحسين
 FFMPEG_AUDIO_CODEC = getenv("FFMPEG_AUDIO_CODEC", "mp3")
 FFMPEG_AUDIO_BITRATE = getenv("FFMPEG_AUDIO_BITRATE", "320k")  # متطابق مع AUDIO_QUALITY
 FFMPEG_AUDIO_CHANNELS = int(getenv("FFMPEG_AUDIO_CHANNELS", 2))
 FFMPEG_SAMPLE_RATE = int(getenv("FFMPEG_SAMPLE_RATE", 44100))
 
+# توافق: بعض المكونات قد تتوقع DATABASE_URL، نوجّهها إلى POSTGRES_URI
+DATABASE_URL = getenv("DATABASE_URL", None) or (locals().get("POSTGRES_URI"))
+ 
 # ============================================
 CHANNEL_NAME = getenv("CHANNEL_NAME", "السورس")
 CHANNEL_LINK = getenv("CHANNEL_LINK", "K55DD")

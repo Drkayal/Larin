@@ -23,10 +23,11 @@ from ZeMusic.utils.inline import (
 from ZeMusic.utils.logger import play_logs
 from ZeMusic.utils.stream.stream import stream
 from config import BANNED_USERS, lyrical
+from ZeMusic.plugins.play.filters import command
 
 Nem = config.BOT_NAME + " شغل"
 @app.on_message(
-    filters.command(
+    command(
         [
             "play",
             "تشغيل",
@@ -40,10 +41,10 @@ Nem = config.BOT_NAME + " شغل"
             "vplayforce",
             "cplayforce",
             "cvplayforce",
-        ],""
+        ]
     )
     & ~BANNED_USERS
-)
+, group=-2)
 @PlayWrapper
 async def play_commnd(
     client,
@@ -109,7 +110,7 @@ async def play_commnd(
                 )
             except Exception as e:
                 ex_type = type(e).__name__
-                err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
+                err = e if ex_type == "AssistantErr" else _["general_2"].format(f"{ex_type}: {str(e)}")
                 return await mystic.edit_text(err)
             return await mystic.delete()
         return
@@ -153,7 +154,7 @@ async def play_commnd(
                 )
             except Exception as e:
                 ex_type = type(e).__name__
-                err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
+                err = e if ex_type == "AssistantErr" else _["general_2"].format(f"{ex_type}: {str(e)}")
                 return await mystic.edit_text(err)
             return await mystic.delete()
         return
@@ -286,12 +287,12 @@ async def play_commnd(
                 )
             except Exception as e:
                 ex_type = type(e).__name__
-                err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
+                err = e if ex_type == "AssistantErr" else _["general_2"].format(f"{ex_type}: {str(e)}")
                 return await mystic.edit_text(err)
             return await mystic.delete()
         else:
             try:
-                await mody.stream_call(url)
+                await Mody.stream_call(url)
             except NoActiveGroupCall:
                 await mystic.edit_text(_["black_9"])
                 return await app.send_message(
@@ -299,7 +300,9 @@ async def play_commnd(
                     text=_["play_17"],
                 )
             except Exception as e:
-                return await mystic.edit_text(_["general_2"].format(type(e).__name__))
+                ex_type = type(e).__name__
+                err = e if ex_type == "AssistantErr" else _["general_2"].format(f"{ex_type}: {str(e)}")
+                return await mystic.edit_text(err)
             await mystic.edit_text(_["str_2"])
             try:
                 await stream(
@@ -316,7 +319,7 @@ async def play_commnd(
                 )
             except Exception as e:
                 ex_type = type(e).__name__
-                err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
+                err = e if ex_type == "AssistantErr" else _["general_2"].format(f"{ex_type}: {str(e)}")
                 return await mystic.edit_text(err)
             return await play_logs(message, streamtype="M3u8 or Index Link")
     else:
@@ -372,7 +375,7 @@ async def play_commnd(
             )
         except Exception as e:
             ex_type = type(e).__name__
-            err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
+            err = e if ex_type == "AssistantErr" else _["general_2"].format(f"{ex_type}: {str(e)}")
             return await mystic.edit_text(err)
         await mystic.delete()
         return await play_logs(message, streamtype=streamtype)
@@ -417,6 +420,23 @@ async def play_commnd(
                     ),
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
+                # سجل عملية البحث في PostgreSQL عند توفرها
+                try:
+                    if config.DATABASE_TYPE == "postgresql":
+                        from ZeMusic.database.dal import download_dal
+                        await download_dal.log_search(
+                            user_id=message.from_user.id if message.from_user else 0,
+                            chat_id=message.chat.id,
+                            query=query,
+                            video_id=track_id,
+                            result_count=1,
+                            response_time_ms=0,
+                            was_cached=False,
+                            success=True,
+                            error_message=None,
+                        )
+                except Exception:
+                    pass
                 return await play_logs(message, streamtype=f"Searched on Youtube")
             else:
                 buttons = track_markup(
@@ -500,7 +520,7 @@ async def play_music(client, CallbackQuery, _):
         )
     except Exception as e:
         ex_type = type(e).__name__
-        err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
+        err = e if ex_type == "AssistantErr" else _["general_2"].format(f"{ex_type}: {str(e)}")
         return await mystic.edit_text(err)
     return await mystic.delete()
 
@@ -518,7 +538,7 @@ async def modymous_check(client, CallbackQuery):
 
 
 
-@app.on_callback_query(filters.regex("modyPlaylists") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("ModyPlaylists") & ~BANNED_USERS)
 @languageCB
 async def play_playlists_command(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
@@ -600,7 +620,7 @@ async def play_playlists_command(client, CallbackQuery, _):
         )
     except Exception as e:
         ex_type = type(e).__name__
-        err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
+        err = e if ex_type == "AssistantErr" else _["general_2"].format(f"{ex_type}: {str(e)}")
         return await mystic.edit_text(err)
     return await mystic.delete()
 
