@@ -51187,3 +51187,12 @@ ntgcalls.ConnectionError: Connection cannot be initialized more than once.
 [16-Aug-25 10:29:21 - INFO] - ZeMusic - جاري تشغيل البوت
 تم التنصيب على سورس الملك بنجاح
 قناة السورس https://t.me/EF_19
+[16-Aug-25 10:46:59 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[16-Aug-25 10:47:08 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 10:47:08 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 10:47:08 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 10:47:08 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 10:47:08 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 10:47:08 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 10:47:08 - INFO] - __main__ - تم تجهيز ffmpeg/ffprobe محلياً وإضافتهما إلى PATH
+[16-Aug-25 10:47:10 - INFO] - ZeMusic.misc - تم رفع البيانات.
