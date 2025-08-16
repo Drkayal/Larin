@@ -75,33 +75,52 @@ async def song_downloader(client, message: Message):
             info_dict = ydl.extract_info(link, download=True)  # التنزيل مباشرة
             audio_file = ydl.prepare_filename(info_dict)
 
-        # حساب مدة الأغنية
-        secmul, dur, dur_arr = 1, 0, duration.split(":")
-        for i in range(len(dur_arr) - 1, -1, -1):
-            dur += int(float(dur_arr[i])) * secmul
-            secmul *= 60
-
-        # إرسال الصوت
-        await message.reply_audio(
-            audio=audio_file,
-            caption=f"ᴍʏ ᴡᴏʀʟᴅ 𓏺 @{channel} ",
-            title=title,
-            performer=info_dict.get("uploader", "Unknown"),
-            thumb=thumb_name,
-            duration=dur,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(text="♪ 𝐋𝐚𝐫𝐢𝐧 ♪", url=lnk),
-                    ],
-                ]
-            ),
-        )
-        await m.delete()
-
     except Exception as e:
-        await m.edit(f"error, wait for bot owner to fix\n\nError: {str(e)}")
-        print(e)
+        err = str(e)
+        # إذا تحقّق يوتيوب، احظر ملف الكوكيز الحالي وجرب مرة ثانية بملف آخر
+        if "Sign in to confirm you're not a bot" in err or "Use --cookies" in err:
+            from ZeMusic.platforms.Youtube import cookies as pick_cookie, ban_cookie
+            bad_cookie = ydl_opts.get("cookiefile")
+            if bad_cookie:
+                ban_cookie(bad_cookie)
+                # جرب مرة ثانية بملف مختلف
+                ydl_opts["cookiefile"] = pick_cookie()
+                try:
+                    with yt_dlp.YoutubeDL(ydl_opts) as ydl2:
+                        info_dict = ydl2.extract_info(link, download=True)
+                        audio_file = ydl2.prepare_filename(info_dict)
+                except Exception as e2:
+                    await m.edit(f"error, wait for bot owner to fix\n\nError: {str(e2)}")
+                    print(e2)
+                    return
+        else:
+            await m.edit(f"error, wait for bot owner to fix\n\nError: {err}")
+            print(e)
+            return
+
+    # حساب مدة الأغنية
+    secmul, dur, dur_arr = 1, 0, duration.split(":")
+    for i in range(len(dur_arr) - 1, -1, -1):
+        dur += int(float(dur_arr[i])) * secmul
+        secmul *= 60
+
+    # إرسال الصوت
+    await message.reply_audio(
+        audio=audio_file,
+        caption=f"ᴍʏ ᴡᴏʀʟᴅ 𓏺 @{channel} ",
+        title=title,
+        performer=info_dict.get("uploader", "Unknown"),
+        thumb=thumb_name,
+        duration=dur,
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(text="♪ 𝐋𝐚𝐫𝐢𝐧 ♪", url=lnk),
+                ],
+            ]
+        ),
+    )
+    await m.delete()
 
     # حذف الملفات المؤقتة
     try:
