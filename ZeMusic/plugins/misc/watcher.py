@@ -25,7 +25,7 @@ _TARGET_MODULES = {
 }
 
 
-@app.on_message()
+@app.on_message(group=999)
 async def _global_music_replies_guard(client, message):
 	try:
 		if is_music_replies_enabled():
