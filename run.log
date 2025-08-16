@@ -17,3 +17,12 @@
 [16-Aug-25 08:40:44 - INFO] - ZeMusic - جاري تشغيل البوت
 تم التنصيب على سورس الملك بنجاح
 قناة السورس https://t.me/EF_19
+WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by <HTTPError 429: Too Many Requests>)
+[download]   0.0% of    3.83MiB at  851.81KiB/s ETA 00:04[PATCH] ntgcalls compatibility aliases created successfully
+PyTgCalls v1.0.9 powered by NTgCalls v1.3.4, Copyright (C) 2021-2025 Laky-64 <https://github.com/Laky-64>
+Licensed under the terms of the GNU Lesser General Public License v3 or later (LGPLv3+)
+
+[93mUpdate Available!
+New PyTgCalls v2.2.5 is now available!
+[0m
+[download]   0.1% of    3.83MiB at    1.87MiB/s ETA 00:02[download]   0.2% of    3.83MiB at    3.73MiB/s ETA 00:01[download]   0.4% of    3.83MiB at    7.10MiB/s ETA 00:00[download]   0.8% of    3.83MiB at    3.83MiB/s ETA 00:00[download]   1.6% of    3.83MiB at    4.39MiB/s ETA 00:00[download]   3.2% of    3.83MiB at    5.88MiB/s ETA 00:00[download]   6.5% of    3.83MiB at    8.79MiB/s ETA 00:00[download]  13.0% of    3.83MiB at   13.45MiB/s ETA 00:00[download]  26.1% of    3.83MiB at   22.40MiB/s ETA 00:00[download]  52.2% of    3.83MiB at   38.09MiB/s ETA 00:00[download] 100.0% of    3.83MiB at   47.20MiB/s ETA 00:00[download] 100% of    3.83MiB in 00:00:00 at 24.57MiB/s                                                         WARNING: yOVVbM9YtWM: writing DASH m4a. Only some players support this container. Install ffmpeg to fix this automatically
