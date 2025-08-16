@@ -68,6 +68,12 @@ async def song_downloader(client, message: Message):
         "quiet": True,
         "cookiefile": f"{cookies()}",
         "proxy": "",
+        "retries": 5,
+        "fragment_retries": 5,
+        "extractor_retries": 3,
+        "nocheckcertificate": True,
+        "noplaylist": True,
+        "geo_bypass_country": "US",
     }
 
     try:
@@ -93,6 +99,17 @@ async def song_downloader(client, message: Message):
                     await m.edit(f"error, wait for bot owner to fix\n\nError: {str(e2)}")
                     print(e2)
                     return
+        elif "Requested format is not available" in err or "Only images are available" in err:
+            # تغيير الصيغة إلى أي أفضل صوت متاح
+            ydl_opts["format"] = "bestaudio/best"
+            try:
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl3:
+                    info_dict = ydl3.extract_info(link, download=True)
+                    audio_file = ydl3.prepare_filename(info_dict)
+            except Exception as e3:
+                await m.edit(f"error, wait for bot owner to fix\n\nError: {str(e3)}")
+                print(e3)
+                return
         else:
             await m.edit(f"error, wait for bot owner to fix\n\nError: {err}")
             print(e)
