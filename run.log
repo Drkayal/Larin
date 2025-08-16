@@ -1,18 +1,18 @@
-[16-Aug-25 08:43:51 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
-[16-Aug-25 08:43:51 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
-[16-Aug-25 08:43:51 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
-[16-Aug-25 08:43:51 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
-[16-Aug-25 08:43:51 - INFO] - ZeMusic.misc - Local Database Initialized.
-[16-Aug-25 08:43:51 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
-[16-Aug-25 08:43:53 - INFO] - ZeMusic.misc - تم رفع البيانات.
-[16-Aug-25 08:43:56 - INFO] - ZeMusic.core.bot - تم تسغيل 𝐋𝐎𝐋  بنجاح..
-[16-Aug-25 08:43:56 - WARNING] - ZeMusic.plugins - فشل استيراد البلجن .sudo.test_database: ModuleNotFoundError: No module named 'asyncpg'
-[16-Aug-25 08:43:56 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
-[16-Aug-25 08:43:56 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
-[16-Aug-25 08:43:58 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
-[16-Aug-25 08:43:58 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+[16-Aug-25 08:46:05 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 08:46:05 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 08:46:05 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 08:46:05 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 08:46:05 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 08:46:05 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 08:46:08 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[16-Aug-25 08:46:11 - INFO] - ZeMusic.core.bot - تم تسغيل 𝐋𝐎𝐋  بنجاح..
+[16-Aug-25 08:46:11 - WARNING] - ZeMusic.plugins - فشل استيراد البلجن .sudo.test_database: ModuleNotFoundError: No module named 'asyncpg'
+[16-Aug-25 08:46:11 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[16-Aug-25 08:46:11 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[16-Aug-25 08:46:13 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[16-Aug-25 08:46:13 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
 
-[16-Aug-25 08:43:59 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
-[16-Aug-25 08:43:59 - INFO] - ZeMusic - جاري تشغيل البوت
+[16-Aug-25 08:46:14 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[16-Aug-25 08:46:14 - INFO] - ZeMusic - جاري تشغيل البوت
 تم التنصيب على سورس الملك بنجاح
 قناة السورس https://t.me/EF_19
