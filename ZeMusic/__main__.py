@@ -29,6 +29,28 @@ if config.DATABASE_TYPE == "postgresql":
     from ZeMusic.database.migrations import run_migrations
 
 
+async def preflight_checks() -> None:
+    """Perform basic startup checks and log clear messages."""
+    try:
+        # Database check
+        if config.DATABASE_TYPE == "postgresql":
+            ok = await setup_database()
+            if not ok:
+                LOGGER(__name__).error("فشل في إعداد قاعدة البيانات. تأكد من إعدادات POSTGRES_* ثم أعد المحاولة.")
+                raise RuntimeError("Database setup failed")
+        # Filesystem checks
+        cookies_dir = os.path.join(os.getcwd(), "cookies")
+        if not os.path.isdir(cookies_dir):
+            try:
+                os.makedirs(cookies_dir, exist_ok=True)
+                LOGGER(__name__).info("تم إنشاء مجلد cookies لعمليات YouTube")
+            except Exception as e:
+                LOGGER(__name__).warning(f"تعذر إنشاء مجلد cookies: {e}")
+    except Exception as e:
+        LOGGER(__name__).error(f"فشل فحص التمهيد: {e}")
+        raise
+
+
 async def auto_install_postgresql():
     """
     تثبيت وإعداد PostgreSQL تلقائياً
@@ -135,6 +157,9 @@ async def init():
         and not config.STRING5
     ):
         LOGGER(__name__).warning("لا توجد جلسات مساعدين حالياً. سيعمل البوت بدون تشغيل المكالمات حتى إضافة حساب مساعد.")
+    
+    # فحص تمهيدي واضح
+    await preflight_checks()
     
     # إعداد قاعدة البيانات
     if config.DATABASE_TYPE == "postgresql":
