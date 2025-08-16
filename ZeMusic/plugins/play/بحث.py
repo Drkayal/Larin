@@ -109,7 +109,7 @@ async def song_downloader1(client, message: Message):
         "format": "bestaudio[ext=m4a]",  # تحديد صيغة M4A
         "keepvideo": False,
         "geo_bypass": True,
-        "outtmpl": f"{title_clean}.%(ext)s",  # استخدام اسم نظيف للملف
+        "outtmpl": "downloads/%(id)s.%(ext)s",
         "quiet": True,
         "cookiefile": f"{cookies()}",
         "proxy": "",
@@ -220,9 +220,8 @@ async def song_downloader1(client, message: Message):
     )
     await m.delete()
 
-    # حذف الملفات المؤقتة
+    # لا تحذف الملف الصوتي لضمان الاستفادة من الكاش في المرات القادمة
     try:
-        remove_if_exists(audio_file)
         remove_if_exists(thumb_name)
     except Exception as e:
         print(e)

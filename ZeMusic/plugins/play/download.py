@@ -112,7 +112,7 @@ async def song_downloader(client, message: Message):
         "format": "bestaudio[ext=m4a]",  # تحديد صيغة M4A
         "keepvideo": False,
         "geo_bypass": True,
-        "outtmpl": f"{title_clean}.%(ext)s",  # استخدام اسم نظيف للملف
+        "outtmpl": "downloads/%(id)s.%(ext)s",
         "quiet": True,
         "cookiefile": f"{cookies()}",
         "proxy": "",
