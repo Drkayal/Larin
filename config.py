@@ -15,8 +15,8 @@ CHANNEL_ASHTRAK = getenv("CHANNEL_ASHTRAK", "eei_5o")
 
 # Get your token from @BotFather on Telegram.
 BOT_TOKEN = getenv("BOT_TOKEN", "8024375688:AAHYvfceRF22ZVMxlvqkdtfmR4rkWTyQDLo")
-BOT_NAME = getenv("BOT_NAME","سدين")
-GPT_NAME = getenv("GPT_NAME","سدون")
+BOT_NAME = getenv("BOT_NAME","لول")
+GPT_NAME = getenv("GPT_NAME","لولو")
 # Get your mongo url from cloud.mongodb.com
 MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://fasd2025:faresbakil2025@cluster0.wdjssoo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
@@ -54,7 +54,7 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/LLLA1/Larin",
+    "https://github.com/Drkayal/Larin",
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
 APK = 5140000000
