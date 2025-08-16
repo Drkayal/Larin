@@ -48430,3 +48430,9 @@ CREATE FUNCTION
 [16-Aug-25 04:43:12 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
 [16-Aug-25 04:43:12 - INFO] - ZeMusic.misc - Local Database Initialized.
 [16-Aug-25 04:43:12 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 04:51:45 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 04:51:45 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 04:51:45 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 04:51:45 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 04:51:45 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 04:51:45 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
