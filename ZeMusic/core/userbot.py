@@ -167,32 +167,32 @@ class Userbot(Client):
                 continue
         return False
 
-	async def add_assistant_force(self, session_string: str, preferred_idx: int = 1) -> int:
-		idx = int(preferred_idx)
-		client = None
-		if idx == 1:
-			client = self.one
-		elif idx == 2:
-			client = self.two
-		elif idx == 3:
-			client = self.three
-		elif idx == 4:
-			client = self.four
-		elif idx == 5:
-			client = self.five
-		else:
-			return 0
-		try:
-			# حاول إيقاف القديم إن كان يعمل
-			try:
-				await client.stop()
-			except Exception:
-				pass
-			client.session_string = session_string
-			await client.start()
-			if idx not in assistants:
-				assistants.append(idx)
-			setattr(config, f"STRING{idx}", session_string)
-			return idx
-		except Exception:
-			return 0
+    async def add_assistant_force(self, session_string: str, preferred_idx: int = 1) -> int:
+        idx = int(preferred_idx)
+        client = None
+        if idx == 1:
+            client = self.one
+        elif idx == 2:
+            client = self.two
+        elif idx == 3:
+            client = self.three
+        elif idx == 4:
+            client = self.four
+        elif idx == 5:
+            client = self.five
+        else:
+            return 0
+        try:
+            # حاول إيقاف القديم إن كان يعمل
+            try:
+                await client.stop()
+            except Exception:
+                pass
+            client.session_string = session_string
+            await client.start()
+            if idx not in assistants:
+                assistants.append(idx)
+            setattr(config, f"STRING{idx}", session_string)
+            return idx
+        except Exception:
+            return 0

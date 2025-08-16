@@ -1,24 +1,24 @@
 nohup: ignoring input
-[16-Aug-25 05:18:40 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
-[16-Aug-25 05:18:40 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
-[16-Aug-25 05:18:40 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
-[16-Aug-25 05:18:40 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
-[16-Aug-25 05:18:40 - INFO] - ZeMusic.misc - Local Database Initialized.
-[16-Aug-25 05:18:40 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
-[16-Aug-25 05:18:41 - INFO] - __main__ - 🚀 بدء إعداد PostgreSQL تلقائياً...
-[16-Aug-25 05:18:41 - INFO] - __main__ - 🔍 التحقق من تثبيت PostgreSQL...
-[16-Aug-25 05:18:41 - INFO] - __main__ - ⚡ بدء تشغيل PostgreSQL...
-[16-Aug-25 05:18:41 - INFO] - __main__ - ✅ تم بدء تشغيل PostgreSQL
-[16-Aug-25 05:18:41 - INFO] - __main__ - 🔐 إعداد كلمة مرور للمستخدم postgres...
-[16-Aug-25 05:18:41 - INFO] - __main__ - ℹ️ كلمة مرور PostgreSQL موجودة بالفعل
-[16-Aug-25 05:18:41 - INFO] - __main__ - 🗄️ التحقق من وجود قاعدة البيانات...
-[16-Aug-25 05:18:41 - INFO] - __main__ - ℹ️ قاعدة البيانات zemusic_bot موجودة بالفعل
-[16-Aug-25 05:18:41 - INFO] - __main__ - ⚙️ إعداد قاعدة بيانات PostgreSQL...
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - CREATE TABLE
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 05:43:07 - INFO] - __main__ - 🚀 بدء إعداد PostgreSQL تلقائياً...
+[16-Aug-25 05:43:07 - INFO] - __main__ - 🔍 التحقق من تثبيت PostgreSQL...
+[16-Aug-25 05:43:07 - INFO] - __main__ - ⚡ بدء تشغيل PostgreSQL...
+[16-Aug-25 05:43:07 - INFO] - __main__ - ✅ تم بدء تشغيل PostgreSQL
+[16-Aug-25 05:43:07 - INFO] - __main__ - 🔐 إعداد كلمة مرور للمستخدم postgres...
+[16-Aug-25 05:43:07 - INFO] - __main__ - ℹ️ كلمة مرور PostgreSQL موجودة بالفعل
+[16-Aug-25 05:43:07 - INFO] - __main__ - 🗄️ التحقق من وجود قاعدة البيانات...
+[16-Aug-25 05:43:07 - INFO] - __main__ - ℹ️ قاعدة البيانات zemusic_bot موجودة بالفعل
+[16-Aug-25 05:43:07 - INFO] - __main__ - ⚙️ إعداد قاعدة بيانات PostgreSQL...
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - CREATE TABLE
 CREATE TABLE
 CREATE TABLE
 CREATE TABLE
@@ -62,161 +62,23 @@ INSERT 0 0
 CREATE FUNCTION
 CREATE FUNCTION
 CREATE FUNCTION
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
-[16-Aug-25 05:18:41 - INFO] - __main__ - ✅ تم إعداد PostgreSQL بنجاح
-[16-Aug-25 05:18:41 - INFO] - ZeMusic.misc - تم رفع البيانات.
-[16-Aug-25 05:18:45 - INFO] - ZeMusic.core.bot - تم تسغيل 𝐋𝐎𝐋  بنجاح..
-[16-Aug-25 05:18:45 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
-[16-Aug-25 05:18:45 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
-[16-Aug-25 05:18:46 - WARNING] - ZeMusic.userbot - تعذّر تشغيل المساعدين: AuthKeyDuplicated. سيستمر البوت بدون مساعدين.
-[16-Aug-25 05:18:46 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
+[16-Aug-25 05:43:07 - INFO] - __main__ - ✅ تم إعداد PostgreSQL بنجاح
+[16-Aug-25 05:43:07 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[16-Aug-25 05:43:10 - INFO] - ZeMusic.core.bot - تم تسغيل 𝐋𝐎𝐋  بنجاح..
+[16-Aug-25 05:43:11 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[16-Aug-25 05:43:11 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[16-Aug-25 05:43:11 - WARNING] - ZeMusic.userbot - تعذّر تشغيل المساعدين: AuthKeyDuplicated. سيستمر البوت بدون مساعدين.
+[16-Aug-25 05:43:11 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
 
-[16-Aug-25 05:18:47 - WARNING] - ZeMusic.calls - تعذّر تشغيل نظام المكالمات حالياً: AuthKeyDuplicated.
-[16-Aug-25 05:19:17 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
-[16-Aug-25 05:19:17 - INFO] - ZeMusic - جاري تشغيل البوت
-تم التنصيب على سورس الملك بنجاح
-قناة السورس https://t.me/EF_19
-[download]   0.0% of    3.83MiB at  Unknown B/s ETA Unknown[PATCH] ntgcalls compatibility aliases created successfully
-🔍 التحقق من وجود قاعدة البيانات...
-✅ قاعدة البيانات موجودة بالفعل - لا حاجة لإنشاء حساب جديد
-I m not admin in the MUST_JOIN chat eei_5o!
-I m not admin in the MUST_JOIN chat eei_5o!
-[download]   0.1% of    3.83MiB at  Unknown B/s ETA Unknown[download]   0.2% of    3.83MiB at  Unknown B/s ETA 00:00  [download]   0.4% of    3.83MiB at   12.58MiB/s ETA 00:00[download]   0.8% of    3.83MiB at    3.54MiB/s ETA 00:01[download]   1.6% of    3.83MiB at    3.84MiB/s ETA 00:00[download]   3.2% of    3.83MiB at    5.19MiB/s ETA 00:00[download]   6.5% of    3.83MiB at    7.92MiB/s ETA 00:00[download]  13.0% of    3.83MiB at   12.30MiB/s ETA 00:00[download]  26.1% of    3.83MiB at   20.52MiB/s ETA 00:00[download]  52.2% of    3.83MiB at   34.79MiB/s ETA 00:00[download] 100.0% of    3.83MiB at   42.20MiB/s ETA 00:00[download] 100% of    3.83MiB in 00:00:00 at 19.06MiB/s                                                         [download]   0.0% of    3.83MiB at  581.90KiB/s ETA 00:06[download]   0.1% of    3.83MiB at    1.44MiB/s ETA 00:02[download]   0.2% of    3.83MiB at    3.09MiB/s ETA 00:01[download]   0.4% of    3.83MiB at    6.17MiB/s ETA 00:00[download]   0.8% of    3.83MiB at    4.15MiB/s ETA 00:00[download]   1.6% of    3.83MiB at    4.73MiB/s ETA 00:00[download]   3.2% of    3.83MiB at    6.35MiB/s ETA 00:00[download]   6.5% of    3.83MiB at    9.80MiB/s ETA 00:00[download]  13.0% of    3.83MiB at   14.92MiB/s ETA 00:00[download]  26.1% of    3.83MiB at   24.94MiB/s ETA 00:00[download]  52.2% of    3.83MiB at   41.73MiB/s ETA 00:00[download] 100.0% of    3.83MiB at   65.34MiB/s ETA 00:00[download] 100% of    3.83MiB in 00:00:00 at 24.80MiB/s                                                         [16-Aug-25 05:24:53 - ERROR] - pyrogram.dispatcher - 127.0.0.1:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68a014b075d30770f214ec1e, topology_type: Unknown, servers: [<ServerDescription ('127.0.0.1', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('127.0.0.1:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
-Traceback (most recent call last):
-  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
-    await handler.callback(self.client, *args)
-  File "/workspace/ZeMusic/plugins/play/بحث.py", line 29, in song_downloader1
-    if not await is_search_enabled1():
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/workspace/ZeMusic/utils/database.py", line 88, in is_search_enabled1
-    settings = await ders1db.find_one({"name": "search"})
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
-    result = self.fn(*self.args, **self.kwargs)
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/collection.py", line 1755, in find_one
-    for result in cursor.limit(-1):
-                  ~~~~~~~~~~~~^^^^
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1285, in __next__
-    return self.next()
-           ~~~~~~~~~^^
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1261, in next
-    if len(self._data) or self._refresh():
-                          ~~~~~~~~~~~~~^^
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1209, in _refresh
-    self._send_message(q)
-    ~~~~~~~~~~~~~~~~~~^^^
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/cursor.py", line 1104, in _send_message
-    response = client._run_operation(
-        operation, self._unpack_response, address=self._address
-    )
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
-    return func(self, *args, **kwargs)
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1932, in _run_operation
-    return self._retryable_read(
-           ~~~~~~~~~~~~~~~~~~~~^
-        _cmd,
-        ^^^^^
-    ...<4 lines>...
-        operation=operation.name,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2041, in _retryable_read
-    return self._retry_internal(
-           ~~~~~~~~~~~~~~~~~~~~^
-        func,
-        ^^^^^
-    ...<7 lines>...
-        operation_id=operation_id,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
-    return func(self, *args, **kwargs)
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2008, in _retry_internal
-    ).run()
-      ~~~^^
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2745, in run
-    return self._read() if self._is_read else self._write()
-           ~~~~~~~~~~^^
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2890, in _read
-    self._server = self._get_server()
-                   ~~~~~~~~~~~~~~~~^^
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2838, in _get_server
-    return self._client._select_server(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        self._server_selector,
-        ^^^^^^^^^^^^^^^^^^^^^^
-    ...<4 lines>...
-        operation_id=self._operation_id,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1827, in _select_server
-    server = topology.select_server(
-        server_selector,
-    ...<2 lines>...
-        operation_id=operation_id,
-    )
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
-    server = self._select_server(
-        selector,
-    ...<4 lines>...
-        operation_id=operation_id,
-    )
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
-    servers = self.select_servers(
-        selector, operation, server_selection_timeout, address, operation_id
-    )
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
-    server_descriptions = self._select_servers_loop(
-        selector, server_timeout, operation, operation_id, address
-    )
-  File "/workspace/venv/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 344, in _select_servers_loop
-    raise ServerSelectionTimeoutError(
-        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
-    )
-pymongo.errors.ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68a014b075d30770f214ec1e, topology_type: Unknown, servers: [<ServerDescription ('127.0.0.1', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('127.0.0.1:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
-WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by <HTTPError 429: Too Many Requests>)
-[download] 100% of    5.17MiB                             [16-Aug-25 05:32:11 - ERROR] - pyrogram.dispatcher - 'Call' object has no attribute 'stop_stream_force'
-Traceback (most recent call last):
-  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
-    await handler.callback(self.client, *args)
-  File "/workspace/ZeMusic/plugins/misc/watcher.py", line 46, in welcome
-    await Mody.stop_stream_force(message.chat.id)
-          ^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'Call' object has no attribute 'stop_stream_force'
-[16-Aug-25 05:32:17 - ERROR] - pyrogram.dispatcher - 'Call' object has no attribute 'stop_stream_force'
-Traceback (most recent call last):
-  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
-    await handler.callback(self.client, *args)
-  File "/workspace/ZeMusic/plugins/misc/watcher.py", line 46, in welcome
-    await Mody.stop_stream_force(message.chat.id)
-          ^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'Call' object has no attribute 'stop_stream_force'
-[16-Aug-25 05:34:39 - ERROR] - pyrogram.dispatcher - 'Call' object has no attribute 'stop_stream_force'
-Traceback (most recent call last):
-  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
-    await handler.callback(self.client, *args)
-  File "/workspace/ZeMusic/plugins/misc/watcher.py", line 46, in welcome
-    await Mody.stop_stream_force(message.chat.id)
-          ^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'Call' object has no attribute 'stop_stream_force'
-[16-Aug-25 05:34:48 - ERROR] - pyrogram.dispatcher - 'Call' object has no attribute 'stop_stream_force'
-Traceback (most recent call last):
-  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
-    await handler.callback(self.client, *args)
-  File "/workspace/ZeMusic/plugins/misc/watcher.py", line 46, in welcome
-    await Mody.stop_stream_force(message.chat.id)
-          ^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'Call' object has no attribute 'stop_stream_force'
+[16-Aug-25 05:43:12 - WARNING] - ZeMusic.calls - تعذّر تشغيل نظام المكالمات حالياً: AuthKeyDuplicated.
