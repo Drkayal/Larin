@@ -83,24 +83,19 @@ async def on_session(_, message: Message):
 	# استهلاك العلم
 	_set_flag(False)
 	session = message.text.strip()
-	# محاولة إضافة الحساب
-	ok = False
+	# حاول فرض إضافة المساعد في الخانة 1
+	idx = 0
 	try:
-		ok = await userbot.add_assistant(session)
-		if ok:
-			# اربط PyTgCalls للمكالمات لنفس المؤشر الأول الفارغ
-			for idx in range(1, 6):
-				if not getattr(config, f"STRING{idx}"):
-					continue
-			# اختر أول خانة امتلأت الآن
-			for idx in range(1, 6):
-				if getattr(config, f"STRING{idx}") == session:
-					await Mody.register_assistant(idx, session)
-					break
+		idx = await userbot.add_assistant_force(session, preferred_idx=1)
 	except Exception:
-		ok = False
-	if not ok:
-		return await message.reply_text("تعذر التحقق من كود الجلسة أو لا توجد خانة متاحة. جرب كوداً آخر.")
+		idx = 0
+	if not idx:
+		return await message.reply_text("تعذر إضافة الحساب المساعد. تأكد من صحة كود الجلسة وأنه غير مستخدم بمكان آخر.")
+	# ربط PyTgCalls لنفس الخانة
+	try:
+		await Mody.register_assistant(idx, session)
+	except Exception:
+		pass
 	# حفظ في .env وفي config
 	_store_session_in_env(session)
-	await message.reply_text("تمت إضافة الحساب المساعد وتشغيله بنجاح.")
+	await message.reply_text(f"تمت إضافة الحساب المساعد وتشغيله بنجاح في الخانة #{idx}.")
