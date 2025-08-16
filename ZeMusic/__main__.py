@@ -3,6 +3,11 @@ import importlib
 import subprocess
 import sys
 import os
+import shutil
+import platform
+import tarfile
+import tempfile
+from urllib.request import urlretrieve
 
 # Apply compatibility patch before importing pytgcalls
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -29,6 +34,66 @@ if config.DATABASE_TYPE == "postgresql":
 	from ZeMusic.database.migrations import run_migrations
 
 
+def _ffmpeg_static_url() -> str:
+	arch = platform.machine().lower()
+	base = "https://johnvansickle.com/ffmpeg/releases"
+	if "aarch64" in arch or arch == "arm64":
+		return f"{base}/ffmpeg-release-arm64-static.tar.xz"
+	if arch.startswith("arm") or arch.startswith("armv7"):
+		return f"{base}/ffmpeg-release-armhf-static.tar.xz"
+	# default linux x86_64
+	return f"{base}/ffmpeg-release-amd64-static.tar.xz"
+
+
+def _ensure_ffmpeg_locally(bin_dir: str) -> bool:
+	try:
+		os.makedirs(bin_dir, exist_ok=True)
+		ffmpeg_path = os.path.join(bin_dir, "ffmpeg")
+		ffprobe_path = os.path.join(bin_dir, "ffprobe")
+		if shutil.which("ffmpeg") and shutil.which("ffprobe"):
+			return True
+		if os.path.isfile(ffmpeg_path) and os.path.isfile(ffprobe_path):
+			os.environ["PATH"] = f"{bin_dir}:{os.environ.get('PATH','')}"
+			return True
+		url = _ffmpeg_static_url()
+		with tempfile.TemporaryDirectory() as td:
+			archive = os.path.join(td, "ffmpeg-static.tar.xz")
+			urlretrieve(url, archive)
+			with tarfile.open(archive, mode="r:xz") as tar:
+				tar.extractall(td)
+			# find extracted folder
+			folder = None
+			for name in os.listdir(td):
+				p = os.path.join(td, name)
+				if os.path.isdir(p) and name.startswith("ffmpeg-") and name.endswith("-static"):
+					folder = p
+					break
+			if not folder:
+				return False
+			src_ffmpeg = os.path.join(folder, "ffmpeg")
+			src_ffprobe = os.path.join(folder, "ffprobe")
+			shutil.copy2(src_ffmpeg, ffmpeg_path)
+			shutil.copy2(src_ffprobe, ffprobe_path)
+			os.chmod(ffmpeg_path, 0o755)
+			os.chmod(ffprobe_path, 0o755)
+			os.environ["PATH"] = f"{bin_dir}:{os.environ.get('PATH','')}"
+			return True
+	except Exception as e:
+		LOGGER(__name__).warning(f"تعذر تجهيز ffmpeg/ffprobe محلياً: {type(e).__name__}: {e}")
+		return False
+
+
+def _bootstrap_ffmpeg() -> None:
+	bin_dir = os.path.join(os.getcwd(), "bin")
+	if shutil.which("ffprobe") and shutil.which("ffmpeg"):
+		return
+	ok = _ensure_ffmpeg_locally(bin_dir)
+	if ok:
+		LOGGER(__name__).info("تم تجهيز ffmpeg/ffprobe محلياً وإضافتهما إلى PATH")
+	else:
+		LOGGER(__name__).warning("ffprobe/ffmpeg غير متوفرين وقد تفشل بعض الوظائف. يُفضّل تثبيتهما على النظام.")
+
+
 async def preflight_checks() -> None:
 	"""Perform basic startup checks and log clear messages."""
 	try:
@@ -46,6 +111,8 @@ async def preflight_checks() -> None:
 				LOGGER(__name__).info("تم إنشاء مجلد cookies لعمليات YouTube")
 			except Exception as e:
 				LOGGER(__name__).warning(f"تعذر إنشاء مجلد cookies: {e}")
+		# Ensure ffmpeg/ffprobe availability (non-root bootstrap)
+		_bootstrap_ffmpeg()
 	except Exception as e:
 		LOGGER(__name__).error(f"فشل فحص التمهيد: {e}")
 		raise
@@ -123,14 +190,14 @@ async def auto_create_database():
 		db_name = getattr(config, 'POSTGRES_DB', 'zemusic_bot')
 		
 		# التحقق من وجود قاعدة البيانات
-		check_cmd = f'sudo -u postgres psql -c "SELECT 1 FROM pg_database WHERE datname = \'{db_name}\';"'
+		check_cmd = f"sudo -u postgres psql -c \"SELECT 1 FROM pg_database WHERE datname = '{db_name}';\""
 		result = subprocess.run(check_cmd, shell=True, capture_output=True, text=True)
 		
 		if result.returncode != 0 or "1 row" not in result.stdout:
 			LOGGER(__name__).info(f"📊 إنشاء قاعدة البيانات: {db_name}")
 			
 			# إنشاء قاعدة البيانات
-			create_cmd = f'sudo -u postgres psql -c "CREATE DATABASE \\"{db_name}\\" OWNER postgres;"'
+			create_cmd = f"sudo -u postgres psql -c \"CREATE DATABASE \"{db_name}\" OWNER postgres;\""
 			result = subprocess.run(create_cmd, shell=True, capture_output=True, text=True)
 			
 			if result.returncode != 0:
