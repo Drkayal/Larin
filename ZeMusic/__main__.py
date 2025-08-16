@@ -177,7 +177,11 @@ async def init():
         pass
     await app.start()
     for all_module in ALL_MODULES:
-        importlib.import_module("ZeMusic.plugins" + all_module)
+        try:
+            importlib.import_module("ZeMusic.plugins" + all_module)
+        except Exception as e:
+            LOGGER("ZeMusic.plugins").warning(f"فشل استيراد البلجن {all_module}: {type(e).__name__}: {e}")
+            continue
     LOGGER("ZeMusic.plugins").info("تنزيل معلومات السورس...")
     try:
         await userbot.start()
