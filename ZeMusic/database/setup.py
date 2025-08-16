@@ -76,7 +76,7 @@ async def execute_sql_file(file_path: str) -> bool:
             "-p", port,
             "-U", user,
             "-d", db,
-            "-v", "ON_ERROR_STOP=1",
+            "-v", "ON_ERROR_STOP=0",
             "-f", file_path,
         ]
 
