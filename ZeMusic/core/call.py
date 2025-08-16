@@ -57,38 +57,47 @@ async def _clear_(chat_id):
 
 
 async def _ensure_active_group_call(assistant: Client, chat_id: int) -> bool:
-    """Ensure there is an active voice/video chat in the target chat.
-    Tries to create one via assistant if missing (requires can_manage_video_chats).
-    """
-    try:
-        peer = await assistant.resolve_peer(chat_id)
-        full = None
-        if isinstance(peer, InputPeerChannel):
-            full = await assistant.invoke(GetFullChannel(channel=peer))
-        elif isinstance(peer, InputPeerChat):
-            full = await assistant.invoke(GetFullChat(chat_id=peer.chat_id))
-        else:
-            return False
-        full_chat = getattr(full, "full_chat", None) or full
-        call = getattr(full_chat, "call", None)
-        if call is not None:
-            return True
-        # No active call -> try to create (channels only)
-        if isinstance(peer, InputPeerChannel):
-            try:
-                await assistant.invoke(CreateGroupCall(peer=peer, random_id=assistant.rnd_id() // 9000000000))
-                await asyncio.sleep(1.0)
-                return True
-            except ChatAdminRequired:
-                LOGGER(__name__).warning("Assistant lacks permission to start video chat (ChatAdminRequired)")
-                return False
-            except Exception as e:
-                LOGGER(__name__).warning(f"CreateGroupCall failed: {type(e).__name__}: {e}")
-                return False
-        return False
-    except Exception as e:
-        LOGGER(__name__).warning(f"_ensure_active_group_call failed: {type(e).__name__}: {e}")
-        return False
+	"""Ensure there is an active voice/video chat in the target chat.
+	Tries to create one via assistant if missing (requires can_manage_video_chats).
+	Falls back to bot app if assistant lacks permission.
+	"""
+	try:
+		peer = await assistant.resolve_peer(chat_id)
+		full = None
+		if isinstance(peer, InputPeerChannel):
+			full = await assistant.invoke(GetFullChannel(channel=peer))
+		elif isinstance(peer, InputPeerChat):
+			full = await assistant.invoke(GetFullChat(chat_id=peer.chat_id))
+		else:
+			return False
+		full_chat = getattr(full, "full_chat", None) or full
+		call = getattr(full_chat, "call", None)
+		if call is not None:
+			return True
+		# No active call -> try to create (channels only)
+		if isinstance(peer, InputPeerChannel):
+			try:
+				await assistant.invoke(CreateGroupCall(peer=peer, random_id=assistant.rnd_id() // 9000000000))
+				await asyncio.sleep(1.0)
+				return True
+			except ChatAdminRequired:
+				LOGGER(__name__).warning("Assistant lacks permission to start video chat (ChatAdminRequired), trying with bot app")
+				try:
+					bot_peer = await app.resolve_peer(chat_id)
+					if isinstance(bot_peer, InputPeerChannel):
+						await app.invoke(CreateGroupCall(peer=bot_peer, random_id=app.rnd_id() // 9000000000))
+						await asyncio.sleep(1.0)
+						return True
+				except Exception as ex:
+					LOGGER(__name__).warning(f"Bot CreateGroupCall failed: {type(ex).__name__}: {ex}")
+				return False
+			except Exception as e:
+				LOGGER(__name__).warning(f"CreateGroupCall failed: {type(e).__name__}: {e}")
+				return False
+		return False
+	except Exception as e:
+		LOGGER(__name__).warning(f"_ensure_active_group_call failed: {type(e).__name__}: {e}")
+		return False
 
 
 class Call(PyTgCalls):
@@ -333,7 +342,11 @@ class Call(PyTgCalls):
                 await assistant.join_group_call(chat_id, stream)
                 return
             except TelegramServerError as e:
-                # try to ensure call exists then retry
+                # try to ensure call exists then retry, with a forced leave
+                try:
+                    await assistant.leave_group_call(chat_id)
+                except Exception:
+                    pass
                 await _ensure_active_group_call(assistant, chat_id)
                 if i < attempts - 1:
                     await asyncio.sleep(1.0 + i)
