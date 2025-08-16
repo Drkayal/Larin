@@ -51022,3 +51022,81 @@ ntgcalls.FFmpegError: FFmpeg encoder is not yet supported
 [16-Aug-25 10:21:35 - INFO] - ZeMusic - جاري تشغيل البوت
 تم التنصيب على سورس الملك بنجاح
 قناة السورس https://t.me/EF_19
+[16-Aug-25 10:22:15 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=FFmpegError('FFmpeg encoder is not yet supported')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.FFmpegError: FFmpeg encoder is not yet supported
+[16-Aug-25 10:22:19 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 10:22:20 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 10:23:54 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 10:23:58 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 10:23:58 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 10:24:12 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 10:24:16 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 10:24:17 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 10:24:32 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionNotFound('Connection with chat id "-1002034990746" not found')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionNotFound: Connection with chat id "-1002034990746" not found
+[16-Aug-25 10:24:46 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=FFmpegError('FFmpeg encoder is not yet supported')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.FFmpegError: FFmpeg encoder is not yet supported
+[16-Aug-25 10:24:50 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 10:24:50 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
