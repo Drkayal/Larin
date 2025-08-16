@@ -5,6 +5,7 @@ from pyrogram.types import Message
 
 from ZeMusic import app, userbot
 import config
+from ZeMusic.core.call import Mody
 
 OWNER_ID = config.OWNER_ID
 
@@ -86,6 +87,16 @@ async def on_session(_, message: Message):
 	ok = False
 	try:
 		ok = await userbot.add_assistant(session)
+		if ok:
+			# اربط PyTgCalls للمكالمات لنفس المؤشر الأول الفارغ
+			for idx in range(1, 6):
+				if not getattr(config, f"STRING{idx}"):
+					continue
+			# اختر أول خانة امتلأت الآن
+			for idx in range(1, 6):
+				if getattr(config, f"STRING{idx}") == session:
+					await Mody.register_assistant(idx, session)
+					break
 	except Exception:
 		ok = False
 	if not ok:
