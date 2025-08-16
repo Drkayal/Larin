@@ -5,6 +5,7 @@ from pyrogram.enums import ChatType
 from pyrogram.errors import UserNotParticipant, ChatAdminRequired
 from ZeMusic import app
 import config
+from ZeMusic.plugins.play.filters import command
 
 
 def _normalize_channel(value: str) -> tuple[str, str]:
@@ -46,7 +47,7 @@ async def subscription(_, __: Client, message: Message):
 subscribed = filters.create(subscription)
 
 # تعريف دالة لمعالجة الأوامر
-@app.on_message(filters.command(["تشغيل", "بحث", "تخطي", "استئناف", "تقديم", "تحميل", "توقف", "مؤقت", "كمل", "كملي", "لارين بحث", "غنيلي", "شعر", "قران", "اذكار", "ادعيه", "play", "شغلي", "/start", "vplay", "vتشغيل", "cplay", "cvplay", "playforce", "vplayforce", "cplayforce", "cvplayforce", "start", "stats", "الاوامر", "اوامر", "ميوزك", "بنج", "سرعه", "song", "/song", "شغل",Nem], "") & ~subscribed)
+@app.on_message(command(["تشغيل", "بحث", "تخطي", "استئناف", "تقديم", "تحميل", "توقف", "مؤقت", "كمل", "كملي", "لارين بحث", "غنيلي", "شعر", "قران", "اذكار", "ادعيه", "play", "شغلي", "/start", "vplay", "vتشغيل", "cplay", "cvplay", "playforce", "vplayforce", "cplayforce", "cvplayforce", "start", "stats", "الاوامر", "اوامر", "ميوزك", "بنج", "سرعه", "song", "/song", "شغل",Nem]) & ~subscribed)
 async def command_handler(_: Client, message: Message):
     if message.chat.type in [ChatType.GROUP, ChatType.SUPERGROUP]:
         user_id = message.from_user.id

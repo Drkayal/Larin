@@ -23,10 +23,11 @@ from ZeMusic.utils.inline import (
 from ZeMusic.utils.logger import play_logs
 from ZeMusic.utils.stream.stream import stream
 from config import BANNED_USERS, lyrical
+from ZeMusic.plugins.play.filters import command
 
 Nem = config.BOT_NAME + " شغل"
 @app.on_message(
-    filters.command(
+    command(
         [
             "play",
             "تشغيل",
@@ -40,7 +41,7 @@ Nem = config.BOT_NAME + " شغل"
             "vplayforce",
             "cplayforce",
             "cvplayforce",
-        ],""
+        ]
     )
     & ~BANNED_USERS
 )
