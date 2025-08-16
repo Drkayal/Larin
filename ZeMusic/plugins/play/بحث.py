@@ -30,7 +30,9 @@ async def song_downloader1(client, message: Message):
     if not await is_search_enabled1():
         return await message.reply_text("<b>⟡ عذراً عزيزي اليوتيوب معطل من قبل المطور</b>")
         
-    query = " ".join(message.command[1:])
+    query = " ".join(message.command[1:]) if getattr(message, "command", None) else (message.text.split(" ", 1)[1].strip() if message.text and " " in message.text else "")
+    if not query:
+        return await message.reply_text("استخدم: بحث <الاسم> أو song <الاسم>")
     m = await message.reply_text("<b>⇜ جـارِ البحث ..</b>")
     
     try:
@@ -73,7 +75,7 @@ async def song_downloader1(client, message: Message):
     
     await m.edit("<b>جاري التحميل ♪</b>")
     try:
-        vidid = results[0]['url_suffix'].split('v=')[-1]
+        vidid = results[0].get('url_suffix','').split('v=')[-1]
         ca = get_cached_audio(vidid)
         if ca and os.path.exists(ca.get('path','')):
             audio_file = ca['path']
