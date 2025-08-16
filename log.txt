@@ -49183,3 +49183,7 @@ CREATE FUNCTION
 [16-Aug-25 05:45:40 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
 
 [16-Aug-25 05:45:41 - WARNING] - ZeMusic.calls - تعذّر تشغيل نظام المكالمات حالياً: AuthKeyDuplicated.
+[16-Aug-25 05:46:11 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[16-Aug-25 05:46:11 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
