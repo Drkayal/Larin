@@ -5,7 +5,23 @@ from ZeMusic import app
 import config
 from ZeMusic.misc import SUDOERS
 
-Muntazer = config.CHANNEL_ASHTRAK
+
+def _normalize_channel(value: str) -> tuple[str, str]:
+	if not value:
+		return "", ""
+	v = value.strip()
+	if v.startswith("https://t.me/"):
+		slug = v.split("https://t.me/")[-1].lstrip("@")
+	elif v.startswith("@"):
+		slug = v[1:]
+	else:
+		slug = v
+	url = f"https://t.me/{slug}" if not slug.startswith("-100") else v
+	return slug, url
+
+Muntazer_raw = config.CHANNEL_ASHTRAK
+Muntazer, Muntazer_url = _normalize_channel(Muntazer_raw)
+
 @app.on_message(filters.incoming & filters.private, group=-1)
 async def must_join_channel(app: Client, msg: Message):
 	# تجاوز لمالك البوت والمخولين
@@ -20,16 +36,7 @@ async def must_join_channel(app: Client, msg: Message):
 		try:
 			await app.get_chat_member(Muntazer, msg.from_user.id)
 		except UserNotParticipant:
-			link = None
-			try:
-				if Muntazer.isalpha():
-					link = "https://t.me/" + Muntazer
-				else:
-					chat_info = await app.get_chat(Muntazer)
-					link = chat_info.invite_link
-			except ChatAdminRequired:
-				# لا توقف التمرير إن لم أكن أدمن
-				return
+			link = Muntazer_url
 			if not link:
 				return
 			try:
@@ -44,5 +51,6 @@ async def must_join_channel(app: Client, msg: Message):
 			except ChatWriteForbidden:
 				pass
 	except ChatAdminRequired:
-		print(f"I m not admin in the MUST_JOIN chat {Muntazer}!")
+		# لا توقف التمرير إن لم أكن أدمن
+		return
 

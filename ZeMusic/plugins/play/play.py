@@ -417,6 +417,23 @@ async def play_commnd(
                     ),
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
+                # سجل عملية البحث في PostgreSQL عند توفرها
+                try:
+                    if config.DATABASE_TYPE == "postgresql":
+                        from ZeMusic.database.dal import download_dal
+                        await download_dal.log_search(
+                            user_id=message.from_user.id if message.from_user else 0,
+                            chat_id=message.chat.id,
+                            query=query,
+                            video_id=track_id,
+                            result_count=1,
+                            response_time_ms=0,
+                            was_cached=False,
+                            success=True,
+                            error_message=None,
+                        )
+                except Exception:
+                    pass
                 return await play_logs(message, streamtype=f"Searched on Youtube")
             else:
                 buttons = track_markup(
