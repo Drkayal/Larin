@@ -21,3 +21,6 @@
 ERROR: [youtube] BaW_jenozKc: Video unavailable
 WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by <HTTPError 429: Too Many Requests>)
 ERROR: [youtube] BaW_jenozKc: This video is unavailable
+ERROR: [youtube] BaW_jenozKc: Video unavailable
+WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by <HTTPError 429: Too Many Requests>)
+ERROR: [youtube] BaW_jenozKc: This video is unavailable
