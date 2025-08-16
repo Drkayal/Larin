@@ -1,29 +1,23 @@
-[16-Aug-25 07:57:15 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
-[16-Aug-25 07:57:15 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
-[16-Aug-25 07:57:15 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
-[16-Aug-25 07:57:15 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
-[16-Aug-25 07:57:15 - INFO] - ZeMusic.misc - Local Database Initialized.
-[16-Aug-25 07:57:15 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "/workspace/ZeMusic/__main__.py", line 15, in <module>
-    from pytgcalls.exceptions import NoActiveGroupCall
-  File "/home/ubuntu/.local/lib/python3.13/site-packages/pytgcalls/__init__.py", line 3, in <module>
-    from .pytgcalls import PyTgCalls
-  File "/home/ubuntu/.local/lib/python3.13/site-packages/pytgcalls/pytgcalls.py", line 8, in <module>
-    from .methods import Methods
-  File "/home/ubuntu/.local/lib/python3.13/site-packages/pytgcalls/methods/__init__.py", line 2, in <module>
-    from .groups import Groups
-  File "/home/ubuntu/.local/lib/python3.13/site-packages/pytgcalls/methods/groups/__init__.py", line 2, in <module>
-    from .get_participants import GetParticipants
-  File "/home/ubuntu/.local/lib/python3.13/site-packages/pytgcalls/methods/groups/get_participants.py", line 6, in <module>
-    from ...types.groups.group_call_participant import GroupCallParticipant
-  File "/home/ubuntu/.local/lib/python3.13/site-packages/pytgcalls/types/__init__.py", line 15, in <module>
-    from .input_stream import AudioImagePiped
-  File "/home/ubuntu/.local/lib/python3.13/site-packages/pytgcalls/types/input_stream/__init__.py", line 1, in <module>
-    from .audio_image_piped import AudioImagePiped
-  File "/home/ubuntu/.local/lib/python3.13/site-packages/pytgcalls/types/input_stream/audio_image_piped.py", line 4, in <module>
-    from ntgcalls import InputMode
-ImportError: cannot import name 'InputMode' from 'ntgcalls' (/home/ubuntu/.local/lib/python3.13/site-packages/ntgcalls.cpython-313-x86_64-linux-gnu.so)
-[PATCH] ntgcalls compatibility aliases created successfully
+[16-Aug-25 08:04:26 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 08:04:26 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 08:04:26 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 08:04:26 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 08:04:26 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 08:04:26 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+/workspace/ZeMusic/utils/thumbnails.py:55: SyntaxWarning: invalid escape sequence '\W'
+  title = re.sub("\W+", " ", title)
+[16-Aug-25 08:04:26 - INFO] - __main__ - نوع قاعدة البيانات المختار: mongodb
+[16-Aug-25 08:04:26 - INFO] - __main__ - 🟡 تم اختيار MongoDB/وضع غير PostgreSQL — سيتم تخطي كل خطوات PostgreSQL بالكامل.
+[16-Aug-25 08:04:28 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[16-Aug-25 08:04:32 - INFO] - ZeMusic.core.bot - تم تسغيل 𝐋𝐎𝐋  بنجاح..
+[16-Aug-25 08:04:32 - WARNING] - ZeMusic.plugins - فشل استيراد البلجن .sudo.test_database: ModuleNotFoundError: No module named 'asyncpg'
+[16-Aug-25 08:04:32 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[16-Aug-25 08:04:32 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[16-Aug-25 08:04:32 - WARNING] - ZeMusic.userbot - تعذّر تشغيل المساعدين: AuthKeyDuplicated. سيستمر البوت بدون مساعدين.
+[16-Aug-25 08:04:32 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[16-Aug-25 08:04:33 - WARNING] - ZeMusic.calls - تعذّر تشغيل نظام المكالمات حالياً: AuthKeyDuplicated.
+[16-Aug-25 08:04:33 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[16-Aug-25 08:04:33 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
