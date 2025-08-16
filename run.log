@@ -84,3 +84,9 @@
 [16-Aug-25 10:11:17 - INFO] - ZeMusic - جاري تشغيل البوت
 تم التنصيب على سورس الملك بنجاح
 قناة السورس https://t.me/EF_19
+[16-Aug-25 10:12:14 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=FFmpegError('FFmpeg encoder is not yet supported')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.FFmpegError: FFmpeg encoder is not yet supported
