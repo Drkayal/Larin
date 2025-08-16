@@ -71,7 +71,7 @@ async def create_database_account() -> Dict[str, str]:
         
         # 2. إنشاء قاعدة البيانات
         db_name = f"{user_info['user']}_db"
-        create_db_cmd = f'sudo -u postgres psql -c "CREATE DATABASE \\"{db_name}\\" OWNER \\"{user_info[\"user\"]}\\";"'
+        create_db_cmd = f'sudo -u postgres psql -c "CREATE DATABASE \\\"{db_name}\\\" OWNER \\\"{user_info["user"]}\\\";"'
         result = subprocess.run(create_db_cmd, shell=True, capture_output=True, text=True)
         
         if result.returncode != 0:
@@ -80,7 +80,7 @@ async def create_database_account() -> Dict[str, str]:
         
         # 3. إعطاء الصلاحيات
         if user_info['user'] != "postgres":
-            grant_cmd = f'sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE \\"{db_name}\\" TO \\"{user_info[\"user\"]}\\";"'
+            grant_cmd = f'sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE \\\"{db_name}\\\" TO \\\"{user_info["user"]}\\\";"'
             subprocess.run(grant_cmd, shell=True, capture_output=True, text=True)
         
         return {

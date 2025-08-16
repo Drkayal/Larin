@@ -85,10 +85,18 @@ async def disable_welcome(chat_id):
     
 #####################################################
 async def is_search_enabled1():
-    settings = await ders1db.find_one({"name": "search"})
-    if settings:
-        return settings.get("enabled", False)
-    return False
+    try:
+        if config.DATABASE_TYPE == "postgresql":
+            # افتراضياً مفعل في الخاص
+            return True
+        # MongoDB fallback
+        settings = await ders1db.find_one({"name": "search"})
+        if settings:
+            return settings.get("enabled", False)
+        return True
+    except Exception:
+        # إذا تعذر الوصول لقواعد البيانات، فعّل افتراضياً
+        return True
 
 async def enable_search1():
     await ders1db.update_one({"name": "search"}, {"$set": {"enabled": True}}, upsert=True)

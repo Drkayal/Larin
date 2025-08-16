@@ -3,6 +3,7 @@ import glob
 import os
 import random
 import re
+import json
 from typing import Union
 
 from pyrogram.enums import MessageEntityType
@@ -15,26 +16,134 @@ from ZeMusic.utils.database import is_on_off
 from ZeMusic.utils.formatters import time_to_seconds, seconds_to_min
 from ZeMusic.utils.decorators import asyncify
 
+_PROXY_VARS = [
+    "http_proxy", "https_proxy", "HTTP_PROXY", "HTTPS_PROXY",
+    "all_proxy", "ALL_PROXY", "no_proxy", "NO_PROXY",
+]
+
+def _clean_env():
+    env = os.environ.copy()
+    for k in _PROXY_VARS:
+        env.pop(k, None)
+    return env
+
+for _k in _PROXY_VARS:
+    os.environ.pop(_k, None)
+
+
+class CookieManager:
+    def __init__(self):
+        self.root = os.getcwd()
+        self.cookies_dir = os.path.join(self.root, "cookies")
+        self.state_file = os.path.join(self.cookies_dir, "_rotation_state.json")
+        self.index = 0
+        self._load_state()
+        self._refresh_candidates()
+
+    def _load_state(self):
+        try:
+            if os.path.exists(self.state_file):
+                with open(self.state_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    self.index = int(data.get("index", 0))
+        except Exception:
+            self.index = 0
+
+    def _save_state(self):
+        try:
+            os.makedirs(self.cookies_dir, exist_ok=True)
+            with open(self.state_file, "w", encoding="utf-8") as f:
+                json.dump({"index": self.index}, f)
+        except Exception:
+            pass
+
+    def _refresh_candidates(self):
+        candidates = []
+        # 1) from config.COOKIES_FILES
+        try:
+            for path in (getattr(config, "COOKIES_FILES", []) or []):
+                if not path:
+                    continue
+                abs_path = path if os.path.isabs(path) else os.path.join(self.root, path)
+                if os.path.exists(abs_path) and os.path.isfile(abs_path):
+                    candidates.append(abs_path)
+        except Exception:
+            pass
+        # 2) from cookies/*.txt
+        try:
+            if os.path.isdir(self.cookies_dir):
+                for f in os.listdir(self.cookies_dir):
+                    if f.endswith(".txt"):
+                        p = os.path.join(self.cookies_dir, f)
+                        if os.path.isfile(p):
+                            candidates.append(p)
+        except Exception:
+            pass
+        # Filter duplicates and ensure youtube presence
+        uniq = []
+        seen = set()
+        for p in candidates:
+            if p in seen:
+                continue
+            try:
+                with open(p, "r", encoding="utf-8", errors="ignore") as f:
+                    head = f.read(4096)
+                if (".youtube.com" in head) or ("youtube.com" in head):
+                    uniq.append(p)
+                    seen.add(p)
+            except Exception:
+                continue
+        # Sort by mtime desc
+        uniq.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+        self.candidates = uniq
+
+        # If none, create basic minimal file
+        if not self.candidates:
+            os.makedirs(self.cookies_dir, exist_ok=True)
+            basic_path = os.path.join(self.cookies_dir, "basic_cookies.txt")
+            if not os.path.exists(basic_path):
+                basic_cookies = """# Netscape HTTP Cookie File
+.youtube.com	TRUE	/	FALSE	0	PREF	hl=en&tz=UTC
+.youtube.com	TRUE	/	TRUE	0	SOCS	CAI
+.youtube.com	TRUE	/	TRUE	0	YSC	dQw4w9WgXcQ
+"""
+                try:
+                    with open(basic_path, "w", encoding="utf-8") as f:
+                        f.write(basic_cookies)
+                except Exception:
+                    pass
+            self.candidates = [basic_path]
+
+    def get_cookie(self) -> str:
+        self._refresh_candidates()
+        if not self.candidates:
+            return "cookies/basic_cookies.txt"
+        # rotate
+        path = self.candidates[self.index % len(self.candidates)]
+        self.index = (self.index + 1) % max(1, len(self.candidates))
+        self._save_state()
+        return os.path.relpath(path, self.root)
+
+    def ban_cookie(self, rel_path: str):
+        try:
+            abs_path = rel_path if os.path.isabs(rel_path) else os.path.join(self.root, rel_path)
+            if os.path.exists(abs_path):
+                os.remove(abs_path)
+        except Exception:
+            pass
+        # refresh list and adjust index
+        self._refresh_candidates()
+        self.index = 0 if self.index >= len(self.candidates) else self.index
+        self._save_state()
+
+
+_COOKIE_MANAGER = CookieManager()
 
 def cookies():
-    """الحصول على ملف cookies عشوائي مع تفضيل الملفات المحدثة"""
-    folder_path = f"{os.getcwd()}/cookies"
-    txt_files = glob.glob(os.path.join(folder_path, "*.txt"))
-    if not txt_files:
-        # إنشاء ملف cookies أساسي إذا لم يوجد
-        basic_cookies = """# Netscape HTTP Cookie File
-.youtube.com	TRUE	/	FALSE	0	PREF	tz=UTC&hl=en
-.youtube.com	TRUE	/	FALSE	0	YSC	dQw4w9WgXcQ"""
-        
-        os.makedirs(folder_path, exist_ok=True)
-        basic_path = os.path.join(folder_path, "basic_cookies.txt")
-        with open(basic_path, 'w') as f:
-            f.write(basic_cookies)
-        return "cookies/basic_cookies.txt"
-    
-    # اختيار ملف cookies عشوائي
-    cookie_txt_file = random.choice(txt_files)
-    return f"""cookies/{str(cookie_txt_file).split("/")[-1]}"""
+    return _COOKIE_MANAGER.get_cookie()
+
+def ban_cookie(path: str):
+    return _COOKIE_MANAGER.ban_cookie(path)
 
 
 async def shell_cmd(cmd):
@@ -42,6 +151,7 @@ async def shell_cmd(cmd):
         cmd,
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
+        env=_clean_env(),
     )
     out, errorz = await proc.communicate()
     if errorz:
@@ -150,7 +260,8 @@ class YouTubeAPI:
             "-g",
             "-f",
             "best[height<=?720][width<=?1280]",
-            f"--cookies {cookies()}",
+            "--cookies", cookies(),
+            "--geo-bypass-country", "US",
             "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "--extractor-retries", "3",
             "--retries", "3",
@@ -160,6 +271,7 @@ class YouTubeAPI:
             *cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
+            env=_clean_env(),
         )
         stdout, stderr = await proc.communicate()
         if stdout:
@@ -180,6 +292,8 @@ class YouTubeAPI:
                             "-g",
                             "-f",
                             "best[height<=?720][width<=?1280]",
+                            "--geo-bypass-country", "US",
+                            "--cookies", cookies(),
                             "--user-agent", "Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36",
                             invidious_url,
                         ]
@@ -187,6 +301,7 @@ class YouTubeAPI:
                             *cmd_fallback,
                             stdout=asyncio.subprocess.PIPE,
                             stderr=asyncio.subprocess.PIPE,
+                            env=_clean_env(),
                         )
                         stdout2, _ = await proc2.communicate()
                         if stdout2:
@@ -203,7 +318,8 @@ class YouTubeAPI:
 
         cmd = (
             f"yt-dlp -i --compat-options no-youtube-unavailable-videos "
-            f'--cookies {cookies()} --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" '
+            f'--cookies {cookies()} --geo-bypass-country US '
+            f'--user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" '
             f'--extractor-retries 3 --retries 3 --get-id --flat-playlist --playlist-end {limit} --skip-download "{link}" '
             f"2>/dev/null"
         )
@@ -250,6 +366,8 @@ class YouTubeAPI:
             "quiet": True,
             "extract_flat": "in_playlist",
             "cookiefile": f"{cookies()}",
+            "proxy": "",
+            "geo_bypass_country": "US",
         }
         with YoutubeDL(options) as ydl:
             info_dict = ydl.extract_info(f"ytsearch: {q}", download=False)
@@ -277,6 +395,8 @@ class YouTubeAPI:
         ytdl_opts = {
             "quiet": True,
             "cookiefile": f"{cookies()}",
+            "proxy": "",
+            "geo_bypass_country": "US",
         }
 
         ydl = YoutubeDL(ytdl_opts)
@@ -357,6 +477,8 @@ class YouTubeAPI:
                 "http_headers": {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 },
+                "proxy": "",
+                "geo_bypass_country": "US",
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -376,6 +498,8 @@ class YouTubeAPI:
                 "quiet": True,
                 "no_warnings": True,
                 "cookiefile": f"{cookies()}",
+                "proxy": "",
+                "geo_bypass_country": "US",
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -399,6 +523,8 @@ class YouTubeAPI:
                 "prefer_ffmpeg": True,
                 "merge_output_format": "mp4",
                 "cookiefile": f"{cookies()}",
+                "proxy": "",
+                "geo_bypass_country": "US",
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -422,6 +548,8 @@ class YouTubeAPI:
                     }
                 ],
                 "cookiefile": f"{cookies()}",
+                "proxy": "",
+                "geo_bypass_country": "US",
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -446,6 +574,7 @@ class YouTubeAPI:
                     "-f",
                     "best[height<=?720][width<=?1280]",
                     f"--cookies {cookies()}",
+                    "--geo-bypass-country", "US",
                     link,
                 ]
 

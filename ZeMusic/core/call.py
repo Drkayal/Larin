@@ -118,39 +118,45 @@ class Call(PyTgCalls):
         try:
             await _clear_(chat_id)
             await assistant.leave_group_call(chat_id)
-        except:
-            pass
+        except Exception as e:
+            LOGGER(__name__).warning(f"Failed to stop stream: {e}")
 
-    async def stop_stream_force(self, chat_id: int):
+    async def register_assistant(self, idx: int, session_string: str) -> bool:
+        """إضافة حساب مساعد أثناء التشغيل وربطه بـ PyTgCalls.
+        idx ∈ {1..5}
+        """
         try:
-            if config.STRING1:
-                await self.one.leave_group_call(chat_id)
-        except:
-            pass
-        try:
-            if config.STRING2:
-                await self.two.leave_group_call(chat_id)
-        except:
-            pass
-        try:
-            if config.STRING3:
-                await self.three.leave_group_call(chat_id)
-        except:
-            pass
-        try:
-            if config.STRING4:
-                await self.four.leave_group_call(chat_id)
-        except:
-            pass
-        try:
-            if config.STRING5:
-                await self.five.leave_group_call(chat_id)
-        except:
-            pass
-        try:
-            await _clear_(chat_id)
-        except:
-            pass
+            name = f"ZeAss{idx}"
+            client = Client(
+                name=name,
+                api_id=config.API_ID,
+                api_hash=config.API_HASH,
+                session_string=session_string,
+            )
+            pytgc = PyTgCalls(client, cache_duration=100)
+            await client.start()
+            await pytgc.start()
+            if idx == 1:
+                self.userbot1 = client
+                self.one = pytgc
+            elif idx == 2:
+                self.userbot2 = client
+                self.two = pytgc
+            elif idx == 3:
+                self.userbot3 = client
+                self.three = pytgc
+            elif idx == 4:
+                self.userbot4 = client
+                self.four = pytgc
+            elif idx == 5:
+                self.userbot5 = client
+                self.five = pytgc
+            else:
+                return False
+            return True
+        except Exception as e:
+            LOGGER(__name__).warning(f"register_assistant failed for #{idx}: {e}")
+            return False
 
     async def speedup_stream(self, chat_id: int, file_path, speed, playing):
         assistant = await group_assistant(self, chat_id)
@@ -601,6 +607,20 @@ class Call(PyTgCalls):
             LOGGER(__name__).warning(f"تحذير: لا يمكن إضافة handlers: {e}")
         
         LOGGER(__name__).info("تم تهيئة PyTgCalls بدون decorators")
+
+    async def stop_stream_force(self, chat_id: int):
+        try:
+            assistant = await group_assistant(self, chat_id)
+            try:
+                await assistant.leave_group_call(chat_id)
+            except Exception:
+                pass
+            try:
+                await _clear_(chat_id)
+            except Exception:
+                pass
+        except Exception:
+            pass
 
 
 Mody = Call()

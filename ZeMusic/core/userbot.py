@@ -148,18 +148,51 @@ class Userbot(Client):
             assistantids.append(self.five.id)
             LOGGER(__name__).info(f"Assistant Five Started as {self.five.name}")
 
-    async def stop(self):
-        LOGGER(__name__).info(f"Stopping Assistants...")
+    async def add_assistant(self, session_string: str) -> bool:
+        """إضافة حساب مساعد أثناء التشغيل بعد فحص الجلسة."""
+        for idx, client in enumerate([self.one, self.two, self.three, self.four, self.five], start=1):
+            try:
+                # إذا كان هذا العميل غير مهيأ بجلسة، نحقنه ونشغله
+                if not getattr(config, f"STRING{idx}"):
+                    client.session_string = session_string
+                    await client.start()
+                    assistants.append(idx)
+                    try:
+                        await client.send_message(config.LOGGER_ID, "تمت إضافة حساب مساعد جديد وتشغيله بنجاح")
+                    except Exception:
+                        pass
+                    setattr(config, f"STRING{idx}", session_string)
+                    return True
+            except Exception:
+                continue
+        return False
+
+    async def add_assistant_force(self, session_string: str, preferred_idx: int = 1) -> int:
+        idx = int(preferred_idx)
+        client = None
+        if idx == 1:
+            client = self.one
+        elif idx == 2:
+            client = self.two
+        elif idx == 3:
+            client = self.three
+        elif idx == 4:
+            client = self.four
+        elif idx == 5:
+            client = self.five
+        else:
+            return 0
         try:
-            if config.STRING1:
-                await self.one.stop()
-            if config.STRING2:
-                await self.two.stop()
-            if config.STRING3:
-                await self.three.stop()
-            if config.STRING4:
-                await self.four.stop()
-            if config.STRING5:
-                await self.five.stop()
-        except:
-            pass
+            # حاول إيقاف القديم إن كان يعمل
+            try:
+                await client.stop()
+            except Exception:
+                pass
+            client.session_string = session_string
+            await client.start()
+            if idx not in assistants:
+                assistants.append(idx)
+            setattr(config, f"STRING{idx}", session_string)
+            return idx
+        except Exception:
+            return 0

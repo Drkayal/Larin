@@ -134,8 +134,7 @@ async def init():
         and not config.STRING4
         and not config.STRING5
     ):
-        LOGGER(__name__).error("Assistant client variables not defined, exiting...")
-        exit()
+        LOGGER(__name__).warning("لا توجد جلسات مساعدين حالياً. سيعمل البوت بدون تشغيل المكالمات حتى إضافة حساب مساعد.")
     
     # إعداد قاعدة البيانات
     if config.DATABASE_TYPE == "postgresql":
@@ -178,10 +177,20 @@ async def init():
         pass
     await app.start()
     for all_module in ALL_MODULES:
-        importlib.import_module("ZeMusic.plugins" + all_module)
+        try:
+            importlib.import_module("ZeMusic.plugins" + all_module)
+        except Exception as e:
+            LOGGER("ZeMusic.plugins").warning(f"فشل استيراد البلجن {all_module}: {type(e).__name__}: {e}")
+            continue
     LOGGER("ZeMusic.plugins").info("تنزيل معلومات السورس...")
-    await userbot.start()
-    await Mody.start()
+    try:
+        await userbot.start()
+    except Exception as e:
+        LOGGER("ZeMusic.userbot").warning(f"تعذّر تشغيل المساعدين: {type(e).__name__}. سيستمر البوت بدون مساعدين.")
+    try:
+        await Mody.start()
+    except Exception as e:
+        LOGGER("ZeMusic.calls").warning(f"تعذّر تشغيل نظام المكالمات حالياً: {type(e).__name__}.")
     try:
         await Mody.stream_call("https://te.legra.ph/file/29f784eb49d230ab62e9e.mp4")
     except NoActiveGroupCall:
@@ -196,7 +205,10 @@ async def init():
     )
     await idle()
     await app.stop()
-    await userbot.stop()
+    try:
+        await userbot.stop()
+    except Exception:
+        pass
     
     # إغلاق اتصال PostgreSQL
     if config.DATABASE_TYPE == "postgresql":
