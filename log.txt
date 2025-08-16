@@ -51569,3 +51569,89 @@ Traceback (most recent call last):
 ntgcalls.FFmpegError: FFmpeg encoder is not yet supported
 [16-Aug-25 21:10:18 - WARNING] - ZeMusic.core.call - _ensure_active_group_call failed: AttributeError: 'PyTgCalls' object has no attribute 'resolve_peer'
 [16-Aug-25 21:10:19 - WARNING] - ZeMusic.core.call - _ensure_active_group_call failed: AttributeError: 'PyTgCalls' object has no attribute 'resolve_peer'
+[16-Aug-25 21:13:54 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 21:13:54 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 21:13:54 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 21:13:54 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 21:13:54 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 21:13:54 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 21:13:55 - INFO] - __main__ - تم تجهيز ffmpeg/ffprobe محلياً وإضافتهما إلى PATH
+[16-Aug-25 21:13:57 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.core.bot - تم تسغيل sᴀᴅᴇᴇɴ  بنجاح..
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.utils.database - تم بدء مهمة التنظيف الدورية
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .Managed.Bot
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .Managed.BotName
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .Managed.Gpt
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .Managed.Telegraph
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .Managed.قاعدة
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .Managed.من بالمكالمه
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .admins.auth
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .admins.callback
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .admins.loop
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .admins.pause
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .admins.resume
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .admins.seek
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .admins.shuffle
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .admins.skip
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .admins.speed
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .admins.stop
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .bot.add_assistant
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .bot.cookies_manager
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .bot.help
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .bot.inline
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .bot.owner_env_manager
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .bot.settings
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .bot.start
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .bot.toggle_music_replies
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .misc.autoleave
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .misc.broadcast
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .misc.seeker
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .misc.watcher
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.Abod
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.Logs
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.bot
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.channel
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.cmds
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.create&close
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.developers
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.devm
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.download
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.filters
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.live
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.play
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.playmode
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.zzcmd
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.بحث
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.بحث قناه
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.دعوه
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.سجل الجروبات
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.كيبورد
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .play.نادي المطور
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .sudo.autoend
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .sudo.blchat
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .sudo.block
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .sudo.gban
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .sudo.help_testing
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .sudo.logger
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .sudo.maintenance
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .sudo.restart
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .sudo.sudoers
+[16-Aug-25 21:14:03 - WARNING] - ZeMusic.plugins - فشل استيراد البلجن .sudo.test_database: ModuleNotFoundError: No module named 'asyncpg'
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .tools.active
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .tools.dev
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .tools.language
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .tools.ping
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .tools.queue
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .tools.reload
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .tools.speedtest
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - Imported plugin .tools.stats
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[16-Aug-25 21:14:03 - WARNING] - ZeMusic.userbot - تعذّر تشغيل المساعدين: AuthKeyDuplicated. سيستمر البوت بدون مساعدين.
+[16-Aug-25 21:14:03 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[16-Aug-25 21:14:04 - WARNING] - ZeMusic.calls - تعذّر تشغيل نظام المكالمات حالياً: AuthKeyDuplicated.
+[16-Aug-25 21:14:04 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls مع معالجات الأحداث
+[16-Aug-25 21:14:04 - INFO] - ZeMusic - جاري تشغيل البوت
+تم التنصيب على سورس الملك بنجاح
+قناة السورس https://t.me/EF_19
