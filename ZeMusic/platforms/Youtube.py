@@ -17,24 +17,63 @@ from ZeMusic.utils.decorators import asyncify
 
 
 def cookies():
-    """الحصول على ملف cookies عشوائي مع تفضيل الملفات المحدثة"""
-    folder_path = f"{os.getcwd()}/cookies"
-    txt_files = glob.glob(os.path.join(folder_path, "*.txt"))
-    if not txt_files:
-        # إنشاء ملف cookies أساسي إذا لم يوجد
-        basic_cookies = """# Netscape HTTP Cookie File
-.youtube.com	TRUE	/	FALSE	0	PREF	tz=UTC&hl=en
-.youtube.com	TRUE	/	FALSE	0	YSC	dQw4w9WgXcQ"""
-        
+    """الحصول على ملف cookies موثوق لاستخدامه مع yt-dlp
+    - يفضّل المسارات المحددة في config.COOKIES_FILES إن وُجدت وتوجد على القرص
+    - وإلا يختار أحدث ملف داخل مجلد cookies يحتوي على سطور يوتيوب
+    - وإلا ينشئ basic_cookies.txt كحل أخير (قد لا يتجاوز تحقق روبوت يوتيوب)
+    """
+    try:
+        # 1) تفضيل المسارات من config
+        try:
+            candidates = []
+            if getattr(config, "COOKIES_FILES", None):
+                for path in config.COOKIES_FILES:
+                    if not path:
+                        continue
+                    abs_path = path if os.path.isabs(path) else os.path.join(os.getcwd(), path)
+                    if os.path.exists(abs_path):
+                        try:
+                            with open(abs_path, "r", encoding="utf-8", errors="ignore") as f:
+                                txt = f.read(2048)
+                            if ".youtube.com" in txt or "youtube.com" in txt:
+                                # أعد مساراً نسبياً متوافقاً مع بقية الكود
+                                rel = os.path.relpath(abs_path, os.getcwd())
+                                return rel
+                        except Exception:
+                            pass
+        except Exception:
+            pass
+
+        # 2) اختيار أحدث ملف في مجلد cookies يحتوي على سطور يوتيوب
+        folder_path = os.path.join(os.getcwd(), "cookies")
+        if os.path.isdir(folder_path):
+            txt_files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith(".txt")]
+            txt_files = [f for f in txt_files if os.path.isfile(f)]
+            # فرز بحسب آخر تعديل
+            txt_files.sort(key=lambda p: os.path.getmtime(p), reverse=True)
+            for abs_path in txt_files:
+                try:
+                    with open(abs_path, "r", encoding="utf-8", errors="ignore") as f:
+                        head = f.read(4096)
+                    if ".youtube.com" in head or "youtube.com" in head:
+                        return os.path.relpath(abs_path, os.getcwd())
+                except Exception:
+                    continue
+
+        # 3) إنشاء ملف أساسي كحل أخير
         os.makedirs(folder_path, exist_ok=True)
+        basic_cookies = """# Netscape HTTP Cookie File
+.youtube.com	TRUE	/	FALSE	0	PREF	hl=en&tz=UTC
+.youtube.com	TRUE	/	TRUE	0	SOCS	CAI
+.youtube.com	TRUE	/	TRUE	0	YSC	dQw4w9WgXcQ
+"""
         basic_path = os.path.join(folder_path, "basic_cookies.txt")
-        with open(basic_path, 'w') as f:
+        with open(basic_path, 'w', encoding='utf-8') as f:
             f.write(basic_cookies)
+        return os.path.relpath(basic_path, os.getcwd())
+    except Exception:
+        # في حال حدوث خطأ غير متوقع، حاول المسار السابق إن وجد
         return "cookies/basic_cookies.txt"
-    
-    # اختيار ملف cookies عشوائي
-    cookie_txt_file = random.choice(txt_files)
-    return f"""cookies/{str(cookie_txt_file).split("/")[-1]}"""
 
 
 async def shell_cmd(cmd):
