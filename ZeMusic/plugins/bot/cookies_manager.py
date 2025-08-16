@@ -10,6 +10,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 
 from ZeMusic import app
 import config
+from ZeMusic.plugins.play.filters import command
 
 from ZeMusic.utils.redis_cache import get_client as get_redis
 
@@ -130,7 +131,7 @@ def _human_list(paths: List[str]) -> str:
 	return "\n".join(f"- {os.path.relpath(p, os.getcwd())}" for p in paths)
 
 
-@app.on_message(filters.user(OWNER_ID) & filters.command(["فحص الكوكيز"], ""))
+@app.on_message(filters.user(OWNER_ID) & command(["فحص الكوكيز"]))
 async def cmd_scan_cookies(_, message: Message):
 	await message.reply_text("⏳ جارِ فحص ملفات الكوكيز... قد يستغرق ذلك قليلاً")
 	valid, invalid = await _scan_all_cookies()
@@ -205,7 +206,7 @@ async def on_delete_confirm(_, cq: CallbackQuery):
 	await cq.answer("تم التنفيذ", show_alert=False)
 
 
-@app.on_message(filters.user(OWNER_ID) & filters.command(["اضافه كوكيز"], ""))
+@app.on_message(filters.user(OWNER_ID) & command(["اضافه كوكيز"]))
 async def cmd_add_cookies(_, message: Message):
 	client = get_redis()
 	if client:
