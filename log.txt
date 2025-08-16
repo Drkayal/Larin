@@ -50491,3 +50491,10 @@ CREATE FUNCTION
 [16-Aug-25 09:53:02 - INFO] - ZeMusic.misc - Local Database Initialized.
 [16-Aug-25 09:53:02 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
 [16-Aug-25 09:53:04 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[16-Aug-25 09:54:46 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 09:54:46 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 09:54:46 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 09:54:46 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 09:54:46 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 09:54:46 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 09:54:48 - INFO] - ZeMusic.misc - تم رفع البيانات.
