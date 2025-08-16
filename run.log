@@ -1,143 +1,15 @@
-nohup: ignoring input
-[16-Aug-25 06:15:42 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
-[16-Aug-25 06:15:42 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
-[16-Aug-25 06:15:42 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
-[16-Aug-25 06:15:42 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
-[16-Aug-25 06:15:42 - INFO] - ZeMusic.misc - Local Database Initialized.
-[16-Aug-25 06:15:42 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
-[16-Aug-25 06:15:43 - INFO] - __main__ - 🚀 بدء إعداد PostgreSQL تلقائياً...
-[16-Aug-25 06:15:43 - INFO] - __main__ - 🔍 التحقق من تثبيت PostgreSQL...
-[16-Aug-25 06:15:43 - INFO] - __main__ - ⚡ بدء تشغيل PostgreSQL...
-[16-Aug-25 06:15:43 - INFO] - __main__ - ✅ تم بدء تشغيل PostgreSQL
-[16-Aug-25 06:15:43 - INFO] - __main__ - 🔐 إعداد كلمة مرور للمستخدم postgres...
-[16-Aug-25 06:15:43 - INFO] - __main__ - ℹ️ كلمة مرور PostgreSQL موجودة بالفعل
-[16-Aug-25 06:15:43 - INFO] - __main__ - 🗄️ التحقق من وجود قاعدة البيانات...
-[16-Aug-25 06:15:43 - INFO] - __main__ - ℹ️ قاعدة البيانات zemusic_bot موجودة بالفعل
-[16-Aug-25 06:15:43 - INFO] - __main__ - ⚙️ إعداد قاعدة بيانات PostgreSQL...
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-INSERT 0 0
-INSERT 0 0
-CREATE FUNCTION
-CREATE FUNCTION
-CREATE FUNCTION
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
-[16-Aug-25 06:15:43 - INFO] - __main__ - ✅ تم إعداد PostgreSQL بنجاح
-[16-Aug-25 06:15:43 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
 Traceback (most recent call last):
-  File "<frozen runpy>", line 189, in _run_module_as_main
-  File "<frozen runpy>", line 148, in _get_module_details
-  File "<frozen runpy>", line 112, in _get_module_details
-  File "/workspace/ZeMusic/__init__.py", line 1, in <module>
-    from ZeMusic.core.bot import Mody
-  File "/workspace/ZeMusic/core/bot.py", line 1, in <module>
-    from pyrogram import Client, errors
-ModuleNotFoundError: No module named 'pyrogram'
-Traceback (most recent call last):
-  File "<frozen runpy>", line 189, in _run_module_as_main
-  File "<frozen runpy>", line 148, in _get_module_details
-  File "<frozen runpy>", line 112, in _get_module_details
-  File "/workspace/ZeMusic/__init__.py", line 1, in <module>
-    from ZeMusic.core.bot import Mody
-  File "/workspace/ZeMusic/core/bot.py", line 4, in <module>
-    import config
-  File "/workspace/config.py", line 4, in <module>
-    from dotenv import load_dotenv
-ModuleNotFoundError: No module named 'dotenv'
-Traceback (most recent call last):
-  File "<frozen runpy>", line 189, in _run_module_as_main
-  File "<frozen runpy>", line 148, in _get_module_details
-  File "<frozen runpy>", line 112, in _get_module_details
-  File "/workspace/ZeMusic/__init__.py", line 3, in <module>
-    from ZeMusic.core.git import git
-  File "/workspace/ZeMusic/core/git.py", line 5, in <module>
-    from git import Repo
-ModuleNotFoundError: No module named 'git'
-Traceback (most recent call last):
-  File "<frozen runpy>", line 189, in _run_module_as_main
-  File "<frozen runpy>", line 148, in _get_module_details
-  File "<frozen runpy>", line 112, in _get_module_details
-  File "/workspace/ZeMusic/__init__.py", line 5, in <module>
-    from ZeMusic.misc import dbb, heroku
-  File "/workspace/ZeMusic/misc.py", line 4, in <module>
-    import heroku3
-ModuleNotFoundError: No module named 'heroku3'
-Traceback (most recent call last):
-  File "<frozen runpy>", line 189, in _run_module_as_main
-  File "<frozen runpy>", line 148, in _get_module_details
-  File "<frozen runpy>", line 112, in _get_module_details
-  File "/workspace/ZeMusic/__init__.py", line 5, in <module>
-    from ZeMusic.misc import dbb, heroku
-  File "/workspace/ZeMusic/misc.py", line 8, in <module>
-    from ZeMusic.core.mongo import mongodb
-  File "/workspace/ZeMusic/core/mongo.py", line 1, in <module>
-    from motor.motor_asyncio import AsyncIOMotorClient
-ModuleNotFoundError: No module named 'motor'
-[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
-[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
-[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
-[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
-[16-Aug-25 07:31:32 - INFO] - ZeMusic.misc - Local Database Initialized.
-[16-Aug-25 07:31:32 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
-Traceback (most recent call last):
-  File "<frozen runpy>", line 189, in _run_module_as_main
-  File "<frozen runpy>", line 148, in _get_module_details
-  File "<frozen runpy>", line 112, in _get_module_details
-  File "/workspace/ZeMusic/__init__.py", line 57, in <module>
-    from .platforms import *
-  File "/workspace/ZeMusic/platforms/__init__.py", line 1, in <module>
-    from .Apple import AppleAPI
-  File "/workspace/ZeMusic/platforms/Apple.py", line 4, in <module>
-    import aiohttp
-ModuleNotFoundError: No module named 'aiohttp'
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/ZeMusic/__main__.py", line 19, in <module>
+    from ZeMusic.core.call import Mody
+  File "/workspace/ZeMusic/core/call.py", line 9, in <module>
+    from pytgcalls import PyTgCalls, StreamType
+ImportError: cannot import name 'StreamType' from 'pytgcalls' (/home/ubuntu/.local/lib/python3.13/site-packages/pytgcalls/__init__.py)
+[PATCH] ntgcalls compatibility aliases created successfully

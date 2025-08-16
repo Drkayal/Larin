@@ -49443,3 +49443,27 @@ CREATE FUNCTION
 [16-Aug-25 07:31:32 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
 [16-Aug-25 07:31:32 - INFO] - ZeMusic.misc - Local Database Initialized.
 [16-Aug-25 07:31:32 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 07:47:27 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 07:47:27 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 07:47:27 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 07:47:27 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 07:47:27 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 07:47:27 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 07:48:50 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 07:48:50 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 07:48:50 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 07:48:50 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 07:48:50 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 07:48:50 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 07:49:54 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 07:49:54 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 07:49:54 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 07:49:54 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 07:49:54 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 07:49:54 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 07:51:50 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..

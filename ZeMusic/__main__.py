@@ -8,8 +8,8 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import ntgcalls_patch
 
-# إضافة نظام إنشاء قاعدة البيانات التلقائي
-from ZeMusic.utils.auto_db_setup import auto_setup_database
+# إضافة نظام إنشاء قاعدة البيانات التلقائي (سيتم الاستيراد عند الحاجة)
+auto_setup_database = None
 
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
@@ -167,6 +167,10 @@ async def init():
         LOGGER(__name__).info("🚀 بدء إعداد PostgreSQL تلقائياً...")
         
         # 1. إنشاء حساب قاعدة البيانات تلقائياً (فقط إذا لم تكن موجودة)
+        global auto_setup_database
+        if auto_setup_database is None:
+            from ZeMusic.utils.auto_db_setup import auto_setup_database as _auto
+            auto_setup_database = _auto
         db_config = await auto_setup_database()
         
         # 2. تثبيت PostgreSQL تلقائياً
