@@ -175,17 +175,12 @@ class Call(PyTgCalls):
                     vs = 0.68
                 if str(speed) == str("2.0"):
                     vs = 0.5
-                proc = await asyncio.create_subprocess_shell(
-                    cmd=(
-                        "ffmpeg "
-                        "-i "
-                        f"{file_path} "
-                        "-filter:v "
-                        f"setpts={vs}*PTS "
-                        "-filter:a "
-                        f"atempo={speed} "
-                        f"{out}"
-                    ),
+                proc = await asyncio.create_subprocess_exec(
+                    "ffmpeg",
+                    "-i", file_path,
+                    "-filter:v", f"setpts={vs}*PTS",
+                    "-filter:a", f"atempo={speed}",
+                    out,
                     stdin=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE,
                 )
