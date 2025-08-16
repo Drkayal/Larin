@@ -38,6 +38,50 @@ async def song_downloader1(client, message: Message):
     try:
         cached = get_cached_search(query)
         if cached:
+            # Fast path: cached search result
+            vidid = cached.get('vidid')
+            ca = get_cached_audio(vidid)
+            if ca and os.path.exists(ca.get('path','')):
+                # Send instantly from disk
+                audio_file = ca['path']
+                title = cached.get('title','')[:40]
+                thumbnail = cached.get('thumb','')
+                # no need to re-fetch duration; fallback to cached duration
+                duration = cached.get('duration','0:00')
+                title_clean = re.sub(r'[\\/*?:"<>|]', "", title)
+                thumb_name = f"{title_clean}.jpg"
+                try:
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(thumbnail) as resp:
+                            if resp.status == 200:
+                                f = await aiofiles.open(thumb_name, mode='wb')
+                                await f.write(await resp.read())
+                                await f.close()
+                except Exception:
+                    pass
+                # compute sec duration
+                secmul, dur, dur_arr = 1, 0, (duration or '0:00').split(":")
+                for i in range(len(dur_arr) - 1, -1, -1):
+                    dur += int(float(dur_arr[i])) * secmul
+                    secmul *= 60
+                await message.reply_audio(
+                    audio=audio_file,
+                    caption=f"ᴍʏ ᴡᴏʀʟᴅ 𓏺 @{channel} ",
+                    title=title,
+                    performer=ca.get('uploader','Unknown'),
+                    thumb=thumb_name if os.path.exists(thumb_name) else None,
+                    duration=dur,
+                    reply_markup=InlineKeyboardMarkup(
+                        [
+                            [
+                                InlineKeyboardButton(text="♪ 𝐋𝐚𝐫𝐢𝐧 ♪", url=lnk),
+                            ],
+                        ]
+                    ),
+                )
+                await m.delete()
+                return
+            # fallback: build results from cached search only
             results = [
                 {
                     'url_suffix': f"/watch?v={cached.get('vidid')}",
