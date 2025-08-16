@@ -24,3 +24,12 @@ ERROR: [youtube] BaW_jenozKc: This video is unavailable
 ERROR: [youtube] BaW_jenozKc: Video unavailable
 WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by <HTTPError 429: Too Many Requests>)
 ERROR: [youtube] BaW_jenozKc: This video is unavailable
+[16-Aug-25 08:37:01 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[16-Aug-25 08:37:01 - INFO] - ZeMusic - Stopping Ze Music Bot...
+[PATCH] ntgcalls compatibility aliases created successfully
+PyTgCalls v1.0.9 powered by NTgCalls v1.3.4, Copyright (C) 2021-2025 Laky-64 <https://github.com/Laky-64>
+Licensed under the terms of the GNU Lesser General Public License v3 or later (LGPLv3+)
+
+[93mUpdate Available!
+New PyTgCalls v2.2.5 is now available!
+[0m
