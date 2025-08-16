@@ -75,3 +75,12 @@ CREATE FUNCTION
 [16-Aug-25 06:15:43 - INFO] - ZeMusic.database.migrations - لا توجد تحديثات معلقة
 [16-Aug-25 06:15:43 - INFO] - __main__ - ✅ تم إعداد PostgreSQL بنجاح
 [16-Aug-25 06:15:43 - INFO] - ZeMusic.misc - تم رفع البيانات.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 189, in _run_module_as_main
+  File "<frozen runpy>", line 148, in _get_module_details
+  File "<frozen runpy>", line 112, in _get_module_details
+  File "/workspace/ZeMusic/__init__.py", line 1, in <module>
+    from ZeMusic.core.bot import Mody
+  File "/workspace/ZeMusic/core/bot.py", line 1, in <module>
+    from pyrogram import Client, errors
+ModuleNotFoundError: No module named 'pyrogram'
