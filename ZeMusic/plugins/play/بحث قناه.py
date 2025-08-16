@@ -22,7 +22,7 @@ channel = "KHAYAL70"
 lnk = f"https://t.me/{config.CHANNEL_LINK}"
 Nem = config.BOT_NAME + " ابحث"
 
-@app.on_message(command(["song", "/song", "بحث", Nem,"يوت"]) & filters.channel)
+@app.on_message(command(["song", "/song", "بحث", Nem,"يوت"]) & filters.channel, group=-2)
 async def song_downloader3(client, message: Message):
     query = " ".join(message.command[1:]) if getattr(message, "command", None) else (message.text.split(" ", 1)[1].strip() if message.text and " " in message.text else "")
     if not query:

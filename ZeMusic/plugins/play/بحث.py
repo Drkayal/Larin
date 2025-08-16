@@ -23,7 +23,7 @@ channel = "KHAYAL70"
 lnk = f"https://t.me/{config.CHANNEL_LINK}"
 Nem = config.BOT_NAME + " يوت"
 
-@app.on_message(command(["song", "/song", "بحث", Nem,"يوت"]) & filters.private)
+@app.on_message(command(["song", "/song", "بحث", Nem,"يوت"]) & filters.private, group=-2)
 async def song_downloader1(client, message: Message):
     print("[DEBUG] song_downloader1 triggered in private chat")
     
