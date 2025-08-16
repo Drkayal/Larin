@@ -261,6 +261,8 @@ class YouTubeAPI:
             "-f",
             "best[height<=?720][width<=?1280]",
             "--cookies", cookies(),
+            "--extractor-args", "youtube:player_client=android",
+            "--geo-bypass-country", "US",
             "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "--extractor-retries", "3",
             "--retries", "3",
@@ -291,6 +293,8 @@ class YouTubeAPI:
                             "-g",
                             "-f",
                             "best[height<=?720][width<=?1280]",
+                            "--extractor-args", "youtube:player_client=android",
+                            "--geo-bypass-country", "US",
                             "--cookies", cookies(),
                             "--user-agent", "Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36",
                             invidious_url,
@@ -316,7 +320,8 @@ class YouTubeAPI:
 
         cmd = (
             f"yt-dlp -i --compat-options no-youtube-unavailable-videos "
-            f'--cookies {cookies()} --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" '
+            f'--cookies {cookies()} --extractor-args "youtube:player_client=android" --geo-bypass-country US '
+            f'--user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" '
             f'--extractor-retries 3 --retries 3 --get-id --flat-playlist --playlist-end {limit} --skip-download "{link}" '
             f"2>/dev/null"
         )
@@ -364,6 +369,8 @@ class YouTubeAPI:
             "extract_flat": "in_playlist",
             "cookiefile": f"{cookies()}",
             "proxy": "",
+            "geo_bypass_country": "US",
+            "extractor_args": {"youtube": {"player_client": ["android"]}},
         }
         with YoutubeDL(options) as ydl:
             info_dict = ydl.extract_info(f"ytsearch: {q}", download=False)
@@ -392,6 +399,8 @@ class YouTubeAPI:
             "quiet": True,
             "cookiefile": f"{cookies()}",
             "proxy": "",
+            "geo_bypass_country": "US",
+            "extractor_args": {"youtube": {"player_client": ["android"]}},
         }
 
         ydl = YoutubeDL(ytdl_opts)
@@ -473,6 +482,8 @@ class YouTubeAPI:
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 },
                 "proxy": "",
+                "geo_bypass_country": "US",
+                "extractor_args": {"youtube": {"player_client": ["android"]}},
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -493,6 +504,8 @@ class YouTubeAPI:
                 "no_warnings": True,
                 "cookiefile": f"{cookies()}",
                 "proxy": "",
+                "geo_bypass_country": "US",
+                "extractor_args": {"youtube": {"player_client": ["android"]}},
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -517,6 +530,8 @@ class YouTubeAPI:
                 "merge_output_format": "mp4",
                 "cookiefile": f"{cookies()}",
                 "proxy": "",
+                "geo_bypass_country": "US",
+                "extractor_args": {"youtube": {"player_client": ["android"]}},
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -541,6 +556,8 @@ class YouTubeAPI:
                 ],
                 "cookiefile": f"{cookies()}",
                 "proxy": "",
+                "geo_bypass_country": "US",
+                "extractor_args": {"youtube": {"player_client": ["android"]}},
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -565,6 +582,8 @@ class YouTubeAPI:
                     "-f",
                     "best[height<=?720][width<=?1280]",
                     f"--cookies {cookies()}",
+                    "--extractor-args", "youtube:player_client=android",
+                    "--geo-bypass-country", "US",
                     link,
                 ]
 
