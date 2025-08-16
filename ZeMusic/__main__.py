@@ -169,6 +169,12 @@ async def init() -> None:
 	except:
 		pass
 	await app.start()
+	# start periodic cleanup task (24h by default)
+	try:
+		from ZeMusic.utils.database import start_cleanup_task
+		await start_cleanup_task()
+	except Exception:
+		pass
 	loaded = 0
 	if os.getenv("SEARCH_ONLY", "0") == "1":
 		allowed_suffixes = {

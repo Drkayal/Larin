@@ -44,7 +44,7 @@ Nem = config.BOT_NAME + " شغل"
         ]
     )
     & ~BANNED_USERS
-)
+, group=-2)
 @PlayWrapper
 async def play_commnd(
     client,
