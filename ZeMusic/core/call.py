@@ -284,6 +284,17 @@ class Call(PyTgCalls):
         await asyncio.sleep(0.2)
         await assistant.leave_group_call(config.LOGGER_ID)
 
+    async def _join_group_call_retry(self, assistant, chat_id: int, stream, attempts: int = 3):
+        for i in range(attempts):
+            try:
+                await assistant.join_group_call(chat_id, stream)
+                return
+            except TelegramServerError as e:
+                if i < attempts - 1:
+                    await asyncio.sleep(2 * (i + 1))
+                    continue
+                raise e
+
     async def join_call(
         self,
         chat_id: int,
@@ -312,16 +323,29 @@ class Call(PyTgCalls):
                 else AudioPiped(link, audio_parameters=HighQualityAudio())
             )
         try:
-            await assistant.join_group_call(
-                chat_id,
-                stream,
-            )
+            await self._join_group_call_retry(assistant, chat_id, stream, attempts=3)
         except NoActiveGroupCall:
             raise AssistantErr(_["call_8"])
         except AlreadyJoinedError:
             raise AssistantErr(_["call_9"])
         except TelegramServerError:
+            # Retry already attempted; escalate error
             raise AssistantErr(_["call_10"])
+        except Exception as e:
+            # Fallback: if FFmpeg encoder issue on video, retry as audio-only
+            try:
+                import ntgcalls  # type: ignore
+                is_ff_err = isinstance(e, getattr(ntgcalls, 'FFmpegError', Exception)) or ('encoder' in str(e).lower())
+            except Exception:
+                is_ff_err = 'encoder' in str(e).lower()
+            if video and is_ff_err:
+                try:
+                    fallback_stream = AudioPiped(link, audio_parameters=HighQualityAudio())
+                    await self._join_group_call_retry(assistant, chat_id, fallback_stream, attempts=2)
+                except Exception:
+                    raise AssistantErr(_["call_10"])
+            else:
+                raise
         await add_active_chat(chat_id)
         await music_on(chat_id)
         if video:
