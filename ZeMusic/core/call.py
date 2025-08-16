@@ -153,6 +153,19 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
 
+    def _get_pyrogram_client(self, assistant):
+        if assistant is self.one:
+            return self.userbot1
+        if assistant is self.two:
+            return self.userbot2
+        if assistant is self.three:
+            return self.userbot3
+        if assistant is self.four:
+            return self.userbot4
+        if assistant is self.five:
+            return self.userbot5
+        return None
+
     async def pause_stream(self, chat_id: int):
         assistant = await group_assistant(self, chat_id)
         await assistant.pause_stream(chat_id)
@@ -333,8 +346,10 @@ class Call(PyTgCalls):
         await assistant.leave_group_call(config.LOGGER_ID)
 
     async def _join_group_call_retry(self, assistant, chat_id: int, stream, attempts: int = 3):
-        # Ensure active call first
-        await _ensure_active_group_call(assistant, chat_id)
+        # Ensure active call first (use the underlying Pyrogram client)
+        pyro_client = self._get_pyrogram_client(assistant)
+        if pyro_client is not None:
+            await _ensure_active_group_call(pyro_client, chat_id)
         for i in range(attempts):
             try:
                 # small jitter to avoid server spikes
@@ -347,7 +362,8 @@ class Call(PyTgCalls):
                     await assistant.leave_group_call(chat_id)
                 except Exception:
                     pass
-                await _ensure_active_group_call(assistant, chat_id)
+                if pyro_client is not None:
+                    await _ensure_active_group_call(pyro_client, chat_id)
                 if i < attempts - 1:
                     await asyncio.sleep(1.0 + i)
                     continue
