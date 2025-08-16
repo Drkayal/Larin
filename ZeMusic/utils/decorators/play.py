@@ -32,8 +32,8 @@ def PlayWrapper(command):
         language = await get_lang(message.chat.id)
         _ = get_string(language)
 
-        # Correct maintenance gating: block only when maintenance is ON
-        if await is_maintenance():
+        # Force maintenance OFF by default unless explicitly enabled
+        if False and await is_maintenance():
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
                     text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_CHAT}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
