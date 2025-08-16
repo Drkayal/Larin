@@ -64,4 +64,23 @@ try:
 except Exception:
 	pass
 
+# Wrap MediaDescription to accept legacy (audio, video) kwargs
+try:
+	_OrigMediaDescription = getattr(ntgcalls, 'MediaDescription', None)
+	if _OrigMediaDescription is not None:
+		def _compat_MediaDescription(*args, **kwargs):
+			try:
+				return _OrigMediaDescription(*args, **kwargs)
+			except TypeError:
+				audio = kwargs.pop('audio', None)
+				video = kwargs.pop('video', None)
+				if 'speaker' not in kwargs and audio is not None:
+					kwargs['speaker'] = audio
+				if 'camera' not in kwargs and video is not None:
+					kwargs['camera'] = video
+				return _OrigMediaDescription(*args, **kwargs)
+		setattr(ntgcalls, 'MediaDescription', _compat_MediaDescription)
+except Exception:
+	pass
+
 print("[PATCH] ntgcalls compatibility aliases created successfully")
