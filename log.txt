@@ -48424,3 +48424,9 @@ CREATE FUNCTION
 [16-Aug-25 04:41:03 - INFO] - ZeMusic.core.bot - تم تسغيل 𝐋𝐎𝐋  بنجاح..
 [16-Aug-25 04:41:03 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
 [16-Aug-25 04:41:03 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[16-Aug-25 04:43:12 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 04:43:12 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 04:43:12 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 04:43:12 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 04:43:12 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 04:43:12 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
