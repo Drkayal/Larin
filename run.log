@@ -1,35 +1,19 @@
-[16-Aug-25 08:31:24 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
-[16-Aug-25 08:31:24 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
-[16-Aug-25 08:31:24 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
-[16-Aug-25 08:31:24 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
-[16-Aug-25 08:31:24 - INFO] - ZeMusic.misc - Local Database Initialized.
-[16-Aug-25 08:31:24 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
-[16-Aug-25 08:31:25 - INFO] - __main__ - نوع قاعدة البيانات المختار: mongodb
-[16-Aug-25 08:31:25 - INFO] - __main__ - 🟡 تم اختيار MongoDB/وضع غير PostgreSQL — سيتم تخطي كل خطوات PostgreSQL بالكامل.
-[16-Aug-25 08:31:27 - INFO] - ZeMusic.misc - تم رفع البيانات.
-[16-Aug-25 08:31:30 - INFO] - ZeMusic.core.bot - تم تسغيل 𝐋𝐎𝐋  بنجاح..
-[16-Aug-25 08:31:30 - WARNING] - ZeMusic.plugins - فشل استيراد البلجن .sudo.test_database: ModuleNotFoundError: No module named 'asyncpg'
-[16-Aug-25 08:31:30 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
-[16-Aug-25 08:31:30 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
-[16-Aug-25 08:31:32 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
-[16-Aug-25 08:31:32 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+[16-Aug-25 08:40:35 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 08:40:35 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 08:40:35 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 08:40:35 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 08:40:35 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 08:40:35 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 08:40:37 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[16-Aug-25 08:40:41 - INFO] - ZeMusic.core.bot - تم تسغيل 𝐋𝐎𝐋  بنجاح..
+[16-Aug-25 08:40:41 - INFO] - ZeMusic.plugins - SEARCH_ONLY: تم تحميل 3 بلجن بحث فقط
+[16-Aug-25 08:40:41 - INFO] - ZeMusic.plugins - SEARCH_ONLY مفعّل: أبقينا 0 ومع إزالة 0 من الهاندلرز.
+[16-Aug-25 08:40:41 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[16-Aug-25 08:40:41 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[16-Aug-25 08:40:43 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=7050725648>. 𝐑𝐨𝐥𝐚 𓏺</a> على سورس الملك
+[16-Aug-25 08:40:43 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
 
-[16-Aug-25 08:31:33 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
-[16-Aug-25 08:31:33 - INFO] - ZeMusic - جاري تشغيل البوت
+[16-Aug-25 08:40:44 - INFO] - ZeMusic.core.call - تم تهيئة PyTgCalls بدون decorators
+[16-Aug-25 08:40:44 - INFO] - ZeMusic - جاري تشغيل البوت
 تم التنصيب على سورس الملك بنجاح
 قناة السورس https://t.me/EF_19
-ERROR: [youtube] BaW_jenozKc: Video unavailable
-WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by <HTTPError 429: Too Many Requests>)
-ERROR: [youtube] BaW_jenozKc: This video is unavailable
-ERROR: [youtube] BaW_jenozKc: Video unavailable
-WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by <HTTPError 429: Too Many Requests>)
-ERROR: [youtube] BaW_jenozKc: This video is unavailable
-[16-Aug-25 08:37:01 - INFO] - root - Stop signal received (SIGTERM). Exiting...
-[16-Aug-25 08:37:01 - INFO] - ZeMusic - Stopping Ze Music Bot...
-[PATCH] ntgcalls compatibility aliases created successfully
-PyTgCalls v1.0.9 powered by NTgCalls v1.3.4, Copyright (C) 2021-2025 Laky-64 <https://github.com/Laky-64>
-Licensed under the terms of the GNU Lesser General Public License v3 or later (LGPLv3+)
-
-[93mUpdate Available!
-New PyTgCalls v2.2.5 is now available!
-[0m
