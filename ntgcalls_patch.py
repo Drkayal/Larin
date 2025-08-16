@@ -36,4 +36,32 @@ if not hasattr(ntgcalls.StreamStatus, 'Idling'):
 	if hasattr(ntgcalls.StreamStatus, 'IDLING'):
 		ntgcalls.StreamStatus.Idling = ntgcalls.StreamStatus.IDLING
 
+# Wrap AudioDescription to accept legacy kwargs from py-tgcalls 1.0.9
+try:
+	_OrigAudioDescription = getattr(ntgcalls, 'AudioDescription', None)
+	if _OrigAudioDescription is not None:
+		_MS = getattr(ntgcalls, 'MediaSource', None)
+		def _compat_AudioDescription(*args, **kwargs):
+			try:
+				return _OrigAudioDescription(*args, **kwargs)
+			except TypeError:
+				# Map legacy kwargs -> new signature
+				input_mode = kwargs.pop('input_mode', None)
+				input_str = kwargs.pop('input', None)
+				sample_rate = kwargs.pop('sample_rate', None) or 48000
+				channel_count = kwargs.pop('channel_count', None) or 2
+				# bits_per_sample is ignored in new API
+				kwargs.pop('bits_per_sample', None)
+				media_source = None
+				if _MS is not None and hasattr(_MS, 'FFMPEG'):
+					media_source = _MS.FFMPEG
+				else:
+					media_source = getattr(ntgcalls, 'FFMPEG', None)
+					if media_source is None and input_mode is not None:
+						media_source = input_mode
+				return _OrigAudioDescription(media_source, int(sample_rate), int(channel_count), input_str or "")
+		setattr(ntgcalls, 'AudioDescription', _compat_AudioDescription)
+except Exception:
+	pass
+
 print("[PATCH] ntgcalls compatibility aliases created successfully")
