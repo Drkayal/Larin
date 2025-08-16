@@ -1,0 +1,240 @@
+[16-Aug-25 02:34:04 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 02:34:04 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 02:34:04 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 02:34:04 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 02:34:04 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 02:34:04 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+Traceback (most recent call last):
+  File "<frozen runpy>", line 189, in _run_module_as_main
+  File "<frozen runpy>", line 148, in _get_module_details
+  File "<frozen runpy>", line 112, in _get_module_details
+  File "/workspace/ZeMusic/__init__.py", line 18, in <module>
+    from .platforms import *
+  File "/workspace/ZeMusic/platforms/__init__.py", line 4, in <module>
+    from .Soundcloud import SoundAPI
+  File "/workspace/ZeMusic/platforms/Soundcloud.py", line 5, in <module>
+    from ZeMusic.utils.formatters import seconds_to_min
+  File "/workspace/ZeMusic/utils/__init__.py", line 1, in <module>
+    from .channelplay import *
+  File "/workspace/ZeMusic/utils/channelplay.py", line 2, in <module>
+    from ZeMusic.utils.database import get_cmode
+  File "/workspace/ZeMusic/utils/database.py", line 10, in <module>
+    from ZeMusic.database.dal import (
+    ...<2 lines>...
+    )
+  File "/workspace/ZeMusic/database/__init__.py", line 6, in <module>
+    from .setup import setup_database, drop_database, reset_database
+  File "/workspace/ZeMusic/database/setup.py", line 11, in <module>
+    from ZeMusic.core.postgres import postgres_db, fetch_value, execute_query
+  File "/workspace/ZeMusic/core/postgres.py", line 4, in <module>
+    import asyncpg
+ModuleNotFoundError: No module named 'asyncpg'
+[16-Aug-25 02:34:57 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 02:34:57 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 02:34:57 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 02:34:57 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 02:34:57 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 02:34:57 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/ZeMusic/__main__.py", line 12, in <module>
+    from ZeMusic.utils.auto_db_setup import auto_setup_database
+  File "/workspace/ZeMusic/utils/auto_db_setup.py", line 74
+    create_db_cmd = f'sudo -u postgres psql -c "CREATE DATABASE \\"{db_name}\\" OWNER \\"{user_info[\"user\"]}\\";"'
+                                                                                                     ^
+SyntaxError: unexpected character after line continuation character
+[PATCH] ntgcalls compatibility aliases created successfully
+[16-Aug-25 02:40:25 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 02:40:25 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 02:40:25 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 02:40:25 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 02:40:25 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 02:40:25 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+/workspace/ZeMusic/utils/thumbnails.py:55: SyntaxWarning: invalid escape sequence '\W'
+  title = re.sub("\W+", " ", title)
+[16-Aug-25 02:40:26 - INFO] - __main__ - 🚀 بدء إعداد PostgreSQL تلقائياً...
+[16-Aug-25 02:40:26 - INFO] - __main__ - 🔍 التحقق من تثبيت PostgreSQL...
+[16-Aug-25 02:40:26 - INFO] - __main__ - ⚡ بدء تشغيل PostgreSQL...
+[16-Aug-25 02:40:26 - INFO] - __main__ - ✅ تم بدء تشغيل PostgreSQL
+[16-Aug-25 02:40:26 - INFO] - __main__ - 🔐 إعداد كلمة مرور للمستخدم postgres...
+[16-Aug-25 02:40:26 - INFO] - __main__ - ℹ️ كلمة مرور PostgreSQL موجودة بالفعل
+[16-Aug-25 02:40:26 - INFO] - __main__ - 🗄️ التحقق من وجود قاعدة البيانات...
+[16-Aug-25 02:40:26 - INFO] - __main__ - ℹ️ قاعدة البيانات zemusic_bot موجودة بالفعل
+[16-Aug-25 02:40:26 - INFO] - __main__ - ⚙️ إعداد قاعدة بيانات PostgreSQL...
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at end of input
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "authorized_users" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "authorized_users" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "authorized_users" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "play_queue" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "active_chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "active_chats" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "system_settings" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE user_id = NEW.user_id;"
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN UPDATE chats SET last_activity = CURRENT_TIMESTAMP WHERE chat_id = NEW.chat_id;"
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ BEGIN NEW.updated_at = CURRENT_TIMESTAMP;"
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: syntax error at or near "RETURN"
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: unterminated dollar-quoted string at or near "$$ LANGUAGE plpgsql;"
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "activity_logs" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في تنفيذ الأمر: relation "chat_settings" does not exist
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد maintenance_mode: relation "system_settings" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد auto_end_enabled: relation "system_settings" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد global_search_enabled: relation "system_settings" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد max_queue_size: relation "system_settings" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد default_language: relation "system_settings" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد bot_version: relation "system_settings" does not exist
+[16-Aug-25 02:40:26 - WARNING] - ZeMusic.database.setup - تحذير في إدراج الإعداد last_backup: relation "system_settings" does not exist
+[16-Aug-25 02:40:26 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[16-Aug-25 02:40:26 - ERROR] - ZeMusic.database.setup - الجدول المطلوب غير موجود: chats
+[16-Aug-25 02:40:26 - ERROR] - __main__ - ❌ فشل في إعداد قاعدة البيانات، توقف البوت...
+[PATCH] ntgcalls compatibility aliases created successfully
+🔍 التحقق من وجود قاعدة البيانات...
+✅ قاعدة البيانات موجودة بالفعل - لا حاجة لإنشاء حساب جديد
+[16-Aug-25 02:45:11 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 02:45:11 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 02:45:11 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 02:45:11 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 02:45:11 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 02:45:11 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 02:45:12 - INFO] - __main__ - 🚀 بدء إعداد PostgreSQL تلقائياً...
+[16-Aug-25 02:45:12 - INFO] - __main__ - 🔍 التحقق من تثبيت PostgreSQL...
+[16-Aug-25 02:45:12 - INFO] - __main__ - ⚡ بدء تشغيل PostgreSQL...
+[16-Aug-25 02:45:12 - INFO] - __main__ - ✅ تم بدء تشغيل PostgreSQL
+[16-Aug-25 02:45:12 - INFO] - __main__ - 🔐 إعداد كلمة مرور للمستخدم postgres...
+[16-Aug-25 02:45:12 - INFO] - __main__ - ℹ️ كلمة مرور PostgreSQL موجودة بالفعل
+[16-Aug-25 02:45:12 - INFO] - __main__ - 🗄️ التحقق من وجود قاعدة البيانات...
+[16-Aug-25 02:45:12 - INFO] - __main__ - ℹ️ قاعدة البيانات zemusic_bot موجودة بالفعل
+[16-Aug-25 02:45:12 - INFO] - __main__ - ⚙️ إعداد قاعدة بيانات PostgreSQL...
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - بدء إعداد قاعدة البيانات...
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - قاعدة البيانات موجودة بالفعل
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.core.postgres - يتم الاتصال بقاعدة بيانات PostgreSQL...
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.core.postgres - تم الاتصال بنجاح - PostgreSQL: PostgreSQL 17.5 (Ubuntu 17.5-0ubuntu0.25.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0, 64-bit
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+INSERT 0 7
+INSERT 0 0
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - تم تنفيذ ملف SQL بنجاح: /workspace/database_schema.sql
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - تم إنشاء جدول audio_cache بنجاح
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - تم إنشاء جدول search_history بنجاح
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - تم إنشاء جدول download_stats بنجاح
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - تم إنشاء جدول cache_metrics بنجاح
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - تم إنشاء جدول popular_content بنجاح
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - تم إنشاء جميع جداول التحميل بنجاح
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - تم إدراج البيانات الأولية بنجاح
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - تم التحقق من سلامة قاعدة البيانات بنجاح
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.setup - تم إعداد قاعدة البيانات بنجاح! ✅
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.migrations - تشغيل 3 تحديث معلق...
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.migrations - تم تطبيق التحديث: 1.0.0 - إضافة فهارس إضافية للأداء
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.migrations - تم تطبيق التحديث: 1.1.0 - إضافة جدول الإشعارات
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.migrations - تم تطبيق التحديث: 1.2.0 - تحسين جدول قائمة الانتظار
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.database.migrations - تم تطبيق جميع التحديثات بنجاح
+[16-Aug-25 02:45:12 - INFO] - __main__ - ✅ تم إعداد PostgreSQL بنجاح
+[16-Aug-25 02:45:12 - INFO] - ZeMusic.misc - تم رفع البيانات.
+[16-Aug-25 02:45:15 - INFO] - ZeMusic.core.bot - تم تسغيل 𝐋𝐎𝐋  بنجاح..
+[16-Aug-25 02:45:15 - INFO] - ZeMusic.plugins - تنزيل معلومات السورس...
+[16-Aug-25 02:45:15 - INFO] - ZeMusic.core.userbot - جلب معلومات السورس...
+[16-Aug-25 02:45:17 - INFO] - ZeMusic.core.userbot - تم تشغيل المساعد <a href=tg://user?id=5929114274>الحساب المساعد ♫</a> على سورس الملك
+[16-Aug-25 02:45:17 - INFO] - ZeMusic.core.call - Starting PyTgCalls Client...
+
+[16-Aug-25 02:45:41 - ERROR] - asyncio - Task exception was never retrieved
+future: <Task finished name='Task-317' coro=<Client.handle_updates() done, defined at /workspace/venv/lib/python3.13/site-packages/pyrogram/client.py:535> exception=ValueError('Peer id invalid: -1002524216878')>
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 62, in resolve_peer
+    return await self.storage.get_peer_by_id(peer_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/storage/sqlite_storage.py", line 142, in get_peer_by_id
+    raise KeyError(f"ID not found: {peer_id}")
+KeyError: 'ID not found: -1002524216878'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/client.py", line 569, in handle_updates
+    channel=await self.resolve_peer(utils.get_channel_id(channel_id)),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 89, in resolve_peer
+    peer_type = utils.get_peer_type(peer_id)
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/utils.py", line 246, in get_peer_type
+    raise ValueError(f"Peer id invalid: {peer_id}")
+ValueError: Peer id invalid: -1002524216878

@@ -5,6 +5,7 @@ Database Setup Script
 
 import asyncio
 import os
+import subprocess
 from typing import Optional
 
 import config
@@ -55,47 +56,41 @@ async def execute_sql_file(file_path: str) -> bool:
         if not os.path.exists(file_path):
             LOGGER(__name__).error(f"ملف SQL غير موجود: {file_path}")
             return False
-        
-        with open(file_path, 'r', encoding='utf-8') as file:
-            sql_content = file.read()
-        
-        # تقسيم الأوامر
-        commands = []
-        current_command = []
-        
-        for line in sql_content.split('\n'):
-            line = line.strip()
-            
-            # تجاهل التعليقات والأسطر الفارغة
-            if not line or line.startswith('--'):
-                continue
-            
-            current_command.append(line)
-            
-            # إذا انتهى السطر بـ ; فهو نهاية أمر
-            if line.endswith(';'):
-                command = ' '.join(current_command)
-                commands.append(command)
-                current_command = []
-        
-        # إضافة آخر أمر إذا لم ينته بـ ;
-        if current_command:
-            command = ' '.join(current_command)
-            commands.append(command)
-        
-        # تنفيذ الأوامر
-        for command in commands:
-            if command.strip():
-                try:
-                    await execute_query(command)
-                except Exception as e:
-                    # تجاهل أخطاء IF NOT EXISTS
-                    if "already exists" not in str(e).lower():
-                        LOGGER(__name__).warning(f"تحذير في تنفيذ الأمر: {e}")
-        
+
+        if config.DATABASE_TYPE != "postgresql":
+            return True
+
+        host = config.POSTGRES_HOST
+        port = str(config.POSTGRES_PORT)
+        user = config.POSTGRES_USER
+        db = config.POSTGRES_DB
+        password = config.POSTGRES_PASSWORD or ""
+
+        env = os.environ.copy()
+        if password:
+            env["PGPASSWORD"] = password
+
+        cmd = [
+            "psql",
+            "-h", host,
+            "-p", port,
+            "-U", user,
+            "-d", db,
+            "-v", "ON_ERROR_STOP=1",
+            "-f", file_path,
+        ]
+
+        result = subprocess.run(cmd, capture_output=True, text=True, env=env)
+        if result.returncode != 0:
+            LOGGER(__name__).error(f"خطأ في تنفيذ ملف SQL: {result.stderr.strip()}")
+            return False
+
+        if result.stdout:
+            LOGGER(__name__).info(result.stdout.strip())
+
         LOGGER(__name__).info(f"تم تنفيذ ملف SQL بنجاح: {file_path}")
         return True
-        
+
     except Exception as e:
         LOGGER(__name__).error(f"خطأ في تنفيذ ملف SQL: {e}")
         return False
