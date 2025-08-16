@@ -22,6 +22,9 @@ def _normalize_channel(value: str) -> tuple[str, str]:
 Muntazer_raw = config.CHANNEL_ASHTRAK
 Muntazer, Muntazer_url = _normalize_channel(Muntazer_raw)
 
+# أوامر ينبغي السماح بها حتى بدون اشتراك
+_ALLOWED_WITHOUT_SUB = {"song", "/song", "بحث", "يوت"}
+
 @app.on_message(filters.incoming & filters.private, group=-1)
 async def must_join_channel(app: Client, msg: Message):
 	# تجاوز لمالك البوت والمخولين
@@ -33,6 +36,13 @@ async def must_join_channel(app: Client, msg: Message):
 	if not Muntazer:
 		return
 	try:
+		# السماح ببعض الأوامر المتعلقة بالبحث دون حجب
+		try:
+			cmd0 = (msg.command[0] if hasattr(msg, "command") and msg.command else "").lower()
+		except Exception:
+			cmd0 = ""
+		if cmd0 in _ALLOWED_WITHOUT_SUB:
+			return
 		try:
 			await app.get_chat_member(Muntazer, msg.from_user.id)
 		except UserNotParticipant:
@@ -47,7 +57,7 @@ async def must_join_channel(app: Client, msg: Message):
 						[InlineKeyboardButton(text="اضغط للإشتراك", url=link)]
 					])
 				)
-				await msg.stop_propagation()
+				# لا توقف التمرير بشكل كامل لتجنب تعطيل أوامر أخرى
 			except ChatWriteForbidden:
 				pass
 	except ChatAdminRequired:
