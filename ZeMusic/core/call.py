@@ -649,30 +649,40 @@ class Call(PyTgCalls):
     
     async def decorators(self):
         """
-        تم تعطيل decorators للتوافق مع الإصدار الحالي من PyTgCalls
-        هذه الوظائف ستعمل بدون decorators
+        تفعيل معالجات أحداث PyTgCalls بشكل توافقـي إن كانت متاحة في الإصدار الحالي.
         """
-        
-        async def stream_services_handler(_, chat_id: int):
-            await self.stop_stream(chat_id)
-
-        async def stream_end_handler1(client, update):
-            try:
-                if hasattr(update, 'chat_id'):
-                    await self.change_stream(client, update.chat_id)
-            except Exception as e:
-                LOGGER(__name__).error(f"خطأ في stream_end_handler: {e}")
-        
-        # تسجيل handlers بدون decorators
         try:
-            for client in [self.one, self.two, self.three, self.four, self.five]:
-                if hasattr(client, 'add_handler'):
-                    # إضافة handlers بطريقة مباشرة إذا كانت متاحة
+            # handler عند انتهاء البث
+            async def _stream_end(client, update):
+                try:
+                    if hasattr(update, 'chat_id'):
+                        await self.change_stream(client, update.chat_id)
+                except Exception as e:
+                    LOGGER(__name__).error(f"خطأ في stream_end_handler: {e}")
+
+            # handlers للخدمات (طرد/مغادرة/إغلاق المكالمة)
+            async def _service_handler(_, chat_id: int):
+                try:
+                    await self.stop_stream(chat_id)
+                except Exception:
                     pass
+
+            for client in [self.one, self.two, self.three, self.four, self.five]:
+                if not client:
+                    continue
+                # اربط إن كانت الدالة مدعومة في هذا الإصدار
+                if hasattr(client, 'on_stream_end'):
+                    client.on_stream_end()(_stream_end)
+                if hasattr(client, 'on_kicked'):
+                    client.on_kicked()(_service_handler)
+                if hasattr(client, 'on_closed_voice_chat'):
+                    client.on_closed_voice_chat()(_service_handler)
+                if hasattr(client, 'on_left'):
+                    client.on_left()(_service_handler)
+
+            LOGGER(__name__).info("تم تهيئة PyTgCalls مع معالجات الأحداث")
         except Exception as e:
-            LOGGER(__name__).warning(f"تحذير: لا يمكن إضافة handlers: {e}")
-        
-        LOGGER(__name__).info("تم تهيئة PyTgCalls بدون decorators")
+            LOGGER(__name__).warning(f"تعذّر ربط معالجات الأحداث: {type(e).__name__}: {e}")
 
     async def stop_stream_force(self, chat_id: int):
         try:
