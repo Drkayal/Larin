@@ -608,5 +608,19 @@ class Call(PyTgCalls):
         
         LOGGER(__name__).info("تم تهيئة PyTgCalls بدون decorators")
 
+	async def stop_stream_force(self, chat_id: int):
+		try:
+			assistant = await group_assistant(self, chat_id)
+			try:
+				await assistant.leave_group_call(chat_id)
+			except Exception:
+				pass
+			try:
+				await _clear_(chat_id)
+			except Exception:
+				pass
+		except Exception:
+			pass
+
 
 Mody = Call()

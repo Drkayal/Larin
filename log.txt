@@ -48991,3 +48991,19 @@ Traceback (most recent call last):
     await Mody.stop_stream_force(message.chat.id)
           ^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'Call' object has no attribute 'stop_stream_force'
+[16-Aug-25 05:34:39 - ERROR] - pyrogram.dispatcher - 'Call' object has no attribute 'stop_stream_force'
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/workspace/ZeMusic/plugins/misc/watcher.py", line 46, in welcome
+    await Mody.stop_stream_force(message.chat.id)
+          ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Call' object has no attribute 'stop_stream_force'
+[16-Aug-25 05:34:48 - ERROR] - pyrogram.dispatcher - 'Call' object has no attribute 'stop_stream_force'
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/workspace/ZeMusic/plugins/misc/watcher.py", line 46, in welcome
+    await Mody.stop_stream_force(message.chat.id)
+          ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Call' object has no attribute 'stop_stream_force'

@@ -102,7 +102,10 @@ def PlayWrapper(command):
             fplay = None
 
         if not await is_active_chat(chat_id):
-            userbot = await get_assistant(chat_id)
+            try:
+                userbot = await get_assistant(chat_id)
+            except Exception:
+                return await message.reply_text("⚠️ لا يوجد حساب مساعد مُفعّل حالياً. استخدم أمر: اضافه حساب مساعد ثم أعد المحاولة.")
             try:
                 try:
                     get = await app.get_chat_member(chat_id, userbot.id)
