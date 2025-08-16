@@ -1,7 +1,7 @@
-aiofiles
+# Core
+aiofiles==23.2.0
 aiohttp
 asyncio
-asyncpg
 beautifulsoup4
 dnspython
 ffmpeg-python
@@ -27,12 +27,13 @@ youtube-search-python
 telegraph
 numpy
 wget
-# PostgreSQL Dependencies
-asyncpg==0.29.0
-sqlalchemy[asyncio]==2.0.23
-alembic==1.13.1
-psycopg2-binary==2.9.10
+redis
+
+# PostgreSQL Dependencies (enable only when DATABASE_TYPE=postgresql)
+# asyncpg==0.30.0
+# sqlalchemy[asyncio]==2.0.23
+# alembic==1.13.1
+# psycopg2-binary==2.9.10
+
 # Enhanced Download System Dependencies
 cachetools==5.3.2
-aiofiles==23.2.0
-redis

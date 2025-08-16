@@ -149,6 +149,7 @@ async def auto_create_database():
 
 
 async def init():
+    LOGGER(__name__).info(f"نوع قاعدة البيانات المختار: {config.DATABASE_TYPE}")
     if (
         not config.STRING1
         and not config.STRING2
@@ -189,6 +190,8 @@ async def init():
             LOGGER(__name__).warning("⚠️ تحذير: فشل في تطبيق بعض تحديثات قاعدة البيانات")
         
         LOGGER(__name__).info("✅ تم إعداد PostgreSQL بنجاح")
+    else:
+        LOGGER(__name__).info("🟡 تم اختيار MongoDB/وضع غير PostgreSQL — سيتم تخطي كل خطوات PostgreSQL بالكامل.")
     
     await sudo()
     try:
