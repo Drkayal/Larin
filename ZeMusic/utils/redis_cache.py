@@ -51,6 +51,34 @@ def _afile_key(video_id: str) -> str:
 	return f"yt:audio:{(video_id or '').strip()}"
 
 
+def _flag_key() -> str:
+	return "bot:music_replies_enabled"
+
+
+def is_music_replies_enabled() -> bool:
+	client = get_client()
+	if not client:
+		return True
+	try:
+		val = client.get(_flag_key())
+		if val is None:
+			return True
+		return val == "1"
+	except Exception:
+		return True
+
+
+def set_music_replies_enabled(enabled: bool) -> bool:
+	client = get_client()
+	if not client:
+		return False
+	try:
+		client.set(_flag_key(), "1" if enabled else "0")
+		return True
+	except Exception:
+		return False
+
+
 def get_cached_search(query: str) -> Optional[Dict[str, Any]]:
 	client = get_client()
 	if not client:
