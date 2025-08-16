@@ -188,4 +188,19 @@ Traceback (most recent call last):
     )
 pymongo.errors.ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68a014b075d30770f214ec1e, topology_type: Unknown, servers: [<ServerDescription ('127.0.0.1', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('127.0.0.1:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
 WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by <HTTPError 429: Too Many Requests>)
-[download] 100% of    5.17MiB                             
+[download] 100% of    5.17MiB                             [16-Aug-25 05:32:11 - ERROR] - pyrogram.dispatcher - 'Call' object has no attribute 'stop_stream_force'
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/workspace/ZeMusic/plugins/misc/watcher.py", line 46, in welcome
+    await Mody.stop_stream_force(message.chat.id)
+          ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Call' object has no attribute 'stop_stream_force'
+[16-Aug-25 05:32:17 - ERROR] - pyrogram.dispatcher - 'Call' object has no attribute 'stop_stream_force'
+Traceback (most recent call last):
+  File "/workspace/venv/lib/python3.13/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/workspace/ZeMusic/plugins/misc/watcher.py", line 46, in welcome
+    await Mody.stop_stream_force(message.chat.id)
+          ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Call' object has no attribute 'stop_stream_force'
