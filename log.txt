@@ -48873,3 +48873,9 @@ CREATE FUNCTION
 [16-Aug-25 05:19:17 - INFO] - ZeMusic - جاري تشغيل البوت
 تم التنصيب على سورس الملك بنجاح
 قناة السورس https://t.me/EF_19
+[16-Aug-25 05:21:42 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 05:21:42 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 05:21:42 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 05:21:42 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 05:21:42 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 05:21:42 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
