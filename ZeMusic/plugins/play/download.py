@@ -25,6 +25,7 @@ Nem = config.BOT_NAME + " ابحث"
 
 @app.on_message(command(["song", "/song", "بحث", Nem,"يوت"]) & filters.group)
 async def song_downloader(client, message: Message):
+    print("[DEBUG] song_downloader triggered in groups")
     chat_id = message.chat.id 
     if not await is_search_enabled(chat_id):
         return await message.reply_text("<b>⟡عذراً عزيزي اليوتيوب معطل لتفعيل اليوتيوب اكتب تفعيل اليوتيوب</b>")
@@ -104,7 +105,7 @@ async def song_downloader(client, message: Message):
             return
     except Exception:
         pass
-
+    
     ydl_opts = {
         "format": "bestaudio[ext=m4a]",  # تحديد صيغة M4A
         "keepvideo": False,
@@ -120,7 +121,7 @@ async def song_downloader(client, message: Message):
         "noplaylist": True,
         "geo_bypass_country": "US",
     }
-
+    
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=True)  # التنزيل مباشرة
@@ -139,16 +140,13 @@ async def song_downloader(client, message: Message):
                 })
             except Exception:
                 pass
-
     except Exception as e:
         err = str(e)
-        # إذا تحقّق يوتيوب، احظر ملف الكوكيز الحالي وجرب مرة ثانية بملف آخر
         if "Sign in to confirm you're not a bot" in err or "Use --cookies" in err:
             from ZeMusic.platforms.Youtube import cookies as pick_cookie, ban_cookie
             bad_cookie = ydl_opts.get("cookiefile")
             if bad_cookie:
                 ban_cookie(bad_cookie)
-                # جرب مرة ثانية بملف مختلف
                 ydl_opts["cookiefile"] = pick_cookie()
                 try:
                     with yt_dlp.YoutubeDL(ydl_opts) as ydl2:
@@ -172,7 +170,6 @@ async def song_downloader(client, message: Message):
                     print(e2)
                     return
         elif "Requested format is not available" in err or "Only images are available" in err:
-            # تغيير الصيغة إلى أي أفضل صوت متاح
             ydl_opts["format"] = "bestaudio/best"
             try:
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl3:
@@ -199,14 +196,12 @@ async def song_downloader(client, message: Message):
             await m.edit(f"error, wait for bot owner to fix\n\nError: {err}")
             print(e)
             return
-
-    # حساب مدة الأغنية
+    
+    # إرسال الصوت النهائي
     secmul, dur, dur_arr = 1, 0, duration.split(":")
     for i in range(len(dur_arr) - 1, -1, -1):
         dur += int(float(dur_arr[i])) * secmul
         secmul *= 60
-
-    # إرسال الصوت
     await message.reply_audio(
         audio=audio_file,
         caption=f"ᴍʏ ᴡᴏʀʟᴅ 𓏺 @{channel} ",
@@ -223,13 +218,6 @@ async def song_downloader(client, message: Message):
         ),
     )
     await m.delete()
-
-    # حذف الملفات المؤقتة
-    try:
-        remove_if_exists(audio_file)
-        remove_if_exists(thumb_name)
-    except Exception as e:
-        print(e)
 
 
 @app.on_message(command(["تعطيل اليوتيوب"]) & filters.group)

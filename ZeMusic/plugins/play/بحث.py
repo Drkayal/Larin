@@ -25,6 +25,7 @@ Nem = config.BOT_NAME + " يوت"
 
 @app.on_message(command(["song", "/song", "بحث", Nem,"يوت"]) & filters.private)
 async def song_downloader1(client, message: Message):
+    print("[DEBUG] song_downloader1 triggered in private chat")
     
     if not await is_search_enabled1():
         return await message.reply_text("<b>⟡ عذراً عزيزي اليوتيوب معطل من قبل المطور</b>")

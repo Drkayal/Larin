@@ -49689,3 +49689,11 @@ CREATE FUNCTION
 [16-Aug-25 08:46:14 - INFO] - ZeMusic - جاري تشغيل البوت
 تم التنصيب على سورس الملك بنجاح
 قناة السورس https://t.me/EF_19
+[16-Aug-25 08:53:39 - INFO] - root - Stop signal received (SIGTERM). Exiting...
+[16-Aug-25 08:53:45 - INFO] - ZeMusic.core.mongo - يتم رفع البيانات...
+[16-Aug-25 08:53:45 - INFO] - ZeMusic.core.mongo - تم رفع البيانات.
+[16-Aug-25 08:53:45 - INFO] - ZeMusic.core.dir - تم اكتمال التحميل.
+[16-Aug-25 08:53:45 - INFO] - ZeMusic.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-25 08:53:45 - INFO] - ZeMusic.misc - Local Database Initialized.
+[16-Aug-25 08:53:45 - INFO] - ZeMusic.core.bot - يتم تشغيل البوت..
+[16-Aug-25 08:53:47 - INFO] - ZeMusic.misc - تم رفع البيانات.
