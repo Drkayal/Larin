@@ -13,6 +13,7 @@ from youtube_search import YoutubeSearch
 from ZeMusic import app
 from ZeMusic.plugins.play.filters import command
 from ZeMusic.utils.database import is_search_enabled1, enable_search1, disable_search1
+from ZeMusic.utils.redis_cache import get_cached_search, set_cached_search, get_cached_audio, set_cached_audio
 
 def remove_if_exists(path):
     if os.path.exists(path):
@@ -32,7 +33,18 @@ async def song_downloader1(client, message: Message):
     m = await message.reply_text("<b>⇜ جـارِ البحث ..</b>")
     
     try:
-        results = YoutubeSearch(query, max_results=1).to_dict()
+        cached = get_cached_search(query)
+        if cached:
+            results = [
+                {
+                    'url_suffix': f"/watch?v={cached.get('vidid')}",
+                    'title': cached.get('title', ''),
+                    'thumbnails': [cached.get('thumb', '')],
+                    'duration': cached.get('duration', '0:00')
+                }
+            ]
+        else:
+            results = YoutubeSearch(query, max_results=1).to_dict()
         if not results:
             await m.edit("- لم يتم العثـور على نتائج حاول مجددا")
             return
@@ -40,7 +52,7 @@ async def song_downloader1(client, message: Message):
         link = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:40]
         title_clean = re.sub(r'[\\/*?:"<>|]', "", title)  # تنظيف اسم الملف
-        thumbnail = results[0]["thumbnails"][0]
+        thumbnail = results[0]["thumbnails"][0] if isinstance(results[0]["thumbnails"], list) else results[0]["thumbnails"]
         thumb_name = f"{title_clean}.jpg"
         
         # تحميل الصورة المصغرة
@@ -59,6 +71,36 @@ async def song_downloader1(client, message: Message):
         return
     
     await m.edit("<b>جاري التحميل ♪</b>")
+    try:
+        vidid = results[0]['url_suffix'].split('v=')[-1]
+        ca = get_cached_audio(vidid)
+        if ca and os.path.exists(ca.get('path','')):
+            audio_file = ca['path']
+            info_uploader = ca.get('uploader','Unknown')
+            # حساب مدة
+            secmul, dur, dur_arr = 1, 0, duration.split(":")
+            for i in range(len(dur_arr) - 1, -1, -1):
+                dur += int(float(dur_arr[i])) * secmul
+                secmul *= 60
+            await message.reply_audio(
+                audio=audio_file,
+                caption=f"ᴍʏ ᴡᴏʀʟᴅ 𓏺 @{channel} ",
+                title=title,
+                performer=info_uploader,
+                thumb=thumb_name,
+                duration=dur,
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(text="♪ 𝐋𝐚𝐫𝐢𝐧 ♪", url=lnk),
+                        ],
+                    ]
+                ),
+            )
+            await m.delete()
+            return
+    except Exception:
+        pass
     
     ydl_opts = {
         "format": "bestaudio[ext=m4a]",  # تحديد صيغة M4A
@@ -80,6 +122,19 @@ async def song_downloader1(client, message: Message):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=True)  # التنزيل مباشرة
             audio_file = ydl.prepare_filename(info_dict)
+            try:
+                set_cached_search(query, {
+                    'vidid': info_dict.get('id'),
+                    'title': info_dict.get('title', title),
+                    'thumb': thumbnail,
+                    'duration': duration,
+                })
+                set_cached_audio(info_dict.get('id'), {
+                    'path': audio_file,
+                    'uploader': info_dict.get('uploader', 'Unknown'),
+                })
+            except Exception:
+                pass
 
     except Exception as e:
         err = str(e)
@@ -93,6 +148,19 @@ async def song_downloader1(client, message: Message):
                     with yt_dlp.YoutubeDL(ydl_opts) as ydl2:
                         info_dict = ydl2.extract_info(link, download=True)
                         audio_file = ydl2.prepare_filename(info_dict)
+                        try:
+                            set_cached_search(query, {
+                                'vidid': info_dict.get('id'),
+                                'title': info_dict.get('title', title),
+                                'thumb': thumbnail,
+                                'duration': duration,
+                            })
+                            set_cached_audio(info_dict.get('id'), {
+                                'path': audio_file,
+                                'uploader': info_dict.get('uploader', 'Unknown'),
+                            })
+                        except Exception:
+                            pass
                 except Exception as e2:
                     await m.edit(f"error, wait for bot owner to fix\n\nError: {str(e2)}")
                     print(e2)
@@ -103,6 +171,19 @@ async def song_downloader1(client, message: Message):
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl3:
                     info_dict = ydl3.extract_info(link, download=True)
                     audio_file = ydl3.prepare_filename(info_dict)
+                    try:
+                        set_cached_search(query, {
+                            'vidid': info_dict.get('id'),
+                            'title': info_dict.get('title', title),
+                            'thumb': thumbnail,
+                            'duration': duration,
+                        })
+                        set_cached_audio(info_dict.get('id'), {
+                            'path': audio_file,
+                            'uploader': info_dict.get('uploader', 'Unknown'),
+                        })
+                    except Exception:
+                        pass
             except Exception as e3:
                 await m.edit(f"error, wait for bot owner to fix\n\nError: {str(e3)}")
                 print(e3)
