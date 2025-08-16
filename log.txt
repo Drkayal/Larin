@@ -51385,3 +51385,33 @@ ntgcalls.ConnectionError: Connection cannot be initialized more than once.
 [16-Aug-25 20:57:40 - INFO] - ZeMusic - جاري تشغيل البوت
 تم التنصيب على سورس الملك بنجاح
 قناة السورس https://t.me/EF_19
+[16-Aug-25 20:59:07 - WARNING] - ZeMusic.core.call - _ensure_active_group_call failed: AttributeError: 'PyTgCalls' object has no attribute 'resolve_peer'
+[16-Aug-25 20:59:08 - WARNING] - ZeMusic.core.call - _ensure_active_group_call failed: AttributeError: 'PyTgCalls' object has no attribute 'resolve_peer'
+[16-Aug-25 20:59:09 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=FFmpegError('FFmpeg encoder is not yet supported')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.FFmpegError: FFmpeg encoder is not yet supported
+[16-Aug-25 20:59:10 - WARNING] - ZeMusic.core.call - _ensure_active_group_call failed: AttributeError: 'PyTgCalls' object has no attribute 'resolve_peer'
+[16-Aug-25 20:59:12 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 20:59:13 - WARNING] - ZeMusic.core.call - _ensure_active_group_call failed: AttributeError: 'PyTgCalls' object has no attribute 'resolve_peer'
+[16-Aug-25 20:59:13 - WARNING] - ZeMusic.core.call - _ensure_active_group_call failed: AttributeError: 'PyTgCalls' object has no attribute 'resolve_peer'
+[16-Aug-25 20:59:14 - WARNING] - ZeMusic.core.call - _ensure_active_group_call failed: AttributeError: 'PyTgCalls' object has no attribute 'resolve_peer'
+[16-Aug-25 20:59:14 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
+[16-Aug-25 20:59:14 - ERROR] - asyncio - Future exception was never retrieved
+future: <Future finished exception=ConnectionError('Connection cannot be initialized more than once.')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+ntgcalls.ConnectionError: Connection cannot be initialized more than once.
